@@ -9,41 +9,39 @@
     android:padding="24dp">
 
     <!-- Ảnh minh họa (valise + máy bay + trái đất) -->
-    <ImageView
-        android:id="@+id/ivHero"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/hero_travel"   <!-- Thay bằng tên ảnh của bạn -->
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="287dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="500dp"
+        android:layout_width="437dp"
+        android:layout_height="122dp"
+        android:layout_marginBottom="52dp"
         android:gravity="center"
         android:text="Discover Your\nDream Trips here"
         android:textColor="@android:color/holo_orange_dark"
-        android:textSize="34sp"
+        android:textSize="41sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvSubtitle"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivHero" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.756" />
 
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="Where Journeys Begin, Adventures Unfold,\nand Memories Last Forever."
         android:textColor="@android:color/black"
-        android:textSize="14sp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintVertical_bias="0.0"
+        android:textStyle="bold"/>
 
     <LinearLayout
         android:id="@+id/llButtons"
@@ -92,9 +90,10 @@
         android:src="@drawable/vacation"
         app:layout_constraintBottom_toTopOf="@+id/tvTitle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.811" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

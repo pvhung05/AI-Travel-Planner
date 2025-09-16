@@ -2,159 +2,196 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:padding="24dp">
+    android:paddingHorizontal="24dp"
+    android:paddingTop="24dp">
 
     <!-- Nút quay lại -->
+
+    <!-- Tiêu đề -->
+
+    <!-- Phụ đề -->
+
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Tiêu đề -->
-    <TextView
-        android:id="@+id/tvLoginTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login here"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/btn_back"
+        android:scaleType="centerInside"
+        android:src="@drawable/whiteback"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Phụ đề -->
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome back you’ve\nbeen missed!"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@id/tvLoginTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Email -->
+
+    <!-- Password -->
+
+    <!-- Quên mật khẩu -->
+
+    <TextView
+        android:id="@+id/tvLoginTitle"
+        android:layout_width="255dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="76dp"
+        android:gravity="center"
+        android:text="Login here"
+        android:textColor="#FF6A00"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="374dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Welcome back you’ve\nbeen missed!"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLoginTitle" />
+
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/edittext_orange_border"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:background="@android:drawable/edit_text"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcome"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
 
-    <!-- Password -->
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edittext_orange_border"
         android:hint="Password"
         android:inputType="textPassword"
-        android:background="@android:drawable/edit_text"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
-    <!-- Quên mật khẩu -->
+    <!-- Nút Sign in -->
+
+    <!-- Tạo tài khoản -->
+
     <TextView
         android:id="@+id/tvForgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="4dp"
         android:text="Forgot your password?"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textStyle="bold"
+        android:textColor="#FF6A00"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <!-- Nút Sign in -->
+    <!-- Hoặc tiếp tục -->
+
+    <!-- Hàng icon mạng xã hội -->
+
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/btn_signin_gradient"
+        android:elevation="6dp"
         android:text="Sign in"
         android:textColor="@android:color/white"
-        android:backgroundTint="@android:color/holo_orange_dark"
-        app:layout_constraintTop_toBottomOf="@id/tvForgot"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvForgot" />
 
-    <!-- Tạo tài khoản -->
     <TextView
         android:id="@+id/tvCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
         android:text="Create new account"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@id/btnSignIn"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignIn"
+        />
 
-    <!-- Hoặc tiếp tục -->
     <TextView
         android:id="@+id/tvOrContinue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:text="Or continue with"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/tvCreateAccount"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="#FF6A00"
+        android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCreateAccount" />
 
-    <!-- Hàng icon mạng xã hội -->
     <LinearLayout
         android:id="@+id/llSocial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tvOrContinue"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp">
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvOrContinue"
+        app:layout_constraintVertical_bias="0.219">
 
         <ImageView
             android:id="@+id/ivGoogle"
-            android:layout_width="40dp"
+            android:layout_width="55dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_google"
-            android:layout_marginHorizontal="8dp"/>
+            android:layout_marginHorizontal="8dp"
+            android:background="@drawable/btn_social"
+            android:padding="8dp"
+            android:src="@drawable/google" />
 
         <ImageView
             android:id="@+id/ivFacebook"
-            android:layout_width="40dp"
+            android:layout_width="55dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_facebook"
-            android:layout_marginHorizontal="8dp"/>
+            android:layout_marginHorizontal="8dp"
+            android:background="@drawable/btn_social"
+            android:padding="8dp"
+            android:src="@drawable/facebook" />
 
         <ImageView
             android:id="@+id/ivApple"
-            android:layout_width="40dp"
+            android:layout_width="55dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_apple"
-            android:layout_marginHorizontal="8dp"/>
+            android:layout_marginHorizontal="8dp"
+            android:background="@drawable/btn_social"
+            android:padding="8dp"
+            android:src="@drawable/apple" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

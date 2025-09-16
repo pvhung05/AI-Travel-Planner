@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.ai_travel_planner"
-        minSdk = 21          // giảm xuống mức hợp lý, 35 quá cao
+        minSdk = 24       // giảm xuống mức hợp lý, 35 quá cao
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -45,7 +45,6 @@ android {
 }
 
 dependencies {
-    // ✅ phải để trong chuỗi
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation(libs.androidx.core.ktx)
