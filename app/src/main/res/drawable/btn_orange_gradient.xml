@@ -1,0 +1,23 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Khi nhấn -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#FFA04D"    <!-- Màu ở đỉnh (nhạt) -->
+                android:endColor="#FF7A00"      <!-- Màu ở đáy (đậm) -->
+                android:angle="90"/>           <!-- 270 = TOP → BOTTOM -->
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+
+    <!-- Bình thường -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#FFC266"
+                android:endColor="#FF7A00"
+                android:angle="90"/>
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+</selector>
