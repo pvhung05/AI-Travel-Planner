@@ -8,8 +8,6 @@
     android:background="@android:color/white"
     android:padding="24dp">
 
-    <!-- Ảnh minh họa (valise + máy bay + trái đất) -->
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="437dp"

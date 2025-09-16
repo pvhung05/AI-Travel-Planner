@@ -9,16 +9,11 @@
     android:paddingHorizontal="24dp"
     android:paddingTop="24dp">
 
-    <!-- Nút quay lại -->
-
-    <!-- Tiêu đề -->
-
-    <!-- Phụ đề -->
 
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/btn_back"
         android:scaleType="centerInside"
@@ -26,11 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Email -->
-
-    <!-- Password -->
-
-    <!-- Quên mật khẩu -->
 
     <TextView
         android:id="@+id/tvLoginTitle"
@@ -40,7 +30,7 @@
         android:gravity="center"
         android:text="Login here"
         android:textColor="#FF6A00"
-        android:textSize="34sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -89,9 +79,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
-    <!-- Nút Sign in -->
-
-    <!-- Tạo tài khoản -->
 
     <TextView
         android:id="@+id/tvForgot"
@@ -106,9 +93,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <!-- Hoặc tiếp tục -->
-
-    <!-- Hàng icon mạng xã hội -->
 
     <Button
         android:id="@+id/btnSignIn"
