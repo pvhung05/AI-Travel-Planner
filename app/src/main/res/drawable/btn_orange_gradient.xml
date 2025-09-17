@@ -3,9 +3,9 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#FFA04D"    <!-- Màu ở đỉnh (nhạt) -->
-                android:endColor="#FF7A00"      <!-- Màu ở đáy (đậm) -->
-                android:angle="90"/>           <!-- 270 = TOP → BOTTOM -->
+                android:startColor="#FFA04D"
+                android:endColor="#FF7A00"
+                android:angle="90"/>
             <corners android:radius="10dp"/>
         </shape>
     </item>

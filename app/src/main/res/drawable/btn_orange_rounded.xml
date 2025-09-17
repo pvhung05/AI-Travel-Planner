@@ -2,14 +2,14 @@
     <!-- Khi nhấn -->
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="#E65A00"/>  <!-- đậm hơn khi nhấn -->
+            <solid android:color="#E65A00"/>
             <corners android:radius="5dp"/>
         </shape>
     </item>
-    <!-- Trạng thái bình thường -->
+
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#FF7A00"/>  <!-- cam sáng kiểu iOS -->
+            <solid android:color="#FF7A00"/>
             <corners android:radius="5dp"/>
         </shape>
     </item>

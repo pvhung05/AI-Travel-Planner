@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">AI_Travel_Planner</string>
+    <string name="google_login">Login with Google</string>
+    <string name="facebook_login">Login with Facebook</string>
+    <string name="apple_login">Login with Apple</string>
 </resources>

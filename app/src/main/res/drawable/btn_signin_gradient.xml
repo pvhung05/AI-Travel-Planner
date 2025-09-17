@@ -3,7 +3,7 @@
     <gradient
         android:startColor="#FF6000"
         android:endColor="#FF9950"
-        android:angle="0"/>   <!-- 270 = từ trên xuống dưới -->
+        android:angle="0"/>
     <corners android:radius="12dp"/>
     <padding android:left="16dp" android:right="16dp"/>
     <size android:height="50dp"/>
