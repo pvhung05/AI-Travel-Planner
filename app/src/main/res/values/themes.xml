@@ -1,9 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme -->
     <style name="Theme.AI_Travel_Planner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Customize your theme here -->
+        <!-- Bỏ tím -->
+        <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorPrimaryVariant">@android:color/transparent</item>
         <item name="colorOnPrimary">@android:color/white</item>
         <item name="colorSecondary">@color/teal_200</item>
+
+        <!-- Áp style mặc định cho Button -->
+        <item name="materialButtonStyle">@style/MyButtonStyle</item>
+    </style>
+
+    <!-- Style nút custom -->
+    <style name="MyButtonStyle" parent="@style/Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@null</item>
+        <item name="android:backgroundTint">@null</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>
