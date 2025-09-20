@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">AI_Travel_Planner</string>
+
+    <!-- Login -->
     <string name="google_login">Login with Google</string>
     <string name="facebook_login">Login with Facebook</string>
     <string name="apple_login">Login with Apple</string>
+
+    <!-- Home -->
+    <string name="most_viewed">Most Viewed</string>
+    <string name="popular_places">Popular Places</string>
+    <string name="see_all">See All</string>
 </resources>

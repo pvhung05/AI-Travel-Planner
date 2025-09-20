@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AI_Travel_Planner"
         tools:targetApi="31">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -19,14 +20,14 @@
             android:theme="@style/Theme.AI_Travel_Planner">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".StartScreen" />
         <activity android:name=".LoginScreen" />
         <activity android:name=".SigninScreen" />
+        <activity android:name=".HomeScreen" />
 
     </application>
-
 </manifest>
