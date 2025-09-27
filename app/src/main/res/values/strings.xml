@@ -10,4 +10,9 @@
     <string name="most_viewed">Most Viewed</string>
     <string name="popular_places">Popular Places</string>
     <string name="see_all">See All</string>
+    <string name="home">Home</string>
+    <string name="search">Time</string>
+    <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
+
 </resources>

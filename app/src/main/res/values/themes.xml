@@ -16,4 +16,9 @@
         <item name="android:backgroundTint">@null</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+    <style name="RoundedImageStyle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+    </style>
+
 </resources>

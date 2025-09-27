@@ -1,8 +1,11 @@
 package com.example.ai_travel_planner;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,14 +25,22 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
     @Override
     public PlaceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_place_card, parent, false); // dùng file item_place.xml
+                .inflate(R.layout.item_place_card, parent, false);
         return new PlaceViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PlaceViewHolder holder, int position) {
         String place = places.get(position);
-        holder.tvPlace.setText(place);
+        holder.tvPlaceName.setText(place);
+
+        // Khi click ảnh thì mở DescribeScreen
+        holder.imgPlace.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, DescribeScreen.class);
+            intent.putExtra("placeName", place); // truyền dữ liệu sang DescribeScreen
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -38,11 +49,13 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
     }
 
     static class PlaceViewHolder extends RecyclerView.ViewHolder {
-        TextView tvPlace;
+        TextView tvPlaceName;
+        ImageView imgPlace;
 
         public PlaceViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPlace = itemView.findViewById(R.id.tvPlace);
+            tvPlaceName = itemView.findViewById(R.id.tvPlaceName);
+            imgPlace = itemView.findViewById(R.id.imgPlace);
         }
     }
 }

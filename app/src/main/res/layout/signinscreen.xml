@@ -17,7 +17,8 @@
         android:src="@drawable/whiteback"
         android:scaleType="centerInside"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="5dp"/>
 
     <TextView
         android:id="@+id/tvCreateAccountTitle"

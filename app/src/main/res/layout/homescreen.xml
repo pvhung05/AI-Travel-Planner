@@ -134,8 +134,8 @@
 
         <Button
             android:id="@+id/btnMostViewed"
-            android:layout_width="130dp"
-            android:layout_height="55dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
             android:background="@drawable/btn_outline"
             android:text="Most Viewed"
             android:textColor="@android:color/white"/>
@@ -147,8 +147,8 @@
 
         <Button
             android:id="@+id/btnNearby"
-            android:layout_width="130dp"
-            android:layout_height="55dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/btn_outline"
             android:backgroundTint="#EEEEEE"
@@ -161,8 +161,8 @@
 
         <Button
             android:id="@+id/btnLatest"
-            android:layout_width="130dp"
-            android:layout_height="55dp"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/btn_outline"
             android:backgroundTint="#EEEEEE"
@@ -182,16 +182,21 @@
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tabsLayout"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
-        android:layout_width="482dp"
-        android:layout_height="59dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled"
+        android:background="?attr/colorSurface"
+        app:itemIconSize="24dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
