@@ -1,0 +1,21 @@
+<resources>
+    <style name="WeekCell">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#A0A0A0</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="DayCell">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#222222</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/selector_day_cell</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+</resources>

@@ -16,5 +16,6 @@
     <string name="profile">Profile</string>
     <string name="rating">Rating</string>
     <string name="back">Back</string>
-
+    <string name="next">Next</string>
+    <string name="send">Send</string>
 </resources>
