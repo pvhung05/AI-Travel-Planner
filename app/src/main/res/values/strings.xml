@@ -14,5 +14,7 @@
     <string name="search">Time</string>
     <string name="favorites">Favorites</string>
     <string name="profile">Profile</string>
+    <string name="rating">Rating</string>
+    <string name="back">Back</string>
 
 </resources>
