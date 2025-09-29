@@ -29,6 +29,7 @@
         <activity android:name=".SigninScreen" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".DescribeScreen" />
+        <activity android:name=".PlanScreen" />
 
     </application>
 </manifest>
