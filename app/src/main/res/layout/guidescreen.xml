@@ -22,17 +22,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!-- Badge back -->
+
+
+            <!-- Title on image -->
+
             <ImageView
                 android:id="@+id/imgHero"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/sample_mountain"/>
-
-            <!-- Badge back -->
-
-
-            <!-- Title on image -->
+                android:src="@drawable/sample_mountain" />
 
             <ImageButton
                 android:id="@+id/btnBack"
