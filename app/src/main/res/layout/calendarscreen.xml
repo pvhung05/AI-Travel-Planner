@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#666666">
+
+    <!-- Thân màn hình bo góc lớn -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="28dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="0dp"
+        android:layout_margin="12dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                tools:context=".ui.NewPlanFragment">
+
+                <!-- Back badge + Title -->
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_badge_circle"
+                    app:srcCompat="@drawable/ic_back"
+                    app:tint="#6B6B6B"
+                    android:contentDescription="@string/back"
+                    android:scaleType="centerInside"
+                    android:padding="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtScreenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Plan"
+                    android:textStyle="bold"
+                    android:textColor="#111111"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    app:layout_constraintTop_toTopOf="@id/btnBack"
+                    app:layout_constraintBottom_toBottomOf="@id/btnBack"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                    />
+
+                <!-- Banner -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardBanner"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintTop_toBottomOf="@+id/btnBack"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="12dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imgBanner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/sample_mountain"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="12dp"
+                            android:layout_gravity="bottom"
+                            android:background="#33000000">
+
+                            <TextView
+                                android:id="@+id/txtBannerSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Manali"
+                                android:textColor="@android:color/white"
+                                android:textSize="12sp"/>
+
+                            <TextView
+                                android:id="@+id/txtBannerTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Rohtang Tunnel"
+                                android:textColor="@android:color/white"
+                                android:textStyle="bold"
+                                android:textSize="20sp"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Row: Select dates + Month -->
+                <TextView
+                    android:id="@+id/labelSelectDates"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select dates"
+                    android:textStyle="bold"
+                    android:textColor="#111111"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/cardBanner"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <LinearLayout
+                    android:id="@+id/monthRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="@id/labelSelectDates"
+                    app:layout_constraintBottom_toBottomOf="@id/labelSelectDates"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/txtMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="March"
+                        android:textColor="#6B6B6B"
+                        android:textSize="14sp"
+                        android:paddingEnd="6dp"/>
+
+                    <ImageView
+                        android:id="@+id/btnMonthNext"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        app:srcCompat="@drawable/ic_chevron_right"
+                        app:tint="#6B6B6B"
+                        android:contentDescription="@string/next"/>
+                </LinearLayout>
+
+                <!-- Weekday header -->
+                <LinearLayout
+                    android:id="@+id/weekHeader"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/labelSelectDates"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:weightSum="7">
+
+                    <!-- 7 cột -->
+                    <TextView style="@style/WeekCell" android:text="Mon"/>
+                    <TextView style="@style/WeekCell" android:text="Tue"/>
+                    <TextView style="@style/WeekCell" android:text="Wed"/>
+                    <TextView style="@style/WeekCell" android:text="Thu"/>
+                    <TextView style="@style/WeekCell" android:text="Fri"/>
+                    <TextView style="@style/WeekCell" android:text="Sat"/>
+                    <TextView style="@style/WeekCell" android:text="Sun"/>
+                </LinearLayout>
+
+                <!-- Calendar grid 7 cột (demo tĩnh) -->
+                <GridLayout
+                    android:id="@+id/gridCalendar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/weekHeader"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:columnCount="7">
+
+                    <!-- Tuần 1 -->
+                    <TextView style="@style/DayCell" android:text="" />
+                    <TextView style="@style/DayCell" android:text="" />
+                    <TextView style="@style/DayCell" android:text="1" />
+                    <TextView style="@style/DayCell" android:text="2" />
+                    <TextView style="@style/DayCell" android:text="3" />
+                    <TextView style="@style/DayCell" android:text="4" />
+                    <TextView style="@style/DayCell" android:text="5" />
+
+                    <!-- Tuần 2 -->
+                    <TextView style="@style/DayCell" android:text="6" />
+                    <TextView style="@style/DayCell" android:text="7" />
+                    <TextView style="@style/DayCell" android:text="8" />
+                    <TextView style="@style/DayCell" android:text="9" />
+                    <TextView style="@style/DayCell" android:text="10" />
+                    <TextView style="@style/DayCell" android:text="11" />
+                    <TextView style="@style/DayCell" android:text="12" />
+
+                    <!-- Tuần 3 -->
+                    <TextView style="@style/DayCell" android:text="13" />
+                    <TextView style="@style/DayCell" android:text="14" />
+                    <TextView style="@style/DayCell" android:text="15" />
+                    <TextView style="@style/DayCell" android:text="16" />
+                    <TextView style="@style/DayCell" android:text="17" />
+                    <TextView style="@style/DayCell" android:text="18" />
+                    <TextView style="@style/DayCell" android:text="19" />
+
+                    <!-- Tuần 4 (đánh dấu 21 & 24 selected như Figma) -->
+                    <TextView style="@style/DayCell" android:text="20" />
+                    <TextView style="@style/DayCell" android:text="21" android:selected="true"/>
+                    <TextView style="@style/DayCell" android:text="22" />
+                    <TextView style="@style/DayCell" android:text="23" />
+                    <TextView style="@style/DayCell" android:text="24" android:selected="true"/>
+                    <TextView style="@style/DayCell" android:text="25" />
+                    <TextView style="@style/DayCell" android:text="26" />
+
+                    <!-- Tuần 5 -->
+                    <TextView style="@style/DayCell" android:text="27" />
+                    <TextView style="@style/DayCell" android:text="28" />
+                    <TextView style="@style/DayCell" android:text="29" />
+                    <TextView style="@style/DayCell" android:text="30" />
+                    <TextView style="@style/DayCell" android:text="" />
+                    <TextView style="@style/DayCell" android:text="" />
+                    <TextView style="@style/DayCell" android:text="" />
+                </GridLayout>
+
+                <!-- Label input -->
+                <TextView
+                    android:id="@+id/labelQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Select dates"
+                    android:textStyle="bold"
+                    android:textColor="#111111"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/gridCalendar"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <!-- Ô nhập + nút gửi tròn -->
+                <LinearLayout
+                    android:id="@+id/queryRow"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/labelQuery"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_input_rounded"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            app:srcCompat="@drawable/ic_query"
+                            app:tint="#9E9E9E"
+                            android:contentDescription="@string/search"/>
+
+                        <EditText
+                            android:id="@+id/edtQuery"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Query journey"
+                            android:background="@android:color/transparent"
+                            android:padding="8dp"
+                            android:textColor="#111111"
+                            android:textColorHint="#B0B0B0"/>
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btnSendQuery"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/bg_circle_orange"
+                        app:srcCompat="@drawable/ic_paper_plane"
+                        android:scaleType="centerInside"
+                        android:contentDescription="@string/send"
+                        android:padding="12dp"/>
+                </LinearLayout>
+
+                <!-- Switch -->
+                <LinearLayout
+                    android:id="@+id/emailRow"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/queryRow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Send to your email"
+                        android:textColor="#6B6B6B"/>
+
+                    <Switch
+                        android:id="@+id/switchEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumbTint="#FFFFFF"
+                        android:trackTint="#FF8752"/>
+                </LinearLayout>
+
+                <!-- CTA -->
+                <Button
+                    android:id="@+id/btnNextStep"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/emailRow"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="Next step"
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/bg_cta_gradient"
+                    android:includeFontPadding="false"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>
