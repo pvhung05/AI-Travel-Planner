@@ -1,39 +1,41 @@
 package com.example.ai_travel_planner;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Arrays;
-import java.util.List;
+public class WeatherScreen extends Activity {
 
-public class PlanScreen extends AppCompatActivity {
-
-    Button tvLocationTag;
+    ImageButton btnBack;
+    Button btnViewItinerary;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.planscreen);
+        setContentView(R.layout.weatherscreen);
 
-        tvLocationTag = findViewById(R.id.tvLocationTag);
+        btnBack = findViewById(R.id.btnBack);
+        btnViewItinerary = findViewById(R.id.btnViewItinerary);
 
-        actionButton(tvLocationTag, WeatherScreen.class);
+        actionButton(btnBack, PlanScreen.class);
+        actionButton(btnViewItinerary, GuideScreen.class);
+
     }
+
     void actionButton(View view, final Class<?> destination) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PlanScreen.this, destination);
+                Intent intent = new Intent(WeatherScreen.this, destination);
                 startActivity(intent);
                 finish();
             }
         });
     }
-
 }
+

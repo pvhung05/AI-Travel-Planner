@@ -20,8 +20,8 @@
             <!-- Nút home góc trên phải -->
             <ImageButton
                 android:id="@+id/btnHome"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="@drawable/bg_badge_circle"
                 app:srcCompat="@drawable/ic_home"
                 android:scaleType="centerInside"
@@ -100,7 +100,7 @@
                     <Button
                         android:id="@+id/btnEditProfile"
                         android:layout_width="wrap_content"
-                        android:layout_height="36dp"
+                        android:layout_height="38dp"
                         android:text="Edit profile"
                         android:textSize="13sp"
                         android:textColor="@android:color/white"
@@ -329,12 +329,14 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <ImageView
+                    android:id="@+id/ivLogOut"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     app:srcCompat="@drawable/ic_logout"
                     app:tint="#FF5722"/>
 
                 <TextView
+                    android:id="@+id/ivLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Log out"

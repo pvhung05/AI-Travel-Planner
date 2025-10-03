@@ -39,7 +39,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="16dp"
-                android:background="@drawable/bg_badge_circle"
+                android:background="@drawable/btn_back"
                 android:contentDescription="@string/back"
                 android:padding="10dp"
                 app:srcCompat="@drawable/ic_back"
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Loading description..."
+                android:text="Loscoa..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..."
                 android:textColor="#6B6B6B"
                 android:lineSpacingExtra="2dp"
                 android:textSize="14sp"/>
@@ -192,6 +192,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/ivNext1"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_arrow_right"/>
@@ -240,6 +241,7 @@
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/ivNext2"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:src="@drawable/ic_arrow_right"/>

@@ -130,18 +130,18 @@
                     </LinearLayout>
 
                     <!-- Location Name Badge -->
-                    <TextView
+                    <Button
                         android:id="@+id/tvLocationTag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
-                        android:layout_margin="16dp"
+                        android:layout_margin="12dp"
                         android:background="@drawable/btn_signin_gradient"
                         android:paddingHorizontal="24dp"
                         android:paddingVertical="12dp"
                         android:text="Manali"
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </FrameLayout>
             </androidx.cardview.widget.CardView>

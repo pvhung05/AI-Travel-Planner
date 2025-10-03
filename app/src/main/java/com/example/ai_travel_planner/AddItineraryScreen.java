@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,23 +14,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlanScreen extends AppCompatActivity {
+public class AddItineraryScreen extends AppCompatActivity {
 
-    Button tvLocationTag;
+    ImageButton btnBack;
+    ImageView ivNext1, ivNext2;
+    Button btnAddActivity, btnNextStep;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.planscreen);
+        setContentView(R.layout.add_itinerary);
 
-        tvLocationTag = findViewById(R.id.tvLocationTag);
+        btnBack = findViewById(R.id.btnBack);
+        btnNextStep = findViewById(R.id.btnNextStep);
+        btnAddActivity = findViewById(R.id.btnAddActivity);
 
-        actionButton(tvLocationTag, WeatherScreen.class);
+        actionButton(btnBack, CalendarScreen.class);
+        actionButton(btnNextStep, FriendScreen.class);
+
     }
+
     void actionButton(View view, final Class<?> destination) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PlanScreen.this, destination);
+                Intent intent = new Intent(AddItineraryScreen.this, destination);
                 startActivity(intent);
                 finish();
             }

@@ -23,7 +23,7 @@
                 android:id="@+id/btnBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/bg_badge_circle"
+                android:background="@drawable/btn_back"
                 app:srcCompat="@drawable/ic_back"
                 app:tint="#6B6B6B"
                 android:padding="8dp"

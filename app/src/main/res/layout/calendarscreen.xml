@@ -32,7 +32,7 @@
                     android:id="@+id/btnBack"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/bg_badge_circle"
+                    android:background="@drawable/btn_back"
                     app:srcCompat="@drawable/ic_back"
                     app:tint="#6B6B6B"
                     android:contentDescription="@string/back"
@@ -208,10 +208,10 @@
 
                     <!-- Tuần 4 (đánh dấu 21 & 24 selected như Figma) -->
                     <TextView style="@style/DayCell" android:text="20" />
-                    <TextView style="@style/DayCell" android:text="21" android:selected="true"/>
+                    <TextView style="@style/DayCell" android:text="21" />
                     <TextView style="@style/DayCell" android:text="22" />
                     <TextView style="@style/DayCell" android:text="23" />
-                    <TextView style="@style/DayCell" android:text="24" android:selected="true"/>
+                    <TextView style="@style/DayCell" android:text="24" />
                     <TextView style="@style/DayCell" android:text="25" />
                     <TextView style="@style/DayCell" android:text="26" />
 

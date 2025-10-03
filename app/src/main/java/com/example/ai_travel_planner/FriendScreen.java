@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,23 +15,34 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlanScreen extends AppCompatActivity {
+public class FriendScreen extends AppCompatActivity {
 
-    Button tvLocationTag;
+    ImageButton btnHome;
+    ImageView ivLogOut;
+    TextView ivLogout;
+    Button btnEditProfile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.planscreen);
+        setContentView(R.layout.friendscreen);
 
-        tvLocationTag = findViewById(R.id.tvLocationTag);
+        btnHome = findViewById(R.id.btnHome);
+        ivLogOut = findViewById(R.id.ivLogOut);
+        ivLogout = findViewById(R.id.ivLogout);
+        btnEditProfile = findViewById(R.id.btnEditProfile);
 
-        actionButton(tvLocationTag, WeatherScreen.class);
+        actionButton(btnHome, HomeScreen.class);
+        actionButton(ivLogOut, StartScreen.class);
+        actionButton(ivLogout, StartScreen.class);
+
     }
+
     void actionButton(View view, final Class<?> destination) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PlanScreen.this, destination);
+                Intent intent = new Intent(FriendScreen.this, destination);
                 startActivity(intent);
                 finish();
             }

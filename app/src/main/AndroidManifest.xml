@@ -30,6 +30,13 @@
         <activity android:name=".HomeScreen" />
         <activity android:name=".DescribeScreen" />
         <activity android:name=".PlanScreen" />
+        <activity android:name=".WeatherScreen" />
+        <activity android:name=".CalendarScreen" />
+        <activity android:name=".GuideScreen" />
+        <activity android:name=".AddItineraryScreen" />
+        <activity android:name=".FriendScreen" />
+
+
 
     </application>
 </manifest>
