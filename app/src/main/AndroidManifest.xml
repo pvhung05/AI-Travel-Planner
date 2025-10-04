@@ -35,6 +35,8 @@
         <activity android:name=".GuideScreen" />
         <activity android:name=".AddItineraryScreen" />
         <activity android:name=".FriendScreen" />
+        <activity android:name=".ProfileScreen" />
+
 
 
 

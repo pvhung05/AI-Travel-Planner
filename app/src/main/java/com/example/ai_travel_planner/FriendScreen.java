@@ -35,7 +35,7 @@ public class FriendScreen extends AppCompatActivity {
         actionButton(btnHome, HomeScreen.class);
         actionButton(ivLogOut, StartScreen.class);
         actionButton(ivLogout, StartScreen.class);
-
+        actionButton(btnEditProfile, ProfileScreen.class);
     }
 
     void actionButton(View view, final Class<?> destination) {
