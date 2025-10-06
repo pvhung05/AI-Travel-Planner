@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProfileScreen extends Activity {
     ImageButton btnBack;
     Button btnSave;
+    LinearLayout btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +22,10 @@ public class ProfileScreen extends Activity {
 
         btnBack = findViewById(R.id.btnBack);
         btnSave = findViewById(R.id.btnSave);
+        btnLogout = findViewById(R.id.btnLogout);
 
         actionButton(btnBack, FriendScreen.class);
+        actionButton(btnLogout, StartScreen.class);
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
         BottomNav.setupNavigation(this, bottomNav, R.id.nav_profile);

@@ -327,22 +327,6 @@
                 android:gravity="center_vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
-
-                <ImageView
-                    android:id="@+id/ivLogOut"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    app:srcCompat="@drawable/ic_logout"
-                    app:tint="#FF5722"/>
-
-                <TextView
-                    android:id="@+id/ivLogout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Log out"
-                    android:textStyle="bold"
-                    android:textColor="#FF5722"
-                    android:layout_marginStart="6dp"/>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

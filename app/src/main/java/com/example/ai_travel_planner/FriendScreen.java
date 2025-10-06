@@ -18,8 +18,6 @@ import java.util.List;
 public class FriendScreen extends AppCompatActivity {
 
     ImageButton btnHome;
-    ImageView ivLogOut;
-    TextView ivLogout;
     Button btnEditProfile;
 
     @Override
@@ -28,13 +26,9 @@ public class FriendScreen extends AppCompatActivity {
         setContentView(R.layout.friendscreen);
 
         btnHome = findViewById(R.id.btnHome);
-        ivLogOut = findViewById(R.id.ivLogOut);
-        ivLogout = findViewById(R.id.ivLogout);
         btnEditProfile = findViewById(R.id.btnEditProfile);
 
         actionButton(btnHome, HomeScreen.class);
-        actionButton(ivLogOut, StartScreen.class);
-        actionButton(ivLogout, StartScreen.class);
         actionButton(btnEditProfile, ProfileScreen.class);
     }
 
