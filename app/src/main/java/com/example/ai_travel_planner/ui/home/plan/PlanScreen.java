@@ -1,19 +1,15 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.plan;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ai_travel_planner.R;
+import com.example.ai_travel_planner.utils.BottomNav;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class PlanScreen extends AppCompatActivity {
 

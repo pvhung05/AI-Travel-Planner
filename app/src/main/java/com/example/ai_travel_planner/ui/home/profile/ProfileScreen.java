@@ -1,4 +1,4 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.profile;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.example.ai_travel_planner.ui.home.friend.FriendScreen;
+import com.example.ai_travel_planner.R;
+import com.example.ai_travel_planner.ui.home.login.StartScreen;
+import com.example.ai_travel_planner.utils.BottomNav;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ProfileScreen extends Activity {

@@ -1,19 +1,16 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.friend;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Arrays;
-import java.util.List;
+import com.example.ai_travel_planner.R;
+import com.example.ai_travel_planner.ui.home.home.HomeScreen;
+import com.example.ai_travel_planner.ui.home.profile.ProfileScreen;
 
 public class FriendScreen extends AppCompatActivity {
 

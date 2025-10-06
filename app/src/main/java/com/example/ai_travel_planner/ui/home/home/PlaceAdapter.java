@@ -1,4 +1,4 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ai_travel_planner.ui.home.describe.DescribeScreen;
+import com.example.ai_travel_planner.R;
 
 import java.util.List;
 
@@ -38,7 +41,8 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         holder.imgPlace.setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, DescribeScreen.class);
-            intent.putExtra("placeName", place); // truyền dữ liệu sang DescribeScreen
+            intent.putExtra("placeName", place);
+            intent.putExtra("source", "home"); // Thêm nguồn gốc
             context.startActivity(intent);
         });
     }

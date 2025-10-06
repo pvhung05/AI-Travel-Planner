@@ -1,4 +1,4 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.plan;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +8,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Arrays;
-import java.util.List;
+import com.example.ai_travel_planner.R;
 
 public class GuideScreen extends AppCompatActivity {
 
