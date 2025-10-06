@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +33,10 @@ public class HomeScreen extends AppCompatActivity {
 
         adapter = new PlaceAdapter(places);
         recyclerView.setAdapter(adapter);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        BottomNav.setupNavigation(this, bottomNav, R.id.nav_home);
+
     }
 
 }

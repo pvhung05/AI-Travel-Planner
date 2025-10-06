@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class WeatherScreen extends Activity {
 
     ImageButton btnBack;
@@ -25,6 +27,8 @@ public class WeatherScreen extends Activity {
         actionButton(btnBack, PlanScreen.class);
         actionButton(btnViewItinerary, GuideScreen.class);
 
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        BottomNav.setupNavigation(this, bottomNav, R.id.nav_time);
     }
 
     void actionButton(View view, final Class<?> destination) {

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    tools:context=".EditProfileActivity">
+    android:background="#F5F5F5">
 
     <!-- Nội dung chính -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,16 +20,19 @@
         <!-- Back -->
         <ImageButton
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
             android:background="@drawable/btn_back"
-            app:srcCompat="@drawable/ic_back"
-            app:tint="#6B6B6B"
-            android:padding="8dp"
             android:contentDescription="@string/back"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_back"
             android:scaleType="centerInside"
+            app:tint="#333333"
+
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <!-- Title center -->
         <TextView
@@ -39,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="Edit profile"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textColor="#111111"
             app:layout_constraintTop_toTopOf="@id/btnBack"
             app:layout_constraintBottom_toBottomOf="@id/btnBack"
@@ -299,5 +301,10 @@
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
         android:background="?attr/colorSurface"
-        app:itemIconSize="24dp"/>
+        app:itemIconSize="24dp"
+
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

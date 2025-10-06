@@ -32,6 +32,7 @@ public class AddItineraryScreen extends AppCompatActivity {
         actionButton(btnBack, CalendarScreen.class);
         actionButton(btnNextStep, FriendScreen.class);
 
+
     }
 
     void actionButton(View view, final Class<?> destination) {

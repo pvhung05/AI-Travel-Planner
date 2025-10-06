@@ -419,5 +419,10 @@
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="labeled"
         android:background="?attr/colorSurface"
-        app:itemIconSize="24dp"/>
+        app:itemIconSize="24dp"
+
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class ProfileScreen extends Activity {
     ImageButton btnBack;
     Button btnSave;
@@ -20,6 +22,10 @@ public class ProfileScreen extends Activity {
         btnSave = findViewById(R.id.btnSave);
 
         actionButton(btnBack, FriendScreen.class);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        BottomNav.setupNavigation(this, bottomNav, R.id.nav_profile);
+
 
     }
     void actionButton(View view, final Class<?> destination) {

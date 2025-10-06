@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,6 +26,11 @@ public class PlanScreen extends AppCompatActivity {
         tvLocationTag = findViewById(R.id.tvLocationTag);
 
         actionButton(tvLocationTag, WeatherScreen.class);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        BottomNav.setupNavigation(this, bottomNav, R.id.nav_time);
+
+
     }
     void actionButton(View view, final Class<?> destination) {
         view.setOnClickListener(new View.OnClickListener() {

@@ -10,6 +10,8 @@ import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class CalendarScreen extends AppCompatActivity {
 
@@ -28,6 +30,8 @@ public class CalendarScreen extends AppCompatActivity {
 
         actionButton(btnBack, GuideScreen.class);
         actionButton(btnNextStep, AddItineraryScreen.class);
+
+        BottomNavigationView bottomNav = findViewById(R.id.nav_time);
 
     }
 
