@@ -224,7 +224,7 @@
                         android:paddingRight="12dp"
                         android:text="Round Trip"
                         android:textColor="#6B6B6B"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <!-- Card Passengers -->
