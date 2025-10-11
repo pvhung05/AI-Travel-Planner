@@ -40,7 +40,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/place_image" />
+                        android:src="@drawable/place_image"
+                        />
                 </com.google.android.material.card.MaterialCardView>
 
                 <!-- Nút back -->
@@ -67,7 +68,7 @@
                     android:background="@drawable/btn_back"
                     android:contentDescription="Bookmark"
                     android:elevation="20dp"
-                    android:padding="5dp"
+                    android:padding="7dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/bookmark" />
 

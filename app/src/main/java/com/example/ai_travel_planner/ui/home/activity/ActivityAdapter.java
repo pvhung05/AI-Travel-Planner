@@ -1,4 +1,4 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.activity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.ai_travel_planner.R;
 
 import java.util.List;
 public class ActivityAdapter extends RecyclerView.Adapter<ActivityAdapter.ActivityViewHolder> {

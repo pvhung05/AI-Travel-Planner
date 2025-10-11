@@ -1,40 +1,36 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.login;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.ai_travel_planner.R;
 
-public class DescribeScreen extends Activity {
-    ImageButton btnBack, btnBookmark;
+public class SigninScreen extends Activity {
+    ImageButton btnBack, btnGoogle, btnFacebook, btnApple;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.describescreen);
-
-        String placeName = getIntent().getStringExtra("placeName");
-        TextView tvTitle = findViewById(R.id.tvPlaceName);
-        tvTitle.setText(placeName);
+        setContentView(R.layout.signinscreen);
 
         btnBack = findViewById(R.id.btnBack);
-        btnBookmark = findViewById(R.id.btnBookmark);
+        btnGoogle = findViewById(R.id.btnGoogle);
+        btnFacebook = findViewById(R.id.btnFacebook);
+        btnApple = findViewById(R.id.btnApple);
 
-        actionButton(btnBack, HomeScreen.class);
+        actionButton(btnBack, StartScreen.class);
     }
-
     void actionButton(View view, final Class<?> destination) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DescribeScreen.this, destination);
+                Intent intent = new Intent(SigninScreen.this, destination);
                 startActivity(intent);
                 finish();
             }
         });
     }
 }
-

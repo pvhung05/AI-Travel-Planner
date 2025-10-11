@@ -1,4 +1,4 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.example.ai_travel_planner.R;
+import com.example.ai_travel_planner.ui.home.home.HomeScreen;
 
 public class LoginScreen extends Activity {
     ImageButton btnBack, btnGoogle, btnFacebook, btnApple;

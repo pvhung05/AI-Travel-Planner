@@ -1,4 +1,4 @@
-package com.example.ai_travel_planner;
+package com.example.ai_travel_planner.ui.home.activity;
 
 public class ActivityItem {
     private String time;
