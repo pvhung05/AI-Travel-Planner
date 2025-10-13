@@ -18,6 +18,7 @@ import com.example.ai_travel_planner.ui.home.plan.PlanScreen;
 public class PlaneBookingScreen extends Activity {
     ImageButton btnBack;
     LinearLayout tabBus;
+    Button btnSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,7 @@ public class PlaneBookingScreen extends Activity {
         setContentView(R.layout.plane_booking);
         btnBack = findViewById(R.id.btnBack);
         tabBus = findViewById(R.id.tabBus);
+        btnSearch = findViewById(R.id.btnSearch);
 
         actionButton(btnBack, GuideScreen.class);
         actionButton(tabBus, BusBookingScreen.class);

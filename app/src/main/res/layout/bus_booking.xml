@@ -38,6 +38,7 @@
                     android:layout_height="48dp"
                     android:background="@drawable/btn_back"
                     android:src="@drawable/ic_back"
+                    android:translationY="20px"
                     android:contentDescription="@string/back"
                     android:scaleType="centerInside"
                     android:padding="8dp"
@@ -122,6 +123,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_tab_unselected"
+
                         android:orientation="vertical"
                         android:padding="16dp">
 
@@ -224,20 +227,17 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Search Button -->
+                <!-- Search Button -->>
                 <Button
                     android:id="@+id/btnSearch"
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="56dp"
-                    android:background="@drawable/bg_search_orange"
-                    android:drawableStart="@drawable/ic_search"
-                    android:drawablePadding="8dp"
-                    android:includeFontPadding="false"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="28dp"
+
+                    android:background="@drawable/btn_signin_gradient"
+                    android:elevation="6dp"
                     android:text="Search"
-                    android:textAllCaps="false"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
