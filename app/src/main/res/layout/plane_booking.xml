@@ -274,60 +274,6 @@
                     app:layout_constraintEnd_toEndOf="parent" />
 
                 <!-- Bottom nav -->
-                <LinearLayout
-                    android:id="@+id/bottomNav"
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/bg_bottom_nav"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:paddingHorizontal="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_home"
-                        app:tint="#111111"
-                        android:contentDescription="@string/home"/>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="48dp"
-                        app:srcCompat="@drawable/ic_clock"
-                        app:tint="#111111"
-                        android:contentDescription="@string/explore"/>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="48dp">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/ic_heart"
-                            app:tint="#111111"
-                            android:contentDescription="@string/favorite"/>
-                        <!-- Dot đỏ thông báo -->
-                        <View
-                            android:layout_width="6dp"
-                            android:layout_height="6dp"
-                            android:background="@drawable/bg_dot_red"
-                            android:layout_gravity="bottom|center_horizontal"/>
-                    </FrameLayout>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="48dp"
-                        app:srcCompat="@drawable/ic_people"
-                        app:tint="#111111"
-                        android:contentDescription="@string/settings"/>
-                </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
     </androidx.cardview.widget.CardView>

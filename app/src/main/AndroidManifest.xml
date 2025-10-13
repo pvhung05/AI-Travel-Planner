@@ -15,7 +15,7 @@
 
         <activity
 
-            android:name=".MainActivity"
+            android:name=".ui.home.booking.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AI_Travel_Planner">
