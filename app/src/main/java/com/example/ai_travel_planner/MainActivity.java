@@ -11,9 +11,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // You might want to add some delay or loading screen here
         Intent intent = new Intent(MainActivity.this, StartScreen.class);
         startActivity(intent);
         finish();
-
     }
 }

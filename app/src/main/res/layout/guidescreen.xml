@@ -89,19 +89,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="About Manali"
-                android:textStyle="bold"
+                android:textColor="#111111"
                 android:textSize="16sp"
-                android:textColor="#111111"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtAbout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:lineSpacingExtra="2dp"
                 android:text="Loscoa..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..Loading description..."
                 android:textColor="#6B6B6B"
-                android:lineSpacingExtra="2dp"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <!-- Rating row -->
             <LinearLayout
@@ -116,9 +116,9 @@
                     android:id="@+id/iconRating"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:contentDescription="@string/rating"
                     android:src="@drawable/ic_star"
-                    app:tint="#FFC107"
-                    android:contentDescription="@string/rating"/>
+                    app:tint="#FFC107" />
 
                 <!-- Text rating -->
                 <TextView
@@ -128,7 +128,7 @@
                     android:layout_marginStart="6dp"
                     android:text="4.79 (78 reviews)"
                     android:textColor="#666666"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp" />
 
                 <!-- See reviews link -->
                 <TextView
@@ -139,7 +139,7 @@
                     android:gravity="end"
                     android:text="See reviews"
                     android:textColor="#9E9E9E"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <!-- Pricing label -->
@@ -149,9 +149,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Pricing"
-                android:textStyle="bold"
+                android:textColor="#111111"
                 android:textSize="16sp"
-                android:textColor="#111111"/>
+                android:textStyle="bold" />
 
             <!-- Item 1 -->
             <LinearLayout
@@ -167,7 +167,7 @@
                     android:layout_height="40dp"
                     android:background="@drawable/bg_icon_circle"
                     android:padding="8dp"
-                    android:src="@drawable/ic_bag"/>
+                    android:src="@drawable/ic_bag" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -175,33 +175,35 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/txtTravelTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Traveling"
-                        android:textStyle="bold"
-                        android:textColor="#111111"/>
+                        android:textColor="#111111"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/txtTravelSub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="from ₹2999"
                         android:textColor="#8A8A8A"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/ivNext1"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_arrow_right"/>
+                    android:src="@drawable/ic_arrow_right" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#EEEEEE"/>
+                android:background="#EEEEEE" />
 
             <!-- Item 2 -->
             <LinearLayout
@@ -216,7 +218,7 @@
                     android:layout_height="40dp"
                     android:background="@drawable/bg_icon_circle"
                     android:padding="8dp"
-                    android:src="@drawable/ic_hotel"/>
+                    android:src="@drawable/ic_hotel" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -224,27 +226,29 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/txtHotelTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hotels"
-                        android:textStyle="bold"
-                        android:textColor="#111111"/>
+                        android:textColor="#111111"
+                        android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/txtHotelSub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="from ₹1999 / night"
                         android:textColor="#8A8A8A"
-                        android:textSize="13sp"/>
+                        android:textSize="13sp" />
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/ivNext2"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_arrow_right"/>
+                    android:src="@drawable/ic_arrow_right" />
             </LinearLayout>
 
             <!-- CTA -->
@@ -254,10 +258,10 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Plan trip"
-                android:textColor="@android:color/white"
                 android:background="@drawable/bg_cta_gradient"
-                android:includeFontPadding="false"/>
+                android:includeFontPadding="false"
+                android:text="Plan trip"
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
