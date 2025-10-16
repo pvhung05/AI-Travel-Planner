@@ -10,10 +10,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // You might want to add some delay or loading screen here
-        Intent intent = new Intent(MainActivity.this, StartScreen.class);
-        startActivity(intent);
+        startActivity(new Intent(MainActivity.this, StartScreen.class));
         finish();
     }
 }

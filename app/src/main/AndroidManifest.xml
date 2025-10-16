@@ -1,48 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ai_travel_planner">
+
+    <!-- QUAN TRỌNG: Cho phép truy cập mạng -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AI_Travel_Planner"
-        tools:targetApi="31">
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <!-- Main activity (entry point of app) -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AI_Travel_Planner">
+        <!-- Màn hình khởi động -->
+        <activity android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Other activities -->
+        <!-- Các Activity còn lại -->
         <activity android:name=".ui.home.login.StartScreen" />
         <activity android:name=".ui.home.login.LoginScreen" />
-        <activity android:name=".ui.home.login.SigninScreen" />
         <activity android:name=".ui.home.home.HomeScreen" />
-        <activity android:name=".ui.home.describe.DescribeScreen" />
-        <activity android:name=".ui.home.plan.PlanScreen" />
-        <activity android:name=".ui.home.plan.WeatherScreen" />
-        <activity android:name=".ui.home.plan.CalendarScreen" />
-        <activity android:name=".ui.home.plan.GuideScreen" />
-        <activity android:name=".ui.home.activity.AddItineraryScreen" />
-        <activity android:name=".ui.home.friend.FriendScreen" />
-        <activity android:name=".ui.home.profile.ProfileScreen" />
-        <activity android:name=".ui.home.favorite.FavoriteScreen" />
-        <activity android:name=".ui.home.booking.PlaneBookingScreen" />
-        <activity android:name=".ui.home.booking.BusBookingScreen" />
-        <activity android:name=".ui.home.booking.HotelBookingScreen" />
-
     </application>
+
 </manifest>
