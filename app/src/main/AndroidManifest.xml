@@ -28,6 +28,8 @@
         <activity android:name=".ui.home.login.StartScreen" />
         <activity android:name=".ui.home.login.LoginScreen" />
         <activity android:name=".ui.home.home.HomeScreen" />
+
+        <activity android:name=".ui.home.login.SigninScreen" />
     </application>
 
 </manifest>
