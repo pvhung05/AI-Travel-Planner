@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Cách an toàn: chỉ mở cho 10.0.2.2 và localhost -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="true">10.0.2.2</domain>
+    </domain-config>
+
+    <!-- Nếu test trên máy thật, thêm IP LAN của máy chạy backend:
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.1.100</domain>
+    </domain-config>
+    -->
+
+    <!-- Nếu vẫn không ăn, có thể bật toàn cục (dev only):
+    <base-config cleartextTrafficPermitted="true" />
+    -->
+</network-security-config>

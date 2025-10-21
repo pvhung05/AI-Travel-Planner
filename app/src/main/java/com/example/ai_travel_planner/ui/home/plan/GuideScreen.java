@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ai_travel_planner.R;
+import com.example.ai_travel_planner.ui.home.booking.HotelBookingScreen;
+import com.example.ai_travel_planner.ui.home.booking.PlaneBookingScreen;
 
 public class GuideScreen extends AppCompatActivity {
 
@@ -29,6 +31,8 @@ public class GuideScreen extends AppCompatActivity {
 
         actionButton(btnBack, WeatherScreen.class);
         actionButton(btnPlanTrip, CalendarScreen.class);
+        actionButton(ivNext1, PlaneBookingScreen.class);
+        actionButton(ivNext2, HotelBookingScreen.class);
 
     }
 

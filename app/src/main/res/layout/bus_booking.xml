@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#666666"
-    tools:context=".BusBookingActivity">
+    tools:context=".ui.home.booking.BusBookingScreen">
 
     <!-- Card bo góc lớn giống plane -->
     <androidx.cardview.widget.CardView
@@ -32,31 +32,13 @@
                 android:padding="16dp">
 
                 <!-- Back -->
-
-                <Button
-                    android:id="@+id/btnSearch"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="56dp"
-                    android:background="@drawable/bg_search_orange"
-                    android:drawableStart="@drawable/ic_search"
-                    android:drawablePadding="8dp"
-                    android:includeFontPadding="false"
-                    android:text="Search"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardDate" />
-
                 <ImageButton
                     android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_circle_lightgray"
-                    app:srcCompat="@drawable/ic_back"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/btn_back"
+                    android:src="@drawable/ic_back"
+                    android:translationY="20px"
                     android:contentDescription="@string/back"
                     android:scaleType="centerInside"
                     android:padding="8dp"
@@ -90,8 +72,8 @@
                         <ImageView
                             android:layout_width="26dp"
                             android:layout_height="26dp"
-                            app:srcCompat="@drawable/ic_plane"
-                            app:tint="#111111" />
+                            android:src="@drawable/ic_plane"
+                            android:tint="#111111" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -114,8 +96,8 @@
                         <ImageView
                             android:layout_width="26dp"
                             android:layout_height="26dp"
-                            app:srcCompat="@drawable/ic_bus"
-                            app:tint="#111111" />
+                            android:src="@drawable/ic_bus"
+                            android:tint="#111111" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -141,6 +123,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_tab_unselected"
+
                         android:orientation="vertical"
                         android:padding="16dp">
 
@@ -152,8 +136,8 @@
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                app:srcCompat="@drawable/ic_origin"
-                                app:tint="#FF6F00" />
+                                android:src="@drawable/ic_origin"
+                                android:tint="#FF6F00" />
                             <TextView
                                 android:id="@+id/txtOrigin"
                                 android:layout_width="0dp"
@@ -180,8 +164,8 @@
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                app:srcCompat="@drawable/ic_pin"
-                                app:tint="#E53935" />
+                                android:src="@drawable/ic_pin"
+                                android:tint="#E53935" />
                             <TextView
                                 android:id="@+id/txtDestination"
                                 android:layout_width="0dp"
@@ -216,8 +200,8 @@
                         <ImageView
                             android:layout_width="22dp"
                             android:layout_height="22dp"
-                            app:srcCompat="@drawable/ic_calendar"
-                            app:tint="#000" />
+                            android:src="@drawable/ic_calendar"
+                            android:tint="#000" />
                         <TextView
                             android:id="@+id/txtDate"
                             android:layout_width="wrap_content"
@@ -243,10 +227,23 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Search -->
+                <!-- Search Button -->>
+                <Button
+                    android:id="@+id/btnSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="28dp"
+
+                    android:background="@drawable/btn_signin_gradient"
+                    android:elevation="6dp"
+                    android:text="Search"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardDate" />
 
                 <!-- Card Student Privileges -->
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardPrivileges"
                     android:layout_width="0dp"
@@ -269,8 +266,8 @@
                         <ImageView
                             android:layout_width="28dp"
                             android:layout_height="28dp"
-                            app:srcCompat="@drawable/ic_discount"
-                            app:tint="#111"/>
+                            android:src="@drawable/ic_discount"
+                            android:tint="#111"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -296,57 +293,6 @@
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-                <!-- Bottom Nav (4 icon + dot) -->
-                <LinearLayout
-                    android:id="@+id/bottomNav"
-                    android:layout_width="0dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/bg_bottom_nav"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:paddingHorizontal="28dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_home"
-                        app:tint="#8C8C8C" />
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="48dp">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            app:srcCompat="@drawable/ic_clock"
-                            app:tint="#111111" />
-                        <View
-                            android:layout_width="6dp"
-                            android:layout_height="6dp"
-                            android:layout_gravity="bottom|center_horizontal"
-                            android:background="@drawable/bg_dot_red" />
-                    </FrameLayout>
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="48dp"
-                        app:srcCompat="@drawable/ic_heart"
-                        app:tint="#8C8C8C" />
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="48dp"
-                        app:srcCompat="@drawable/ic_user"
-                        app:tint="#8C8C8C" />
-                </LinearLayout>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
