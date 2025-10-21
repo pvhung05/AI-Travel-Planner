@@ -24,12 +24,32 @@
             </intent-filter>
         </activity>
 
-        <!-- Các Activity còn lại -->
-        <activity android:name=".ui.home.login.StartScreen" />
-        <activity android:name=".ui.home.login.LoginScreen" />
+        <!-- Các màn hình còn lại -->
         <activity android:name=".ui.home.home.HomeScreen" />
 
+        <activity android:name=".ui.home.login.StartScreen" />
+        <activity android:name=".ui.home.login.LoginScreen" />
         <activity android:name=".ui.home.login.SigninScreen" />
+
+        <activity android:name=".ui.home.activity.AddItineraryScreen" />
+
+        <activity android:name=".ui.home.booking.BusBookingScreen" />
+        <activity android:name=".ui.home.booking.HotelBookingScreen" />
+        <activity android:name=".ui.home.booking.PlaneBookingScreen" />
+
+        <activity android:name=".ui.home.describe.DescribeScreen" />
+
+        <activity android:name=".ui.home.favorite.FavoriteScreen" />
+
+        <activity android:name=".ui.home.friend.FriendScreen" />
+
+        <activity android:name=".ui.home.plan.CalendarScreen" />
+        <activity android:name=".ui.home.plan.GuideScreen" />
+        <activity android:name=".ui.home.plan.PlanScreen" />
+        <activity android:name=".ui.home.plan.WeatherScreen" />
+
+        <activity android:name=".ui.home.profile.ProfileScreen" />
+
     </application>
 
 </manifest>
