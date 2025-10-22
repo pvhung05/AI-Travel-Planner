@@ -86,6 +86,6 @@ public class LoginScreen extends Activity {
     public void goRegister(View view) {
         Intent intent = new Intent(LoginScreen.this, SigninScreen.class);
         startActivity(intent);
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.fade_out);
+        finish();
     }
 }
