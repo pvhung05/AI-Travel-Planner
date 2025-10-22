@@ -1,6 +1,5 @@
 package com.example.ai_travel_planner.ui.home.profile;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -20,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.ai_travel_planner.network.ApiClient;
 import com.example.ai_travel_planner.network.ApiService;
 import com.example.ai_travel_planner.network.models.UserMe;
-import com.example.ai_travel_planner.ui.home.friend.FriendScreen;
 import com.example.ai_travel_planner.R;
 import com.example.ai_travel_planner.ui.home.login.StartScreen;
 import com.example.ai_travel_planner.utils.BottomNav;
