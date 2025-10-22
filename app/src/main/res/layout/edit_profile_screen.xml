@@ -7,15 +7,19 @@
     android:background="#F5F5F5">
 
     <!-- Nội dung chính -->
+
+    <!-- Thanh menu dưới -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <!-- Back -->
         <ImageButton
@@ -26,11 +30,11 @@
             android:background="@drawable/btn_back"
             android:contentDescription="@string/back"
             android:padding="10dp"
-            android:src="@drawable/ic_back"
             android:scaleType="centerInside"
-            app:tint="#333333"
+            android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#333333" />
 
         <!-- Title center -->
         <TextView
@@ -38,32 +42,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit profile"
-            android:textStyle="bold"
-            android:textSize="24sp"
             android:textColor="#111111"
-            app:layout_constraintTop_toTopOf="@id/btnBack"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
 
         <!-- Avatar + camera overlay -->
         <FrameLayout
             android:id="@+id/avatarWrap"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            app:layout_constraintTop_toBottomOf="@id/btnBack"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBack">
 
             <ImageView
                 android:id="@+id/imgAvatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/avt1"
                 android:background="@drawable/bg_avatar_clip"
-                android:clipToOutline="true"/>
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avt1" />
 
             <ImageButton
                 android:id="@+id/btnChangeAvatar"
@@ -72,10 +76,10 @@
                 android:layout_gravity="bottom|end"
                 android:layout_margin="4dp"
                 android:background="@drawable/bg_circle_orange"
-                android:src="@drawable/ic_camera"
-                android:scaleType="centerInside"
                 android:contentDescription="@string/edit"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_camera" />
         </FrameLayout>
 
         <!-- Name -->
@@ -83,45 +87,45 @@
             android:id="@+id/labelName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Full name"
-            android:textStyle="bold"
-            android:textColor="#111111"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/avatarWrap"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="Full name"
+            android:textColor="#111111"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/avatarWrap" />
 
         <LinearLayout
             android:id="@+id/fieldName"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_input_rounded"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/labelName"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelName">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@string/edit"
                 android:src="@drawable/ic_user"
-                android:tint="#9E9E9E"
-                android:contentDescription="@string/edit"/>
+                android:tint="#9E9E9E" />
 
             <EditText
                 android:id="@+id/edtName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Your name"
                 android:background="@android:color/transparent"
-                android:padding="8dp"
+                android:hint="Your name"
                 android:inputType="textPersonName"
+                android:padding="8dp"
                 android:textColor="#111111"
-                android:textColorHint="#B0B0B0"/>
+                android:textColorHint="#B0B0B0" />
         </LinearLayout>
 
         <!-- Email -->
@@ -129,45 +133,45 @@
             android:id="@+id/labelEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"
-            android:textStyle="bold"
-            android:textColor="#111111"
             android:layout_marginTop="14dp"
-            app:layout_constraintTop_toBottomOf="@id/fieldName"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="Email"
+            android:textColor="#111111"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldName" />
 
         <LinearLayout
             android:id="@+id/fieldEmail"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_input_rounded"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/labelEmail"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelEmail">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@string/email"
                 android:src="@drawable/ic_mail"
-                android:tint="#9E9E9E"
-                android:contentDescription="@string/email"/>
+                android:tint="#9E9E9E" />
 
             <EditText
                 android:id="@+id/edtEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="your@email.com"
                 android:background="@android:color/transparent"
-                android:padding="8dp"
+                android:hint="your@email.com"
                 android:inputType="textEmailAddress"
+                android:padding="8dp"
                 android:textColor="#111111"
-                android:textColorHint="#B0B0B0"/>
+                android:textColorHint="#B0B0B0" />
         </LinearLayout>
 
         <!-- Password -->
@@ -175,45 +179,45 @@
             android:id="@+id/labelPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password"
-            android:textStyle="bold"
-            android:textColor="#111111"
             android:layout_marginTop="14dp"
-            app:layout_constraintTop_toBottomOf="@id/fieldEmail"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="Password"
+            android:textColor="#111111"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldEmail" />
 
         <LinearLayout
             android:id="@+id/fieldPassword"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_input_rounded"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/labelPassword"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelPassword">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@string/password"
                 android:src="@drawable/ic_lock"
-                android:tint="#9E9E9E"
-                android:contentDescription="@string/password"/>
+                android:tint="#9E9E9E" />
 
             <EditText
                 android:id="@+id/edtPassword"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="New password"
                 android:background="@android:color/transparent"
-                android:padding="8dp"
+                android:hint="New password"
                 android:inputType="textPassword"
+                android:padding="8dp"
                 android:textColor="#111111"
-                android:textColorHint="#B0B0B0"/>
+                android:textColorHint="#B0B0B0" />
 
             <!-- show/hide -->
             <ImageButton
@@ -221,10 +225,10 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_eye"
+                android:contentDescription="@string/show"
                 android:scaleType="centerInside"
-                android:tint="#9E9E9E"
-                android:contentDescription="@string/show"/>
+                android:src="@drawable/ic_eye"
+                android:tint="#9E9E9E" />
         </LinearLayout>
 
         <!-- Confirm Password -->
@@ -232,45 +236,45 @@
             android:id="@+id/labelConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm password"
-            android:textStyle="bold"
-            android:textColor="#111111"
             android:layout_marginTop="14dp"
-            app:layout_constraintTop_toBottomOf="@id/fieldPassword"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="Confirm password"
+            android:textColor="#111111"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fieldPassword" />
 
         <LinearLayout
             android:id="@+id/fieldConfirm"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             android:background="@drawable/bg_input_rounded"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/labelConfirm"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/labelConfirm">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:contentDescription="@string/password"
                 android:src="@drawable/ic_lock"
-                android:tint="#9E9E9E"
-                android:contentDescription="@string/password"/>
+                android:tint="#9E9E9E" />
 
             <EditText
                 android:id="@+id/edtPasswordConfirm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Re-enter password"
                 android:background="@android:color/transparent"
-                android:padding="8dp"
+                android:hint="Re-enter password"
                 android:inputType="textPassword"
+                android:padding="8dp"
                 android:textColor="#111111"
-                android:textColorHint="#B0B0B0"/>
+                android:textColorHint="#B0B0B0" />
         </LinearLayout>
 
         <!-- Save button -->
@@ -278,46 +282,45 @@
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="52dp"
-            android:text="Save changes"
-            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_cta_gradient"
             android:includeFontPadding="false"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/fieldConfirm"
+            android:text="Save changes"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/fieldConfirm" />
 
         <!-- Logout button - ĐÃ SỬA ID TRÙNG -->
         <LinearLayout
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/btnSave"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/btnSave">
 
             <ImageView
                 android:id="@+id/ivLogOutIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_logout"
-                android:tint="#FF5722"/>
+                android:tint="#FF5722" />
 
             <TextView
                 android:id="@+id/tvLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
                 android:text="Log out"
-                android:textStyle="bold"
                 android:textColor="#FF5722"
-                android:layout_marginStart="6dp"/>
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Thanh menu dưới -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"

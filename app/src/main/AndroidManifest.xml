@@ -5,6 +5,9 @@
     <!-- QUAN TRỌNG: Cho phép truy cập mạng -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Quan trong: Cho phep doc file anh trong thu vien -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
