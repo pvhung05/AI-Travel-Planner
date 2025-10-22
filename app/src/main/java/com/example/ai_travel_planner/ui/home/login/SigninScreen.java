@@ -9,6 +9,7 @@
     import android.widget.Button;
     import android.widget.EditText;
     import android.widget.ImageButton;
+    import android.widget.TextView;
     import android.widget.Toast;
 
     import com.example.ai_travel_planner.R;
@@ -26,6 +27,8 @@
     public class SigninScreen extends Activity {
         ImageButton btnBack, btnGoogle, btnFacebook, btnApple;
         Button btnRegister;
+
+        TextView alreadyAccount;
 
         EditText etEmail, etPassword, etConfirmPassword, etDisplayName;
 
@@ -45,6 +48,7 @@
             btnGoogle = findViewById(R.id.btnGoogle);
             btnFacebook = findViewById(R.id.btnFacebook);
             btnApple = findViewById(R.id.btnApple);
+            alreadyAccount = findViewById(R.id.tvAlreadyAccount);
 
             //Ánh xạ các view mới
             etEmail = findViewById(R.id.etEmail);
@@ -54,6 +58,7 @@
 
             //Gán sự kiện cho nút back
             actionButton(btnBack, StartScreen.class);
+            actionButton(alreadyAccount, LoginScreen.class);
 
             // Gán sự kiện cho nút Register
             btnRegister.setOnClickListener(new View.OnClickListener() {

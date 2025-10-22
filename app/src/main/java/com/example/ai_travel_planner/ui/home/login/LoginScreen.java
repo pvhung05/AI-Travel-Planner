@@ -3,6 +3,7 @@ package com.example.ai_travel_planner.ui.home.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -81,5 +82,10 @@ public class LoginScreen extends Activity {
                         }
                     });
         });
+    }
+    public void goRegister(View view) {
+        Intent intent = new Intent(LoginScreen.this, SigninScreen.class);
+        startActivity(intent);
+        finish();
     }
 }
