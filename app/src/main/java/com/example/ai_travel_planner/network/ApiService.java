@@ -1,5 +1,7 @@
 package com.example.ai_travel_planner.network;
 
+import com.example.ai_travel_planner.network.models.AiPlanRequest;
+import com.example.ai_travel_planner.network.models.AiPlanResponse;
 import com.example.ai_travel_planner.network.models.LoginRequest;
 import com.example.ai_travel_planner.network.models.LoginResponse;
 import com.example.ai_travel_planner.network.models.RegisterRequest;
@@ -22,4 +24,7 @@ public interface ApiService {
 
     @GET("/api/user/me")
     Call<UserMe> getMe(@Header("Authorization") String bearerToken);
+
+    @POST("/api/ai/plan")
+    Call<AiPlanResponse> generatePlan(@Body AiPlanRequest body);
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/edtDestination"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Điểm đến (vd: Đà Nẵng)"
+        android:inputType="textCapSentences"
+        android:background="@android:color/transparent"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/edtDays"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Số ngày (vd: 3)"
+        android:inputType="number"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/edtBudget"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Ngân sách (VND, vd: 3000000)"
+        android:inputType="numberDecimal"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/edtStyle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Phong cách (ẩm thực, thiên nhiên, văn hoá,...)"
+        android:inputType="textCapSentences"
+        android:background="@android:color/transparent"
+        android:padding="8dp"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
