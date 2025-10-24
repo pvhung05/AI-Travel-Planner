@@ -20,7 +20,8 @@ public class GeminiClient {
     private static final String MODEL = "gemini-2.5-flash";
     private static final String BASE_URL =
             "https://generativelanguage.googleapis.com/v1/models/" + MODEL + ":generateContent";
-    private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON = MediaType.parse("application/json;" +
+            " charset=utf-8");
 
     private static final OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)

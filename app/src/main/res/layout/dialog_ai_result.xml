@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/bg_rounded_dialog">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Tiêu đề chính -->
+        <TextView
+            android:id="@+id/tvMainTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LỊCH TRÌNH DU LỊCH"
+            android:textSize="20sp"
+            android:textColor="#2196F3"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Thông tin tổng quan -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_section"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/tvDestination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nam Định"
+                android:textSize="18sp"
+                android:textColor="#333333"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="4 ngày 3 đêm"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/tvBudget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngân sách: 4.000.000 VND"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/tvStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phong cách: Phở Bò"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- Container cho các section động -->
+        <LinearLayout
+            android:id="@+id/containerSections"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <!-- Nút đóng -->
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ĐÓNG"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/btn_signin_gradient"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

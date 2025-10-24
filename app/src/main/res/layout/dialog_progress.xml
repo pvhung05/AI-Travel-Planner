@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="28dp"
+    android:background="@drawable/bg_dialog_modern"
+    android:gravity="center"
+    android:elevation="8dp">
+
+    <!-- Container cho hiệu ứng tìm kiếm -->
+    <RelativeLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:gravity="center">
+
+        <!-- Vòng tròn nền với gradient -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBackground"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="false"
+            app:trackThickness="4dp"
+            app:trackColor="#E3F2FD"
+            app:indicatorColor="#2196F3"
+            app:indicatorSize="120dp"
+            android:progress="100" />
+
+        <!-- Hiệu ứng tìm kiếm chính -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Icon kính lúp -->
+            <ImageView
+                android:id="@+id/searchIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_search_animated"
+                android:layout_marginEnd="8dp" />
+
+            <!-- Dấu chấm nhấp nháy -->
+            <View
+                android:id="@+id/dot1"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:background="@drawable/dot_blue"
+                android:layout_marginEnd="2dp" />
+            <View
+                android:id="@+id/dot2"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:background="@drawable/dot_blue"
+                android:layout_marginEnd="2dp" />
+            <View
+                android:id="@+id/dot3"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:background="@drawable/dot_blue" />
+
+        </LinearLayout>
+
+        <!-- Vòng tròn xoay với gradient đẹp -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressSpinner"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            app:trackThickness="4dp"
+            app:trackColor="@android:color/transparent"
+            app:indicatorColor="#FF4081"
+            app:indicatorSize="120dp" />
+
+    </RelativeLayout>
+
+    <!-- Thông báo với hiệu ứng nhấp nháy -->
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đang tìm kiếm lịch trình phù hợp..."
+        android:textSize="16sp"
+        android:textColor="#333333"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:letterSpacing="0.02"
+        android:fontFamily="sans-serif-medium"/>
+
+</LinearLayout>
