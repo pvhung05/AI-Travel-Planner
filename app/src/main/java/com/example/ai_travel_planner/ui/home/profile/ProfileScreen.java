@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -75,8 +76,10 @@ public class ProfileScreen extends AppCompatActivity {
 
         //Gán sự kiện cho nút Logout
         btnLogout.setOnClickListener(v -> {
-            startActivity(new Intent(this, StartScreen.class));
-            finish();
+            Intent intent = new Intent(this, StartScreen.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finishAffinity();
         });
 
         //Gán sự kiện cho nút Save
@@ -96,6 +99,8 @@ public class ProfileScreen extends AppCompatActivity {
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
         BottomNav.setupNavigation(this, bottomNav, R.id.nav_profile);
+
+//        loadUserProfile();
     }
 
     //Mo thu vien anh
@@ -124,17 +129,17 @@ public class ProfileScreen extends AppCompatActivity {
         String confirmPassword = edtPasswordConfirm.getText().toString().trim();
 
         RequestBody displayNameBody = null;
-        if (!displayName.isEmpty()) {
+        if (!TextUtils.isEmpty(displayName)) {
             displayNameBody = createPartFromString(displayName);
         }
 
         RequestBody emailBody = null;
-        if (!email.isEmpty()) {
+        if (!TextUtils.isEmpty(email)) {
             emailBody = createPartFromString(email);
         }
 
         RequestBody passwordBody = null;
-        if (!password.isEmpty()) {
+        if (!TextUtils.isEmpty(password)) {
             if (!password.equals(confirmPassword)) {
                 Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
                 return;
@@ -151,6 +156,11 @@ public class ProfileScreen extends AppCompatActivity {
             }
         }
 
+        if (displayNameBody == null && emailBody == null && passwordBody == null && imagePart == null) {
+            Toast.makeText(this, "Không có thông tin nào để cập nhật", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Toast.makeText(this, "Đang cập nhật...", Toast.LENGTH_SHORT).show();
 
         TokenManager tokenManager = new TokenManager(this);
@@ -162,9 +172,23 @@ public class ProfileScreen extends AppCompatActivity {
                     public void onResponse(Call<UserMe> call, Response<UserMe> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             Toast.makeText(ProfileScreen.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+
+                            // Cập nhật UI với dữ liệu mới
+                            UserMe updateUser = response.body();
+                            edtName.setText(updateUser.getDisplayName());
+                            edtEmail.setText(updateUser.getEmail());
+
+                            edtPassword.setText("");
+                            edtPasswordConfirm.setText("");
                             imageUri = null;
                         } else {
-                            Toast.makeText(ProfileScreen.this, "Cập nhật thất bại.", Toast.LENGTH_LONG).show();
+                            String errorMessage = "Cập nhật thất bại.";
+                            if (response.errorBody() != null) {
+                                try {
+                                    errorMessage += " Lỗi: " + response.errorBody().string();
+                                } catch (Exception e) {}
+                            }
+                            Toast.makeText(ProfileScreen.this, errorMessage, Toast.LENGTH_LONG).show();
                         }
                     }
 

@@ -34,6 +34,6 @@ public interface ApiService {
                                @Part("displayName") RequestBody displayName,
                                @Part("email") RequestBody email,
                                @Part("password") RequestBody password,
-                               @Part MultipartBody.Part avatar
+                               @Part MultipartBody.Part avatarUrl
     );
 }
