@@ -74,36 +74,87 @@ public class HomeScreen extends AppCompatActivity {
         imgFilter.setOnClickListener(v -> openPromptDialog());
     }
 
-    private void openPromptDialog() {
-        View form = getLayoutInflater().inflate(R.layout.dialog_ai_params, null, false);
-        EditText edtDestination = form.findViewById(R.id.edtDestination);
-        EditText edtDays = form.findViewById(R.id.edtDays);
-        EditText edtBudget = form.findViewById(R.id.edtBudget);
-        EditText edtStyle = form.findViewById(R.id.edtStyle);
+//    private void openPromptDialog() {
+//        View form = getLayoutInflater().inflate(R.layout.dialog_ai_params, null, false);
+//        EditText edtDestination = form.findViewById(R.id.edtDestination);
+//        EditText edtDays = form.findViewById(R.id.edtDays);
+//        EditText edtBudget = form.findViewById(R.id.edtBudget);
+//        EditText edtStyle = form.findViewById(R.id.edtStyle);
+//
+//        edtDestination.setText(etSearch.getText().toString().trim());
+//
+//        new AlertDialog.Builder(this)
+//                .setView(form)
+//                .setPositiveButton("Tạo", (d, w) -> {
+//                    String dest = edtDestination.getText().toString().trim();
+//                    int days = edtDays.getText().toString().isEmpty()
+//                            ? 3 : Integer.parseInt(edtDays.getText().toString());
+//                    double budget = edtBudget.getText().toString().isEmpty()
+//                            ? 3_000_000 : Double.parseDouble(edtBudget.getText().toString());
+//                    String style = edtStyle.getText().toString().isEmpty()
+//                            ? "tổng hợp" : edtStyle.getText().toString();
+//
+//                    if (dest.isEmpty()) {
+//                        Toast.makeText(this, "Điền điểm đến!", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                    callAI(dest, days, style, budget);
+//                })
+//                .setNegativeButton("Huỷ", null)
+//                .show();
+//    }
+private void openPromptDialog() {
+    View form = getLayoutInflater().inflate(R.layout.dialog_ai_params, null, false);
 
-        edtDestination.setText(etSearch.getText().toString().trim());
+    // Bo góc nền cho layout dialog
+    form.setBackgroundResource(R.drawable.bg_dialog);
 
-        new AlertDialog.Builder(this)
-                .setTitle("Sinh lịch trình bằng AI")
-                .setView(form)
-                .setPositiveButton("Tạo", (d, w) -> {
-                    String dest = edtDestination.getText().toString().trim();
-                    int days = edtDays.getText().toString().isEmpty()
-                            ? 3 : Integer.parseInt(edtDays.getText().toString());
-                    double budget = edtBudget.getText().toString().isEmpty()
-                            ? 3_000_000 : Double.parseDouble(edtBudget.getText().toString());
-                    String style = edtStyle.getText().toString().isEmpty()
-                            ? "tổng hợp" : edtStyle.getText().toString();
+    // Ánh xạ view
+    EditText edtDestination = form.findViewById(R.id.edtDestination);
+    EditText edtDays = form.findViewById(R.id.edtDays);
+    EditText edtBudget = form.findViewById(R.id.edtBudget);
+    EditText edtStyle = form.findViewById(R.id.edtStyle);
+    View btnConfirm = form.findViewById(R.id.btnConfirm);
+    View btnCancel = form.findViewById(R.id.btnCancel);
 
-                    if (dest.isEmpty()) {
-                        Toast.makeText(this, "Điền điểm đến!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    callAI(dest, days, style, budget);
-                })
-                .setNegativeButton("Huỷ", null)
-                .show();
+    edtDestination.setText(etSearch.getText().toString().trim());
+
+    // Tạo dialog
+    AlertDialog dialog = new AlertDialog.Builder(this)
+            .setView(form)
+            .setCancelable(true)
+            .create();
+
+    // 💡 Xóa khung nền mặc định để hiển thị bo góc thật
+    if (dialog.getWindow() != null) {
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
     }
+
+    btnConfirm.setOnClickListener(v -> {
+        String dest = edtDestination.getText().toString().trim();
+        String daysStr = edtDays.getText().toString().trim();
+        String budgetStr = edtBudget.getText().toString().trim();
+        String style = edtStyle.getText().toString().trim();
+
+        if (dest.isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập điểm đến!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int days = daysStr.isEmpty() ? 3 : Integer.parseInt(daysStr);
+        double budget = budgetStr.isEmpty() ? 3_000_000 : Double.parseDouble(budgetStr);
+        if (style.isEmpty()) style = "tổng hợp";
+
+        callAI(dest, days, style, budget);
+        dialog.dismiss();
+    });
+
+    btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+    dialog.show();
+}
+
+
 
     /** Rút text từ JSON response của Gemini; nếu không có, trả null */
     private String extractTextFromGemini(String json) {

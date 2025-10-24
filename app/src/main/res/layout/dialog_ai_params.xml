@@ -1,47 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="20dp"
+    android:background="@drawable/bg_dialog"
+    android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/edtDestination"
+    <!-- Tiêu đề -->
+
+    <!-- Ô nhập điểm đến -->
+
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="379dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Lên kế hoạch du lịch"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:hint="Điểm đến (vd: Đà Nẵng)"
-        android:inputType="textCapSentences"
-        android:background="@android:color/transparent"
-        android:padding="8dp" />
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:startIconDrawable="@android:drawable/ic_menu_compass">
 
-    <EditText
-        android:id="@+id/edtDays"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDestination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Ô nhập số ngày -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:hint="Số ngày (vd: 3)"
-        android:inputType="number"
-        android:background="@android:color/transparent"
-        android:padding="8dp"
-        android:layout_marginTop="8dp" />
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:startIconDrawable="@android:drawable/ic_menu_today"
+        android:layout_marginTop="12dp">
 
-    <EditText
-        android:id="@+id/edtBudget"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Ô nhập ngân sách -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:hint="Ngân sách (VND, vd: 3000000)"
-        android:inputType="numberDecimal"
-        android:background="@android:color/transparent"
-        android:padding="8dp"
-        android:layout_marginTop="8dp" />
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:startIconDrawable="@android:drawable/ic_menu_sort_by_size"
+        android:layout_marginTop="12dp">
 
-    <EditText
-        android:id="@+id/edtStyle"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtBudget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Ô nhập phong cách -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:hint="Phong cách (ẩm thực, thiên nhiên, văn hoá,...)"
-        android:inputType="textCapSentences"
-        android:background="@android:color/transparent"
-        android:padding="8dp"
-        android:layout_marginTop="8dp" />
+        app:boxBackgroundMode="outline"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:startIconDrawable="@android:drawable/ic_menu_gallery"
+        android:layout_marginTop="12dp">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Nút hành động -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:textColor="@android:color/darker_gray"
+            android:background="@drawable/btn_orange_outline" />
+
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xác nhận"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/btn_signin_gradient" />
+    </LinearLayout>
 </LinearLayout>
