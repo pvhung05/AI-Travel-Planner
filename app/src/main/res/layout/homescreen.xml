@@ -135,7 +135,7 @@
         <Button
             android:id="@+id/btnMostViewed"
             android:layout_width="120dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:background="@drawable/btn_outline"
             android:text="Most Viewed"
             android:textColor="@android:color/white"/>
@@ -148,7 +148,7 @@
         <Button
             android:id="@+id/btnNearby"
             android:layout_width="120dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/btn_outline"
             android:backgroundTint="#EEEEEE"
@@ -162,7 +162,7 @@
         <Button
             android:id="@+id/btnLatest"
             android:layout_width="120dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/btn_outline"
             android:backgroundTint="#EEEEEE"
