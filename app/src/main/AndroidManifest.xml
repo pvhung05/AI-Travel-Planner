@@ -5,6 +5,9 @@
     <!-- QUAN TRỌNG: Cho phép truy cập mạng -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Quan trong: Cho phep doc file anh trong thu vien -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
@@ -24,10 +27,32 @@
             </intent-filter>
         </activity>
 
-        <!-- Các Activity còn lại -->
+        <!-- Các màn hình còn lại -->
+        <activity android:name=".ui.home.home.HomeScreen" />
+
         <activity android:name=".ui.home.login.StartScreen" />
         <activity android:name=".ui.home.login.LoginScreen" />
-        <activity android:name=".ui.home.home.HomeScreen" />
+        <activity android:name=".ui.home.login.SigninScreen" />
+
+        <activity android:name=".ui.home.activity.AddItineraryScreen" />
+
+        <activity android:name=".ui.home.booking.BusBookingScreen" />
+        <activity android:name=".ui.home.booking.HotelBookingScreen" />
+        <activity android:name=".ui.home.booking.PlaneBookingScreen" />
+
+        <activity android:name=".ui.home.describe.DescribeScreen" />
+
+        <activity android:name=".ui.home.favorite.FavoriteScreen" />
+
+        <activity android:name=".ui.home.friend.FriendScreen" />
+
+        <activity android:name=".ui.home.plan.CalendarScreen" />
+        <activity android:name=".ui.home.plan.GuideScreen" />
+        <activity android:name=".ui.home.plan.PlanScreen" />
+        <activity android:name=".ui.home.plan.WeatherScreen" />
+
+        <activity android:name=".ui.home.profile.ProfileScreen" />
+
     </application>
 
 </manifest>

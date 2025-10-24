@@ -9,6 +9,10 @@ public class UserMe {
     private String preferences;
     private boolean twoFaEnabled;
 
+    private String avatarUrl;
+
+    private String token;
+
     public Long getId() { return id; }
     public String getEmail() { return email; }
     public String getDisplayName() { return displayName; }
@@ -16,4 +20,8 @@ public class UserMe {
     public Double getAvgBudget() { return avgBudget; }
     public String getPreferences() { return preferences; }
     public boolean isTwoFaEnabled() { return twoFaEnabled; }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
 }
