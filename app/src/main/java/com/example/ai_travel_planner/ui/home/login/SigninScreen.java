@@ -81,6 +81,32 @@
                 return;
             }
 
+            boolean isPasswordValid = true;
+            String passwordError = "";
+
+            if (password.length() < 8 || password.length() > 15) {
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải từ 8 đến 15 ký tự.";
+            } else if (!password.matches(".*[A-Z].*")) { // Kiểm tra thiếu chữ hoa
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải chứa ít nhất 1 chữ hoa.";
+            } else if (!password.matches(".*[a-z].*")) { // Kiểm tra thiếu chữ thường
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải chứa ít nhất 1 chữ thường.";
+            } else if (!password.matches(".*[0-9].*")) { // Kiểm tra thiếu số
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải chứa ít nhất 1 chữ số.";
+            } else if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+                 isPasswordValid = false;
+                 passwordError = "Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt.";
+             }
+
+            if (!isPasswordValid) {
+                Toast.makeText(this, passwordError, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            // 3. Kiểm tra mật khẩu khớp
             if (!password.equals(comfirmPassword)) {
                 Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
                 return;
@@ -96,15 +122,24 @@
                     if (response.isSuccessful() && response.body() != null && response.body().getToken() != null) {
                         //Đăng ký thành công
                         Toast.makeText(SigninScreen.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                        //Lưu token
-                        String token = response.body().getToken();
-                        Log.d("Đăng ký thành công", "Token:" + token);
-                        //Chuyển đến màn hình chính
-                        Intent intent = new Intent(SigninScreen.this, HomeScreen.class);
+//                        //Lưu token
+//                        String token = response.body().getToken();
+//                        Log.d("Đăng ký thành công", "Token:" + token);
+                        //Chuyển đến màn hình đăng nhập
+                        Intent intent = new Intent(SigninScreen.this, LoginScreen.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(SigninScreen.this, "Đăng ký thất bại. Email đã được sử dụng.", Toast.LENGTH_LONG).show();
+                        String errorMessage = "Đăng ký thất bại.";
+                        if (response.errorBody() != null) {
+                            try {
+                                // Cố gắng đọc lỗi chi tiết từ server nếu có
+                                errorMessage += " Lỗi: " + response.errorBody().string();
+                            } catch (Exception e) {}
+                        } else if (response.code() == 400) { // Ví dụ mã lỗi 400 thường là do email trùng
+                            errorMessage = "Email này đã được sử dụng.";
+                        }
+                        Toast.makeText(SigninScreen.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 }
 

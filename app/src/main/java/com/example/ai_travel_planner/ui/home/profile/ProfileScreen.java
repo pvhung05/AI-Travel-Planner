@@ -17,6 +17,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.ai_travel_planner.network.ApiClient;
 import com.example.ai_travel_planner.network.ApiService;
 import com.example.ai_travel_planner.network.models.UserMe;
@@ -100,7 +102,7 @@ public class ProfileScreen extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
         BottomNav.setupNavigation(this, bottomNav, R.id.nav_profile);
 
-//        loadUserProfile();
+        loadUserProfile();
     }
 
     //Mo thu vien anh
@@ -198,6 +200,58 @@ public class ProfileScreen extends AppCompatActivity {
                         Toast.makeText(ProfileScreen.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void loadUserProfile() {
+        TokenManager tokenManager = new TokenManager(this);
+        String authToken = tokenManager.getToken();
+
+        if (authToken == null || authToken.isEmpty()) {
+            Toast.makeText(this, "Lỗi xác thực. Vui lòng đăng nhập lại.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, StartScreen.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finishAffinity();
+            return;
+        }
+
+        apiService.getMe("Bearer " + authToken).enqueue(new Callback<UserMe>() {
+            @Override
+            public void onResponse(Call<UserMe> call, Response<UserMe> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    UserMe currentUser = response.body();
+                    edtName.setText(currentUser.getDisplayName());
+                    edtEmail.setText(currentUser.getEmail());
+
+                    if (currentUser.getAvatarUrl() != null && !currentUser.getAvatarUrl().isEmpty()) {
+
+                        String relativeAvatarUrl = currentUser.getAvatarUrl();
+
+                        String fullAvatarUrl = "http://10.0.2.2:8080" + relativeAvatarUrl;
+
+                        Log.d("GlideLoad", "Loading image from URL: " + fullAvatarUrl);
+
+                        Glide.with(ProfileScreen.this)
+                                .load(fullAvatarUrl)
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(true)
+                                .placeholder(R.drawable.ic_default_profile)
+                                .error(R.drawable.ic_default_profile)
+                                .into(ivProfilePicture);
+                    } else {
+                        ivProfilePicture.setImageResource(R.drawable.ic_default_profile);
+                    }
+                } else {
+                    Toast.makeText(ProfileScreen.this, "Không thể tải thông tin cá nhân. Mã lỗi: " + response.code(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserMe> call, Throwable t) {
+                Log.e("LOAD_PROFILE_FAIL", "Lỗi mạng khi gọi getMe", t);
+                Toast.makeText(ProfileScreen.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private RequestBody createPartFromString(String descriptionString) {
