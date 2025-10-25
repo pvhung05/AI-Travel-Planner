@@ -86,6 +86,15 @@
             android:background="@drawable/btn_signin_gradient"
             android:layout_marginTop="20dp"
             android:textStyle="bold" />
-
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Save Plan"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:backgroundTint="@color/teal_700"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 </ScrollView>

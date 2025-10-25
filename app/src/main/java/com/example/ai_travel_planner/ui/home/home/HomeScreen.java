@@ -1,7 +1,6 @@
 // app/src/main/java/com/example/ai_travel_planner/ui/home/home/HomeScreen.java
 package com.example.ai_travel_planner.ui.home.home;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
@@ -24,8 +23,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ai_travel_planner.R;
+import com.example.ai_travel_planner.data.local.AppDatabase;
+import com.example.ai_travel_planner.data.local.entities.PlanEntity;
 import com.example.ai_travel_planner.network.ai.GeminiClient;
 import com.example.ai_travel_planner.utils.BottomNav;
+import com.example.ai_travel_planner.ui.home.plan.ImageResolver;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -303,7 +305,7 @@ public class HomeScreen extends AppCompatActivity {
         View resultDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_ai_result, null);
         LinearLayout containerSections = resultDialogView.findViewById(R.id.containerSections);
         Button btnClose = resultDialogView.findViewById(R.id.btnClose);
-
+        Button btnSave  = resultDialogView.findViewById(R.id.btnSave);
         // CẬP NHẬT PHẦN TỔNG QUAN THEO TRUY VẤN
         updateOverviewSection(resultDialogView, destination, days, style, budget);
 
@@ -330,7 +332,37 @@ public class HomeScreen extends AppCompatActivity {
         if (resultDialog.getWindow() != null) {
             resultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
+        btnSave.setOnClickListener(v -> {
+            btnSave.setEnabled(false);
+            new Thread(() -> {
+                try {
+                    // ✅ lấy url ảnh chuẩn địa danh
+                    String imageUrl = ImageResolver.resolve(HomeScreen.this, destination);
 
+                    AppDatabase db = AppDatabase.getInstance(HomeScreen.this);
+                    PlanEntity p = new PlanEntity();
+                    p.destination = destination;
+                    p.days        = days;
+                    p.style       = style;
+                    p.budget      = budget;
+                    p.content     = finalShow;
+                    p.createdAt   = System.currentTimeMillis();
+                    p.imageUrl    = imageUrl;    // <-- LƯU VÀO DB
+
+                    long id = db.planDao().insert(p);
+
+                    runOnUiThread(() -> {
+                        btnSave.setEnabled(true);
+                        Toast.makeText(HomeScreen.this, "Đã lưu (id=" + id + ")", Toast.LENGTH_SHORT).show();
+                    });
+                } catch (Exception ex) {
+                    runOnUiThread(() -> {
+                        btnSave.setEnabled(true);
+                        Toast.makeText(HomeScreen.this, "Lỗi lưu: " + ex.getMessage(), Toast.LENGTH_LONG).show();
+                    });
+                }
+            }).start();
+        });
         btnClose.setOnClickListener(v -> resultDialog.dismiss());
         resultDialog.show();
     }

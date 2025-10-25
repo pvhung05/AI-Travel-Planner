@@ -34,4 +34,5 @@
     <string name="settings">Settings</string>
     <string name="plane">Plane</string>
     <string name="gemini_api_key">AIzaSyBNxoQ74kz-_cm9qhXE6wWRzR4-gS9QL-4</string>
+    <string name="unsplash_access_key">rwoRlUESZ1LhdEsNNjdKjLrEHUFHQsMLxbgqwXFwumE</string>
 </resources>
