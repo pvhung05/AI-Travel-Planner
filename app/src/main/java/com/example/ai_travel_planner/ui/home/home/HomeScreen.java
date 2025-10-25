@@ -46,6 +46,8 @@ public class HomeScreen extends AppCompatActivity {
     private PlaceAdapter adapter;
     private List<String> places;
 
+    private LinearLayout btnTravel, btnHotel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,8 @@ public class HomeScreen extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerPlaces);
         etSearch = findViewById(R.id.etSearch);
         imgFilter = findViewById(R.id.imgFilter);
+        btnHotel = findViewById(R.id.btnHotel);
+        btnTravel = findViewById(R.id.btnTravel);
 
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -83,35 +87,6 @@ public class HomeScreen extends AppCompatActivity {
         imgFilter.setOnClickListener(v -> openPromptDialog());
     }
 
-    //    private void openPromptDialog() {
-//        View form = getLayoutInflater().inflate(R.layout.dialog_ai_params, null, false);
-//        EditText edtDestination = form.findViewById(R.id.edtDestination);
-//        EditText edtDays = form.findViewById(R.id.edtDays);
-//        EditText edtBudget = form.findViewById(R.id.edtBudget);
-//        EditText edtStyle = form.findViewById(R.id.edtStyle);
-//
-//        edtDestination.setText(etSearch.getText().toString().trim());
-//
-//        new AlertDialog.Builder(this)
-//                .setView(form)
-//                .setPositiveButton("Tạo", (d, w) -> {
-//                    String dest = edtDestination.getText().toString().trim();
-//                    int days = edtDays.getText().toString().isEmpty()
-//                            ? 3 : Integer.parseInt(edtDays.getText().toString());
-//                    double budget = edtBudget.getText().toString().isEmpty()
-//                            ? 3_000_000 : Double.parseDouble(edtBudget.getText().toString());
-//                    String style = edtStyle.getText().toString().isEmpty()
-//                            ? "tổng hợp" : edtStyle.getText().toString();
-//
-//                    if (dest.isEmpty()) {
-//                        Toast.makeText(this, "Điền điểm đến!", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    callAI(dest, days, style, budget);
-//                })
-//                .setNegativeButton("Huỷ", null)
-//                .show();
-//    }
     private void openPromptDialog() {
         View form = getLayoutInflater().inflate(R.layout.dialog_ai_params, null, false);
 
