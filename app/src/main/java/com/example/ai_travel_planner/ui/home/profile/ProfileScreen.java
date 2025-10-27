@@ -41,7 +41,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileScreen extends AppCompatActivity {
-    ImageButton btnBack;
     Button btnSave;
     LinearLayout btnLogout;
 
@@ -68,13 +67,11 @@ public class ProfileScreen extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
         edtPasswordConfirm = findViewById(R.id.edtPasswordConfirm);
-        btnBack = findViewById(R.id.btnBack);
         btnSave = findViewById(R.id.btnSave);
         btnLogout = findViewById(R.id.btnLogout);
 
 
         //Gán sự kiện cho nút Back
-        btnBack.setOnClickListener(v -> finish());
 
         //Gán sự kiện cho nút Logout
         btnLogout.setOnClickListener(v -> {

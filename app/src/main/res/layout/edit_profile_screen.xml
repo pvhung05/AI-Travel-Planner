@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,8 +8,6 @@
     android:background="#F5F5F5">
 
     <!-- Nội dung chính -->
-
-    <!-- Thanh menu dưới -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contentLayout"
         android:layout_width="0dp"
@@ -16,27 +15,10 @@
         android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Back -->
-        <ImageButton
-            android:id="@+id/btnBack"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/btn_back"
-            android:contentDescription="@string/back"
-            android:padding="10dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="#333333" />
-
-        <!-- Title center -->
+        <!-- Title -->
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
@@ -45,10 +27,9 @@
             android:textColor="#111111"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/btnBack"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/btnBack" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Avatar + camera overlay -->
         <FrameLayout
@@ -58,7 +39,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnBack">
+            app:layout_constraintTop_toBottomOf="@id/txtTitle">
 
             <ImageView
                 android:id="@+id/imgAvatar"
@@ -111,7 +92,6 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/edit"
                 android:src="@drawable/ic_user"
                 android:tint="#9E9E9E" />
 
@@ -157,7 +137,6 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/email"
                 android:src="@drawable/ic_mail"
                 android:tint="#9E9E9E" />
 
@@ -203,7 +182,6 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/password"
                 android:src="@drawable/ic_lock"
                 android:tint="#9E9E9E" />
 
@@ -219,7 +197,6 @@
                 android:textColor="#111111"
                 android:textColorHint="#B0B0B0" />
 
-            <!-- show/hide -->
             <ImageButton
                 android:id="@+id/btnTogglePwd"
                 android:layout_width="24dp"
@@ -260,7 +237,6 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:contentDescription="@string/password"
                 android:src="@drawable/ic_lock"
                 android:tint="#9E9E9E" />
 
@@ -284,14 +260,13 @@
             android:layout_height="52dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_cta_gradient"
-            android:includeFontPadding="false"
             android:text="Save changes"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fieldConfirm" />
 
-        <!-- Logout button - ĐÃ SỬA ID TRÙNG -->
+        <!-- Logout button -->
         <LinearLayout
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
@@ -321,18 +296,19 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"
         android:background="?attr/colorSurface"
         app:itemIconSize="24dp"
         app:itemIconTint="@color/nav_item_color"
-        app:itemTextColor="@color/nav_item_color" />
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

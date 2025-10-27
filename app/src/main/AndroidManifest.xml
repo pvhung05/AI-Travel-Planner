@@ -47,7 +47,7 @@
         <activity android:name=".ui.home.booking.HotelSearchResultScreen" android:exported="false" />
         <activity android:name=".ui.home.describe.DescribeScreen" />
         <activity android:name=".ui.home.booking.HotelDetailScreen" />
-        <activity android:name=".ui.home.favorite.FavoriteScreen" />
+        <activity android:name=".ui.home.friend.FriendScreen" />
 
         <activity android:name=".ui.home.friend.FriendScreen" />
 

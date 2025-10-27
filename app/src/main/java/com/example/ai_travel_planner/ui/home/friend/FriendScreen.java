@@ -11,10 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.ai_travel_planner.R;
 import com.example.ai_travel_planner.ui.home.home.HomeScreen;
 import com.example.ai_travel_planner.ui.home.profile.ProfileScreen;
+import com.example.ai_travel_planner.utils.BottomNav;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class FriendScreen extends AppCompatActivity {
 
-    ImageButton btnHome;
     Button btnEditProfile;
 
     @Override
@@ -22,11 +23,12 @@ public class FriendScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friendscreen);
 
-        btnHome = findViewById(R.id.btnHome);
         btnEditProfile = findViewById(R.id.btnEditProfile);
 
-        actionButton(btnHome, HomeScreen.class);
         actionButton(btnEditProfile, ProfileScreen.class);
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        BottomNav.setupNavigation(this, bottomNav, R.id.nav_group);
     }
 
     void actionButton(View view, final Class<?> destination) {
