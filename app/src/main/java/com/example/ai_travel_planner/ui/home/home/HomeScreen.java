@@ -1,6 +1,7 @@
 // app/src/main/java/com/example/ai_travel_planner/ui/home/home/HomeScreen.java
 package com.example.ai_travel_planner.ui.home.home;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
@@ -87,6 +88,10 @@ public class HomeScreen extends AppCompatActivity {
         });
 
         imgFilter.setOnClickListener(v -> openPromptDialog());
+        btnHotel.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, com.example.ai_travel_planner.ui.home.booking.HotelBookingScreen.class);
+            startActivity(intent);
+        });
     }
 
     private void openPromptDialog() {

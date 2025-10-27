@@ -5,7 +5,17 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
 }
-
+def localProps = new Properties()
+def lpFile = rootProject.file("local.properties")
+if (lpFile.exists()) {
+    localProps.load(new FileInputStream(lpFile))
+}
+def PLACES = (localProps.getProperty("PLACES_API_KEY") ?: "").trim()
+def RAPID  = (localProps.getProperty("RAPIDAPI_KEY")   ?: "").trim()
+def GEO    = (localProps.getProperty("GEOAPIFY_KEY") ?: "").trim()
+def propOrEmpty(String name) {
+    return project.hasProperty(name) ? project.property(name).toString() : ""
+}
 android {
     namespace = "com.example.ai_travel_planner"
     compileSdk = 36
@@ -19,7 +29,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
+        buildConfigField "String", "PLACES_API_KEY", "\"${PLACES}\""
+        buildConfigField "String", "RAPIDAPI_KEY", "\"${RAPID}\""
+        buildConfigField "String", "GEOAPIFY_KEY", "\"${GEO}\""
     }
 
     buildTypes {
@@ -41,8 +53,9 @@ android {
     }
 
     buildFeatures {
-        compose = true
-        viewBinding = true
+        compose true
+        viewBinding true
+        buildConfig true
     }
 
 }
@@ -83,7 +96,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+    implementation("com.google.android.libraries.places:places:3.5.0")
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
     implementation "com.github.bumptech.glide:glide:4.16.0"
     annotationProcessor "com.github.bumptech.glide:compiler:4.16.0"
     implementation(libs.room.runtime)
