@@ -22,13 +22,8 @@
             android:id="@+id/tvGreeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
-            android:text="Hi, Traveler 👋"
-            android:textStyle="bold"
-=======
             android:text="Hi, Jojo 👋"
             android:textColor="@android:color/black"
->>>>>>> 79b31035f6c7e3a32edf7e4366009ab9f10aadef
             android:textSize="28sp"
             android:textStyle="bold" />
 
