@@ -1,0 +1,48 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/imgThumb"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample_mountain"/>
+
+        <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold" android:textSize="20sp"/>
+
+        <TextView
+                android:id="@+id/tvAddr"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="#666"/>
+
+        <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"/>
+
+        <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"/>
+
+        <Button
+                android:id="@+id/btnBookNow"
+                app:backgroundTint="@null"
+                android:background="@drawable/bg_cta_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:text="Book now"/>
+    </LinearLayout>
+</ScrollView>

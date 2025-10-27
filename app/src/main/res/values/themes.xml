@@ -1,24 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.AI_Travel_Planner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Bỏ tím -->
-        <item name="colorPrimary">@android:color/transparent</item>
-        <item name="colorPrimaryVariant">@android:color/transparent</item>
-        <item name="colorOnPrimary">@android:color/white</item>
+        <!-- Tắt toàn bộ tint hệ thống -->
+        <item name="colorButtonNormal">@null</item>
+        <item name="android:colorButtonNormal">@null</item>
+        <item name="colorControlHighlight">@null</item>
+        <item name="colorSurface">@android:color/transparent</item>
+
+        <!-- Đặt màu chủ đạo (nếu cần dùng cho Text hoặc icon khác) -->
         <item name="colorSecondary">@color/teal_200</item>
 
-        <!-- Áp style mặc định cho Button -->
+        <!-- Gán style mặc định cho tất cả Button -->
         <item name="materialButtonStyle">@style/MyButtonStyle</item>
     </style>
 
-    <!-- Style nút custom -->
+    <!-- Style riêng cho Button -->
     <style name="MyButtonStyle" parent="@style/Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@null</item>
         <item name="android:backgroundTint">@null</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="backgroundTint">@null</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
     </style>
-    <style name="RoundedImageStyle" parent="">
+
+
+    <style name="RoundedImageStyle">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20dp</item>
     </style>
-
 </resources>

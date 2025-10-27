@@ -13,6 +13,7 @@
     <string name="home">Home</string>
     <string name="search">Time</string>
     <string name="favorites">Favorites</string>
+    <string name="group">Group</string>
     <string name="profile">Profile</string>
     <string name="rating">Rating</string>
     <string name="back">Back</string>
@@ -34,7 +35,7 @@
     <string name="settings">Settings</string>
     <string name="plane">Plane</string>
     <string name="gemini_api_key">AIzaSyBNxoQ74kz-_cm9qhXE6wWRzR4-gS9QL-4</string>
-    <string name="places_api_key">AIzaSyCXK-RDutcThQSmKqw8b7pJpzzfQyNQOT4</string>
     <string name="unsplash_access_key">rwoRlUESZ1LhdEsNNjdKjLrEHUFHQsMLxbgqwXFwumE</string>
+    <string name="rapidapi_key">5c7d5aefa5msh477f5b86fc0aca8p1f9e98jsn00757f6a4211</string>
     <string name="geoapify_api_key">5316284bf01d48039b1fdc517f3160a8</string>
 </resources>

@@ -105,6 +105,8 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/btn_signin_gradient"
         android:elevation="6dp"
+        android:backgroundTint="@null"
+        app:backgroundTint="@null"
         android:text="Sign up"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"

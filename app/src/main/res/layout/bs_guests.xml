@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:text="Rooms &amp; Guests"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="#111"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView android:text="Rooms" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+        <NumberPicker android:id="@+id/npRooms" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView android:text="Adults" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+        <NumberPicker android:id="@+id/npAdults" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView android:text="Children" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+        <NumberPicker android:id="@+id/npChildren" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnDone"
+        android:text="Done"
+        android:layout_marginTop="16dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/btn_signin_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

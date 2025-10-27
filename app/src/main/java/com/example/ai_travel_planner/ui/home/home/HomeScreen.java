@@ -1,6 +1,7 @@
 // app/src/main/java/com/example/ai_travel_planner/ui/home/home/HomeScreen.java
 package com.example.ai_travel_planner.ui.home.home;
 
+import android.content.Intent;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -114,6 +115,10 @@ public class HomeScreen extends AppCompatActivity {
         });
 
         imgFilter.setOnClickListener(v -> openPromptDialog());
+        btnHotel.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeScreen.this, com.example.ai_travel_planner.ui.home.booking.HotelBookingScreen.class);
+            startActivity(intent);
+        });
 
         btnMostViewed.setOnClickListener(v -> {
             setActiveButton(btnMostViewed);
@@ -354,7 +359,7 @@ public class HomeScreen extends AppCompatActivity {
             btnSave.setEnabled(false);
             new Thread(() -> {
                 try {
-                    // lấy url ảnh chuẩn địa danh
+                    // ✅ lấy url ảnh chuẩn địa danh
                     String imageUrl = ImageResolver.resolve(HomeScreen.this, destination);
 
                     AppDatabase db = AppDatabase.getInstance(HomeScreen.this);

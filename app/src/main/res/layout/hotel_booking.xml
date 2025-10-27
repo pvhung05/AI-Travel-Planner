@@ -85,7 +85,7 @@
                                 android:layout_width="22dp"
                                 android:layout_height="22dp"
                                 android:src="@drawable/ic_pin"
-                                android:tint="#111111" />
+                                app:tint="#111111" />
 
                             <TextView
                                 android:id="@+id/txtDestination"
@@ -124,7 +124,7 @@
                                 android:layout_width="22dp"
                                 android:layout_height="22dp"
                                 android:src="@drawable/ic_calendar"
-                                android:tint="#111111" />
+                                app:tint="#111111" />
 
                             <TextView
                                 android:id="@+id/txtDate"
@@ -163,7 +163,7 @@
                                 android:layout_width="22dp"
                                 android:layout_height="22dp"
                                 android:src="@drawable/ic_people"
-                                android:tint="#111111" />
+                                app:tint="#111111" />
 
                             <TextView
                                 android:id="@+id/txtGuests"
@@ -190,6 +190,8 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="28dp"
                     android:background="@drawable/btn_signin_gradient"
+                    android:backgroundTint="@null"
+                    app:backgroundTint="@null"
                     android:elevation="6dp"
                     android:text="Search"
                     android:textColor="@android:color/white"
