@@ -14,17 +14,16 @@
     </style>
 
     <!-- Style riêng cho Button -->
-    <style name="MyButtonStyle" parent="@style/Widget.AppCompat.Button">
-        <!-- Tắt tint hoàn toàn -->
-        <item name="backgroundTint">@null</item>
+    <style name="MyButtonStyle" parent="@style/Widget.MaterialComponents.Button">
         <item name="android:backgroundTint">@null</item>
-        <!-- Tắt ripple (hiệu ứng xám nhấn) -->
+        <item name="backgroundTint">@null</item>
         <item name="rippleColor">@android:color/transparent</item>
-        <!-- Giữ nguyên màu chữ -->
-        <item name="android:textColor">@android:color/white</item>
-        <!-- Không bo góc hoặc tô thêm màu -->
-        <item name="shapeAppearanceOverlay">@null</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
     </style>
+
 
     <style name="RoundedImageStyle">
         <item name="cornerFamily">rounded</item>

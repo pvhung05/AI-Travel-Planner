@@ -256,6 +256,8 @@
             <Button
                 android:id="@+id/btnPlanTrip"
                 android:layout_width="match_parent"
+                android:backgroundTint="@null"
+                app:backgroundTint="@null"
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"

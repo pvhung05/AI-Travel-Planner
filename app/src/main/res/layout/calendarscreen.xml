@@ -302,6 +302,8 @@
                 android:layout_height="52dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
+                app:backgroundTint="@null"
+
                 android:text="Next step"
                 android:textColor="@android:color/white"
                 android:background="@drawable/bg_cta_gradient"
