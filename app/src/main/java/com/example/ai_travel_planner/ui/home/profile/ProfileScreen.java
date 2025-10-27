@@ -142,6 +142,30 @@ public class ProfileScreen extends AppCompatActivity {
 
         RequestBody passwordBody = null;
         if (!TextUtils.isEmpty(password)) {
+            boolean isPasswordValid = true;
+            String passwordError = "";
+
+            if (password.length() < 8 || password.length() > 15) {
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải từ 8 đến 15 ký tự.";
+            } else if (!password.matches(".*[A-Z].*")) { // Kiểm tra thiếu chữ hoa
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải chứa ít nhất 1 chữ hoa.";
+            } else if (!password.matches(".*[a-z].*")) { // Kiểm tra thiếu chữ thường
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải chứa ít nhất 1 chữ thường.";
+            } else if (!password.matches(".*[0-9].*")) { // Kiểm tra thiếu số
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải chứa ít nhất 1 chữ số.";
+            } else if (!password.matches(".*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?].*")) {
+                isPasswordValid = false;
+                passwordError = "Mật khẩu phải chứa ít nhất 1 ký tự đặc biệt.";
+            }
+
+            if (!isPasswordValid) {
+                Toast.makeText(this, passwordError, Toast.LENGTH_LONG).show();
+                return;
+            }
             if (!password.equals(confirmPassword)) {
                 Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
                 return;

@@ -90,4 +90,5 @@ dependencies {
     implementation(libs.room.ktx)                 // optional nếu bạn cần coroutine/Flow
     annotationProcessor(libs.room.compiler)       // vì code Room là Java
 
+    implementation 'com.google.android.gms:play-services-location:21.0.1' // Lay vi tri hien tai
 }
