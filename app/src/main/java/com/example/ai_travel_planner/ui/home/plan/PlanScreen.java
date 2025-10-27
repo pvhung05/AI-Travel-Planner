@@ -4,6 +4,7 @@ package com.example.ai_travel_planner.ui.home.plan;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ai_travel_planner.R;
 import com.example.ai_travel_planner.data.local.AppDatabase;
 import com.example.ai_travel_planner.data.local.entities.PlanEntity;
+import com.example.ai_travel_planner.ui.home.login.SigninScreen;
 import com.example.ai_travel_planner.ui.home.plan.GuideScreen;
 
 import java.util.List;
@@ -23,14 +25,18 @@ public class PlanScreen extends AppCompatActivity {
     private TextView tvEmpty;
     private PlansAdapter adapter;
 
+    ImageButton btnBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.planscreen);
 
+        btnBack = findViewById(R.id.btnBack);
         rvPlans = findViewById(R.id.rvPlans);
         tvEmpty = findViewById(R.id.tvSubtitle); // dùng tạm subtitle như empty hint
 
+        actionButton(btnBack, GuideScreen.class);
         // Lưới 1 cột (đổi 2 nếu bạn muốn kiểu gallery)
         rvPlans.setLayoutManager(new GridLayoutManager(this, 1));
 
@@ -61,5 +67,16 @@ public class PlanScreen extends AppCompatActivity {
                 rvPlans.setVisibility(empty ? View.GONE : View.VISIBLE);
             });
         }).start();
+    }
+
+    void actionButton(View view, final Class<?> destination) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PlanScreen.this, destination);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
