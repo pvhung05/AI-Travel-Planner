@@ -24,8 +24,7 @@ public class PlanScreen extends AppCompatActivity {
     private RecyclerView rvPlans;
     private TextView tvEmpty;
     private PlansAdapter adapter;
-
-    ImageButton btnBack;
+    private ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +33,16 @@ public class PlanScreen extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btnBack);
         rvPlans = findViewById(R.id.rvPlans);
-        tvEmpty = findViewById(R.id.tvSubtitle); // dùng tạm subtitle như empty hint
+        tvEmpty = findViewById(R.id.tvSubtitle); // dùng tạm subtitle làm empty hint
 
-        actionButton(btnBack, GuideScreen.class);
-        // Lưới 1 cột (đổi 2 nếu bạn muốn kiểu gallery)
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish()); // ← QUAY LẠI, KHÔNG mở GuideScreen
+        }
+
         rvPlans.setLayoutManager(new GridLayoutManager(this, 1));
 
-        // Khi click 1 kế hoạch -> mở GuideScreen, truyền plan_id
         adapter = new PlansAdapter(plan -> {
+            // Mở chi tiết kế hoạch, PHẢI truyền plan_id
             Intent it = new Intent(PlanScreen.this, GuideScreen.class);
             it.putExtra("plan_id", plan.id);
             startActivity(it);
@@ -60,23 +61,10 @@ public class PlanScreen extends AppCompatActivity {
             List<PlanEntity> all = AppDatabase.getInstance(this).planDao().getAll();
             runOnUiThread(() -> {
                 adapter.setData(all);
-
-                // Ẩn/hiện empty hint + danh sách
                 boolean empty = (all == null || all.isEmpty());
                 tvEmpty.setText(empty ? "Chưa có lịch trình nào. Hãy tạo bằng AI nhé!" : "Your saved trips");
                 rvPlans.setVisibility(empty ? View.GONE : View.VISIBLE);
             });
         }).start();
-    }
-
-    void actionButton(View view, final Class<?> destination) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PlanScreen.this, destination);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 }
