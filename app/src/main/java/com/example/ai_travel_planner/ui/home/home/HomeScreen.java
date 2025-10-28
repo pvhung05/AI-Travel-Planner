@@ -111,6 +111,9 @@ public class HomeScreen extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
         BottomNav.setupNavigation(this, bottomNav, R.id.nav_home);
 
+        setActiveButton(btnMostViewed);
+        fetchMostViewedPlaces();
+
         tvGreeting.setText("Hi, Traveler 👋");
 
         etSearch.setOnKeyListener((v, keyCode, event) -> {
