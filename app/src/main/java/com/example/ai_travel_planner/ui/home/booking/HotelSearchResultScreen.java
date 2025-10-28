@@ -3,6 +3,7 @@ package com.example.ai_travel_planner.ui.home.booking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class HotelSearchResultScreen extends AppCompatActivity {
     private RecyclerView rvHotels;
     private ProgressBar progress;
     private HotelsAdapter adapter;
-
+    private ImageButton btnBack;
     String destinationName;
     long checkInEpoch, checkOutEpoch;
     int rooms, adults, children;
@@ -43,6 +44,7 @@ public class HotelSearchResultScreen extends AppCompatActivity {
         tvEmpty   = findViewById(R.id.tvEmpty);
         rvHotels  = findViewById(R.id.rvHotels);
         progress  = findViewById(R.id.progress);
+        btnBack = findViewById(R.id.btnBack);
 
         readInputParams();
         tvHeader.setText(destinationName + " • " + formatNights());
@@ -61,6 +63,7 @@ public class HotelSearchResultScreen extends AppCompatActivity {
         });
         rvHotels.setAdapter(adapter);
 
+        btnBack.setOnClickListener(v -> finish());
         fetchHotelsByCoordinates();
     }
 

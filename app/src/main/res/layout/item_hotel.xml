@@ -1,71 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginVertical="6dp"
-        card_view:cardCornerRadius="14dp"
-        card_view:cardElevation="2dp">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="12dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="5dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:backgroundTint="#FFFFFF">
 
     <LinearLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- ẢNH BO GÓC -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgThumb"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:scaleType="centerCrop"
+            android:src="@drawable/sample_mountain"
+            app:shapeAppearanceOverlay="@style/RoundedImageLeft"
+            android:contentDescription="Ảnh khách sạn"/>
 
-        <ImageView
-                android:id="@+id/imgThumb"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_mountain"/>
-
+        <!-- THÔNG TIN -->
         <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingStart="10dp">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="12dp">
 
+            <!-- TÊN KHÁCH SẠN -->
             <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:text="Hotel name"/>
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vinpearl Resort  Spa"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:textSize="16sp"
+                android:maxLines="2"
+                android:ellipsize="end" />
 
+            <!-- ĐỊA CHỈ -->
             <TextView
-                    android:id="@+id/tvAddr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Address"
-                    android:textSize="12sp"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:paddingTop="2dp"/>
+                android:id="@+id/tvAddr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nha Trang, Khánh Hòa"
+                android:textSize="13sp"
+                android:textColor="#666666"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:ellipsize="end" />
 
+            <!-- ĐÁNH GIÁ + GIÁ -->
             <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_star"/>
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="6dp">
+                    android:text="4.7"
+                    android:textStyle="bold"
+                    android:textColor="#333333"
+                    android:textSize="13sp"
+                    android:layout_marginStart="4dp"/>
 
                 <TextView
-                        android:id="@+id/tvRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="4.6"
-                        android:textStyle="bold"/>
-
-                <TextView
-                        android:id="@+id/tvPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="~ 120 USD"
-                        android:layout_marginStart="12dp"/>
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="~ 1.200.000 VND / đêm"
+                    android:textColor="#0072FF"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>

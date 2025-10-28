@@ -32,6 +32,10 @@
         app:boxCornerRadiusTopEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusBottomEnd="12dp"
+        app:boxStrokeColor="#E0E0E0"
+        android:layout_marginHorizontal="25dp"
+
+        app:boxBackgroundColor="#FAFAFA"
         app:startIconDrawable="@android:drawable/ic_menu_compass">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -48,7 +52,11 @@
         android:hint="Số ngày (vd: 3)"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="#E0E0E0"
+        app:boxBackgroundColor="#FAFAFA"
         app:boxCornerRadiusTopEnd="12dp"
+        android:layout_marginHorizontal="25dp"
+
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusBottomEnd="12dp"
         app:startIconDrawable="@android:drawable/ic_menu_today"
@@ -66,9 +74,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Ngân sách (VND, vd: 3000000)"
+        app:boxStrokeColor="#E0E0E0"
+        app:boxBackgroundColor="#FAFAFA"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
+        android:layout_marginHorizontal="25dp"
+
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusBottomEnd="12dp"
         app:startIconDrawable="@android:drawable/ic_menu_sort_by_size"
@@ -89,6 +101,10 @@
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
+        app:boxStrokeColor="#E0E0E0"
+        app:boxBackgroundColor="#FAFAFA"
+        android:layout_marginHorizontal="25dp"
+
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusBottomEnd="12dp"
         app:startIconDrawable="@android:drawable/ic_menu_gallery"
@@ -103,31 +119,31 @@
 
     <!-- Nút hành động -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_width="348dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="20dp"
         android:gravity="end"
-        android:layout_marginTop="20dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_orange_outline"
             android:text="Hủy"
-            app:backgroundTint="@null"
 
             android:textColor="@android:color/darker_gray"
-            android:background="@drawable/btn_orange_outline" />
+            app:backgroundTint="@null" />
 
         <Button
             android:id="@+id/btnConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="@null"
-
-            android:text="Xác nhận"
             android:layout_marginStart="8dp"
+
+            android:background="@drawable/btn_signin_gradient"
+            android:text="Xác nhận"
             android:textColor="@android:color/white"
-            android:background="@drawable/btn_signin_gradient" />
+            app:backgroundTint="@null" />
     </LinearLayout>
 </LinearLayout>

@@ -1,48 +1,104 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:fitsSystemWindows="true"
+    android:background="#FFFFFF">
 
-    <LinearLayout
+    <!-- Cuộn nội dung chính -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:orientation="vertical"
             android:padding="16dp"
-            android:layout_width="match_parent" android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="48dp">
 
-        <ImageView
-                android:id="@+id/imgThumb"
+            <!-- ẢNH CHÍNH -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardImage"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_mountain"/>
+                android:layout_height="230dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                app:cardUseCompatPadding="true"
+                android:layout_marginBottom="16dp">
 
-        <TextView
+                <ImageView
+                    android:id="@+id/imgThumb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/sample_mountain" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Thông tin -->
+            <TextView
                 android:id="@+id/tvName"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textStyle="bold" android:textSize="20sp"/>
-
-        <TextView
-                android:id="@+id/tvAddr"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:textColor="#666"/>
-
-        <TextView
-                android:id="@+id/tvRating"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"/>
-
-        <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"/>
-
-        <Button
-                android:id="@+id/btnBookNow"
-                app:backgroundTint="@null"
-                android:background="@drawable/bg_cta_gradient"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                android:text="Book now"/>
-    </LinearLayout>
-</ScrollView>
+                android:layout_height="wrap_content"
+                android:text="Bà Nà Hills Resort"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:textColor="#222" />
+
+            <TextView
+                android:id="@+id/tvAddr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Hòa Ninh, Hòa Vang, Đà Nẵng"
+                android:textColor="#666" />
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="⭐ 4.7 / 5 (1.245 reviews)"
+                android:textColor="#FFA500" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Từ 1.200.000 VND / đêm"
+                android:textColor="#0080FF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnBookNow"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="24dp"
+                app:backgroundTint="@null"
+                android:text="Đặt ngay"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif-medium"
+                android:background="@drawable/bg_cta_gradient" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 🔙 Nút quay lại -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/btn_back"
+        android:src="@drawable/ic_back"
+        android:contentDescription="@string/back"
+        android:scaleType="centerInside"
+        android:padding="8dp"
+        android:elevation="8dp" />
+</FrameLayout>
