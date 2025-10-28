@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import retrofit2.Response;
 
 public class PlaceSearchActivity extends AppCompatActivity {
 
+    private ImageButton btnBack;
     private EditText edtQuery;
     private RecyclerView rv;
     private PlacesAdapter adapter;
@@ -40,9 +42,12 @@ public class PlaceSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_search);
 
+        btnBack = findViewById(R.id.btnBack);
         edtQuery = findViewById(R.id.edtQuery);
         rv = findViewById(R.id.rvResults);
         rv.setLayoutManager(new LinearLayoutManager(this));
+
+        btnBack.setOnClickListener(v -> finish());
 
         adapter = new PlacesAdapter(p -> {
             String display = p.formatted;
