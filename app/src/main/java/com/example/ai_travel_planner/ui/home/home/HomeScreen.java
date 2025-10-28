@@ -32,6 +32,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ai_travel_planner.R;
 import com.example.ai_travel_planner.data.local.AppDatabase;
 import com.example.ai_travel_planner.data.local.entities.PlanEntity;
+import com.example.ai_travel_planner.network.ApiClient;
+import com.example.ai_travel_planner.network.ApiService;
 import com.example.ai_travel_planner.network.ai.GeminiClient;
 import com.example.ai_travel_planner.network.models.GeoClient;
 import com.example.ai_travel_planner.network.models.GeoRequest;
@@ -56,6 +58,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import android.util.Log;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class HomeScreen extends AppCompatActivity {
 
     private TextView tvGreeting;
@@ -73,6 +79,10 @@ public class HomeScreen extends AppCompatActivity {
 
     private Button btnMostViewed, btnNearby, btnLatest;
 
+    private ApiService apiService;
+
+    private boolean isLoading = false; // Thêm biến cờ để tránh gọi API trùng lặp
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +90,8 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.homescreen);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        apiService = ApiClient.getClient().create(ApiService.class);
 
         tvGreeting = findViewById(R.id.tvGreeting);
         recyclerView = findViewById(R.id.recyclerPlaces);
@@ -122,7 +134,7 @@ public class HomeScreen extends AppCompatActivity {
 
         btnMostViewed.setOnClickListener(v -> {
             setActiveButton(btnMostViewed);
-//            fetchMostViewedPlaces();
+            fetchMostViewedPlaces();
         });
 
         btnNearby.setOnClickListener(v -> {
@@ -132,7 +144,7 @@ public class HomeScreen extends AppCompatActivity {
 
         btnLatest.setOnClickListener(v -> {
             setActiveButton(btnLatest);
-//            fetchLatestPlaces();
+            fetchLatestPlaces();
         });
 
     }
@@ -685,6 +697,68 @@ public class HomeScreen extends AppCompatActivity {
         if (executorService != null && !executorService.isShutdown()) {
             executorService.shutdown();
         }
+    }
+
+    private void fetchMostViewedPlaces() {
+        if (isLoading) return; // Nếu đang tải thì không gọi nữa
+        Log.d("FetchData", "Đang tải Most Viewed...");
+        isLoading = true;
+
+        // Xóa danh sách cũ
+        placeList.clear();
+        adapter.updateData(placeList);
+
+        apiService.getMostViewedPlaces().enqueue(new Callback<List<PlaceItem>>() {
+            @Override
+            public void onResponse(Call<List<PlaceItem>> call, Response<List<PlaceItem>> response) {
+                isLoading = false;
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d("FetchData", "Tải Most Viewed thành công: " + response.body().size() + " mục.");
+                    adapter.updateData(response.body()); // Cập nhật adapter với dữ liệu mới
+                } else {
+                    Log.e("FetchData", "Lỗi API Most Viewed: " + response.code());
+                    Toast.makeText(HomeScreen.this, "Lỗi tải Most Viewed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PlaceItem>> call, Throwable t) {
+                isLoading = false;
+                Log.e("FetchData", "Lỗi mạng Most Viewed", t);
+                Toast.makeText(HomeScreen.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void fetchLatestPlaces() {
+        if (isLoading) return; // Nếu đang tải thì không gọi nữa
+        Log.d("FetchData", "Đang tải Latest...");
+        isLoading = true;
+
+        // Xóa danh sách cũ
+        placeList.clear();
+        adapter.updateData(placeList);
+
+        apiService.getLatestPlaces().enqueue(new Callback<List<PlaceItem>>() {
+            @Override
+            public void onResponse(Call<List<PlaceItem>> call, Response<List<PlaceItem>> response) {
+                isLoading = false;
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d("FetchData", "Tải Latest thành công: " + response.body().size() + " mục.");
+                    adapter.updateData(response.body()); // Cập nhật adapter
+                } else {
+                    Log.e("FetchData", "Lỗi API Latest: " + response.code());
+                    Toast.makeText(HomeScreen.this, "Lỗi tải Latest", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<PlaceItem>> call, Throwable t) {
+                isLoading = false;
+                Log.e("FetchData", "Lỗi mạng Latest", t);
+                Toast.makeText(HomeScreen.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

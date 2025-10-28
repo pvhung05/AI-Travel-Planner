@@ -5,6 +5,9 @@ import com.example.ai_travel_planner.network.models.LoginResponse;
 import com.example.ai_travel_planner.network.models.RegisterRequest;
 import com.example.ai_travel_planner.network.models.RegisterResponse;
 import com.example.ai_travel_planner.network.models.UserMe;
+import com.example.ai_travel_planner.ui.home.plan.PlaceItem;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -36,4 +39,10 @@ public interface ApiService {
                                @Part("password") RequestBody password,
                                @Part MultipartBody.Part avatarUrl
     );
+
+    @GET("/api/places/most-viewed")
+    Call<List<PlaceItem>> getMostViewedPlaces();
+
+    @GET("/api/places/latest")
+    Call<List<PlaceItem>> getLatestPlaces();
 }
