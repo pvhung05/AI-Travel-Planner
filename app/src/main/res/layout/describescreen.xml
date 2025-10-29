@@ -110,14 +110,6 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tvPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="299/-"
-                        android:textColor="#FFFFFF"
-                        android:textSize="15sp" />
                 </LinearLayout>
             </FrameLayout>
 
@@ -156,28 +148,29 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
                 android:gravity="center_vertical">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginEnd="16dp">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_marginEnd="16dp">-->
 
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@drawable/time"/>
+<!--                    <ImageView-->
+<!--                        android:layout_width="18dp"-->
+<!--                        android:layout_height="18dp"-->
+<!--                        android:src="@drawable/time"/>-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="8 hours"
-                        android:textSize="13sp"
-                        android:textColor="#444444"
-                        android:layout_marginStart="4dp"/>
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="8 hours"-->
+<!--                        android:textSize="13sp"-->
+<!--                        android:textColor="#444444"-->
+<!--                        android:layout_marginStart="4dp"/>-->
+<!--                </LinearLayout>-->
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -192,6 +185,7 @@
                         android:src="@drawable/temp"/>
 
                     <TextView
+                        android:id="@+id/tvTemp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="16°C"
@@ -212,6 +206,7 @@
                         android:src="@drawable/star"/>
 
                     <TextView
+                        android:id="@+id/tvPlaceRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.5"

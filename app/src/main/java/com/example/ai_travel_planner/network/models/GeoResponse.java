@@ -21,10 +21,11 @@ public class GeoResponse {
         public String address_line2;
         // ... (các trường khác như postcode, county, state...)
 
-        // SỬA LẠI KIỂU DỮ LIỆU Ở ĐÂY:
-        public List<String> categories; // <-- Đổi từ String thành List<String>
+        public List<String> categories;
 
         public Datasource datasource; // Thêm nếu cần thông tin nguồn
+
+        public Double rating;
 
         // Thêm lớp Datasource nếu cần
         public static class Datasource {

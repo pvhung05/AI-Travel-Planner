@@ -52,12 +52,14 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvPrice"
+            android:id="@+id/tvPlaceRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="299/-"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp" />
+            android:text="4.8"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:drawablePadding="4dp"
+            android:layout_marginStart="8dp" />
     </LinearLayout>
 </FrameLayout>

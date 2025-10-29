@@ -81,6 +81,13 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         holder.tvPlaceName.setText(item.getName());
         // holder.tvPlaceVicinity.setText(item.getVicinity()); // Bỏ comment nếu có TextView này
 
+        if (item.getRating() != null && item.getRating() > 0) {
+            holder.tvPlaceRating.setText(String.format("%.1f", item.getRating())); // Format "4.8"
+            holder.tvPlaceRating.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvPlaceRating.setVisibility(View.GONE); // Ẩn đi nếu không có rating
+        }
+
         // Tải ảnh bằng Glide
         if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
             try {
@@ -108,6 +115,11 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
             intent.putExtra("placeName", item.getName());
             intent.putExtra("placeVicinity", item.getVicinity());
             intent.putExtra("placeImageUrl", item.getImageUrl());
+            intent.putExtra("placeRating", item.getRating());
+            intent.putExtra("PLACE_IMAGE_URL", item.getImageUrl());
+            intent.putExtra("PLACE_DESCRIPTION", item.getDescription());
+            intent.putExtra("PLACE_LATITUDE", item.getLatitude());
+            intent.putExtra("PLACE_LONGITUDE", item.getLongitude());
             intent.putExtra("source", "home");
             context.startActivity(intent);
         });
@@ -125,12 +137,14 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.PlaceViewHol
         TextView tvPlaceName;
         // TextView tvPlaceVicinity; // Thêm nếu có
         ImageView imgPlace;
+        TextView tvPlaceRating;
 
         public PlaceViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPlaceName = itemView.findViewById(R.id.tvPlaceName);
             // tvPlaceVicinity = itemView.findViewById(R.id.tvPlaceVicinity); // Ánh xạ nếu có
             imgPlace = itemView.findViewById(R.id.imgPlace);
+            tvPlaceRating = itemView.findViewById(R.id.tvPlaceRating);
         }
     }
 }

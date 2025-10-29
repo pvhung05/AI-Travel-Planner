@@ -73,7 +73,7 @@ public class HomeScreen extends AppCompatActivity {
     private List<PlaceItem> placeList = new ArrayList<>(); // Danh sách chứa PlaceItem
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
-    private ExecutorService executorService = Executors.newFixedThreadPool(3); // Tăng thread pool để load song song
+    private ExecutorService executorService = Executors.newFixedThreadPool(7); // Tăng thread pool để load song song
 
     private LinearLayout btnTravel, btnHotel;
 
@@ -586,10 +586,11 @@ public class HomeScreen extends AppCompatActivity {
         String bias = String.format("proximity:%f,%f", lng, lat);
         String categories = "building.tourism,building.historic,building.place_of_worship,beach.beach_resort,activity.sport_club,building.entertainment";
         String apiKey = getString(R.string.geoapify_api_key);
+        String properties = "rating";
 
-        Log.d("GEOAPIFY_REQUEST", "Filter: " + filter + ", Bias: " + bias + ", Categories: " + categories); // Log request params
+        Log.d("GEOAPIFY_REQUEST", "Filter: " + filter + ", Bias: " + bias + ", Categories: " + categories + ", Properties: " + properties); // Log request params
 
-        retrofit2.Call<GeoResponse> call = service.getNearbyPlaces(categories, filter, bias, 20, apiKey);
+        retrofit2.Call<GeoResponse> call = service.getNearbyPlaces(categories, filter, bias, 10, apiKey, properties);
 
         call.enqueue(new retrofit2.Callback<GeoResponse>() {
             @Override
@@ -646,6 +647,21 @@ public class HomeScreen extends AppCompatActivity {
             item.setName(f.properties.name);
             item.setVicinity(f.properties.address_line2 != null ? f.properties.address_line2 :
                     (f.properties.city != null ? f.properties.city : ""));
+
+            if (f.properties != null && f.properties.rating != null) {
+                // Geoapify rating (0-10), chia 2 để ra thang 0-5
+                item.setRating(f.properties.rating / 2.0);
+            } else {
+                item.setRating(0.0); // Không có rating
+            }
+
+            if (f.geometry != null && f.geometry.coordinates != null && f.geometry.coordinates.size() >= 2) {
+                item.setLongitude(f.geometry.coordinates.get(0)); // x = lon
+                item.setLatitude(f.geometry.coordinates.get(1));  // y = lat
+            } else {
+                Log.w("ProcessResults", "Feature missing coordinates: " + f.properties.name);
+            }
+
             item.setImageUrl(null); // Ban đầu không có ảnh
             newList.add(item);
         }

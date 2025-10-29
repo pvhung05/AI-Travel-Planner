@@ -5,6 +5,7 @@ import com.example.ai_travel_planner.network.models.LoginResponse;
 import com.example.ai_travel_planner.network.models.RegisterRequest;
 import com.example.ai_travel_planner.network.models.RegisterResponse;
 import com.example.ai_travel_planner.network.models.UserMe;
+import com.example.ai_travel_planner.network.models.WeatherResponse;
 import com.example.ai_travel_planner.ui.home.plan.PlaceItem;
 
 import java.util.List;
@@ -19,6 +20,8 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 

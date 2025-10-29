@@ -12,6 +12,7 @@ public interface GeoRequest {
             @Query("filter") String filter,     // ví dụ: circle:lng,lat,radius
             @Query("bias") String bias,         // ví dụ: proximity:lng,lat
             @Query("limit") int limit,
-            @Query("apiKey") String apiKey
+            @Query("apiKey") String apiKey,
+            @Query("properties") String properties
     );
 }
