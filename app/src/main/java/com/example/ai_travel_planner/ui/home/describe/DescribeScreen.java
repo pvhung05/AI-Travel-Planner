@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DescribeScreen extends Activity {
-    ImageButton btnBack, btnBookmark;
+    ImageButton btnBack;
     Button btnEnterPlan, btnViewOther;
 
     TextView tvDescription, tvTemp;
@@ -93,7 +93,6 @@ public class DescribeScreen extends Activity {
         }
 
         btnBack = findViewById(R.id.btnBack);
-        btnBookmark = findViewById(R.id.btnBookmark);
         btnEnterPlan = findViewById(R.id.btnEnterPlan);
         btnViewOther = findViewById(R.id.btnViewOther);
 

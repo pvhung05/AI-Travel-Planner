@@ -58,19 +58,7 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/whiteback" />
 
-                <!-- Nút bookmark -->
-                <ImageButton
-                    android:id="@+id/btnBookmark"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="end|top"
-                    android:layout_margin="16dp"
-                    android:background="@drawable/btn_back"
-                    android:contentDescription="Bookmark"
-                    android:elevation="20dp"
-                    android:padding="7dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/bookmark" />
+
 
                 <!-- Overlay thông tin -->
                 <LinearLayout
