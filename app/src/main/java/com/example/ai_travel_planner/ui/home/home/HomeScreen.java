@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ai_travel_planner.BuildConfig;
 import com.example.ai_travel_planner.R;
 import com.example.ai_travel_planner.data.local.AppDatabase;
 import com.example.ai_travel_planner.data.local.entities.PlanEntity;
@@ -53,8 +54,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import android.util.Log;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -129,7 +128,10 @@ public class HomeScreen extends AppCompatActivity {
             setActiveButton(btnNearby);
             requestLocationPermission(); // Gọi hàm kiểm tra quyền
         });
-
+        btnTravel.setOnClickListener(v -> {
+            Intent it = new Intent(HomeScreen.this, com.example.ai_travel_planner.ui.home.booking.PlaneBookingScreen.class);
+            startActivity(it); // hoặc planeLauncher.launch(it) nếu bạn giữ ActivityResult
+        });
         btnLatest.setOnClickListener(v -> {
             setActiveButton(btnLatest);
 //            fetchLatestPlaces();
@@ -570,7 +572,7 @@ public class HomeScreen extends AppCompatActivity {
         String filter = String.format("circle:%f,%f,20000", lng, lat);
         String bias = String.format("proximity:%f,%f", lng, lat);
         String categories = "building.tourism,building.historic,building.place_of_worship,beach.beach_resort,activity.sport_club,building.entertainment";
-        String apiKey = getString(R.string.geoapify_api_key);
+        String apiKey = BuildConfig.GEOAPIFY_KEY;
 
         Log.d("GEOAPIFY_REQUEST", "Filter: " + filter + ", Bias: " + bias + ", Categories: " + categories); // Log request params
 
@@ -686,5 +688,6 @@ public class HomeScreen extends AppCompatActivity {
             executorService.shutdown();
         }
     }
+
 
 }

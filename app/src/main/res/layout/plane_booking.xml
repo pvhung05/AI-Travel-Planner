@@ -38,11 +38,11 @@
                     android:src="@drawable/ic_back"
                     android:scaleType="centerInside"
                     android:translationY="20px"
-                    android:tint="#6B6B6B"
                     android:padding="8dp"
                     android:contentDescription="@string/back"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#6B6B6B" />
 
                 <!-- Segmented Plane / Bus -->
                 <LinearLayout
@@ -72,7 +72,7 @@
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:src="@drawable/ic_plane"
-                            android:tint="#111111" />
+                            app:tint="#111111" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -97,8 +97,8 @@
                             android:layout_width="28dp"
                             android:layout_height="28dp"
                             android:src="@drawable/ic_bus"
-                            android:tint="#6B6B6B"
-                            android:contentDescription="@string/bus"/>
+                            android:contentDescription="@string/bus"
+                            app:tint="#6B6B6B" />
                         <TextView
                             android:id="@+id/txtBus"
                             android:layout_width="wrap_content"
@@ -133,8 +133,8 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_origin"
-                            android:tint="#FF7E36"
-                            android:contentDescription="@string/from"/>
+                            android:contentDescription="@string/from"
+                            app:tint="#FF7E36" />
 
                         <TextView
                             android:id="@+id/txtFrom"
@@ -164,8 +164,8 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_pin"
-                            android:tint="#FF3B30"
-                            android:contentDescription="@string/to"/>
+                            android:contentDescription="@string/to"
+                            app:tint="#FF3B30" />
 
                         <TextView
                             android:id="@+id/txtTo"
@@ -196,8 +196,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_calendar"
-                        android:tint="#111111"
-                        android:contentDescription="@string/date"/>
+                        android:contentDescription="@string/date"
+                        app:tint="#111111" />
 
                     <TextView
                         android:id="@+id/txtDate"
@@ -240,8 +240,8 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_user"
-                        android:tint="#111111"
-                        android:contentDescription="@string/passengers"/>
+                        android:contentDescription="@string/passengers"
+                        app:tint="#111111" />
 
                     <TextView
                         android:id="@+id/txtPassengers"

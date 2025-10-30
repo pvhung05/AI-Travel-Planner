@@ -29,6 +29,7 @@
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="date">Date</string>
+    <string name="choose_destination">Choose destination</string>
     <string name="passengers">Passengers</string>
     <string name="explore">Explore</string>
     <string name="favorite">Favorite</string>
@@ -38,4 +39,7 @@
     <string name="unsplash_access_key">rwoRlUESZ1LhdEsNNjdKjLrEHUFHQsMLxbgqwXFwumE</string>
     <string name="rapidapi_key">5c7d5aefa5msh477f5b86fc0aca8p1f9e98jsn00757f6a4211</string>
     <string name="geoapify_api_key">5316284bf01d48039b1fdc517f3160a8</string>
+    <string name="rapid_key">5c7d5aefa5msh477f5b86fc0aca8p1f9e98jsn00757f6a4211</string>
+    <string name="search_city_or_airport">Search city or airport</string>
+    <string name="close">Close</string>
 </resources>
