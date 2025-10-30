@@ -144,7 +144,10 @@ public class HomeScreen extends AppCompatActivity {
             setActiveButton(btnNearby);
             requestLocationPermission(); // Gọi hàm kiểm tra quyền
         });
-
+        btnTravel.setOnClickListener(v -> {
+            Intent it = new Intent(HomeScreen.this, com.example.ai_travel_planner.ui.home.booking.PlaneBookingScreen.class);
+            startActivity(it); // hoặc planeLauncher.launch(it) nếu bạn giữ ActivityResult
+        });
         btnLatest.setOnClickListener(v -> {
             setActiveButton(btnLatest);
             fetchLatestPlaces();

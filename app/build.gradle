@@ -32,14 +32,24 @@ android {
         buildConfigField "String", "PLACES_API_KEY", "\"${PLACES}\""
         buildConfigField "String", "RAPIDAPI_KEY", "\"${RAPID}\""
         buildConfigField "String", "GEOAPIFY_KEY", "\"${GEO}\""
+        buildConfigField "String", "AMADEUS_BASE", "\"https://test.api.amadeus.com/\""
+        buildConfigField "String", "AMADEUS_OAUTH", "\"https://test.api.amadeus.com/v1/security/oauth2/token\""
+        // TODO: thay KEY/SECRET test của bạn
+        buildConfigField "String", "AMADEUS_KEY", "\"IXt2VLGuip2ZPhfkAm8kFQGvIVAESWPM\""
+        buildConfigField "String", "AMADEUS_SECRET", "\"rp8Hns8bqHtTtilo\""
+        buildConfigField "String", "KIWI_KEY", "\"5c7d5aefa5msh477f5b86fc0aca8p1f9e98jsn00757f6a4211\""
+        buildConfigField "String", "KIWI_CHEAP_BASE", "\"https://kiwi-com-cheap-flights.p.rapidapi.com/\""
+        buildConfigField "String", "KIWI_CHEAP_HOST", "\"kiwi-com-cheap-flights.p.rapidapi.com\""
+        // Base URL sandbox
+        buildConfigField "String", "AMADEUS_BASE", "\"https://test.api.amadeus.com/\""
     }
 
     buildTypes {
         release {
             minifyEnabled  = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
             )
         }
     }
@@ -90,21 +100,19 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation 'com.github.bumptech.glide:glide:4.16.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation "com.google.android.material:material:1.12.0"
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.12'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
     implementation("com.google.android.libraries.places:places:3.5.0")
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
     implementation "com.github.bumptech.glide:glide:4.16.0"
     annotationProcessor "com.github.bumptech.glide:compiler:4.16.0"
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)                 // optional nếu bạn cần coroutine/Flow
     annotationProcessor(libs.room.compiler)       // vì code Room là Java
-
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1' // Lay vi tri hien tai
 }
