@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.ai_travel_planner.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +25,8 @@ public class FlightResultsActivity extends AppCompatActivity {
     public final List<FlightRow> data = new ArrayList<>();
     private FlightRowAdapter adapter;
 
-    // các tham số từ PlaneBookingScreen (đã có)
-    private String fromIata, toIata, departISO, returnISO, cabin;
+    // nhận từ PlaneBookingScreen
+    private String fromIata, toIata, departISO, returnISO, cabin, currency;
     private int adults;
     private boolean roundTrip;
 
@@ -35,13 +38,15 @@ public class FlightResultsActivity extends AppCompatActivity {
         progress = findViewById(R.id.progress);
         txtEmpty = findViewById(R.id.txtEmpty);
 
+        // ✅ ĐỌC ĐÚNG KEYS TỪ PlaneBookingScreen
         fromIata   = getIntent().getStringExtra("from");
         toIata     = getIntent().getStringExtra("to");
-        departISO  = getIntent().getStringExtra("depart");
-        returnISO  = getIntent().getStringExtra("ret");
-        cabin      = getIntent().getStringExtra("cabin");
-        adults     = getIntent().getIntExtra("adults", 1);
-        roundTrip  = getIntent().getBooleanExtra("roundTrip", false);
+        departISO  = getIntent().getStringExtra("departISO");
+        returnISO  = getIntent().getStringExtra("returnISO");
+        cabin      = getIntent().getStringExtra("cabin");     if (cabin == null) cabin = "ECONOMY";
+        adults     = Math.max(1, getIntent().getIntExtra("adults", 1));
+        roundTrip  = getIntent().getBooleanExtra("roundTrip", true);
+        currency   = getIntent().getStringExtra("currency");  if (currency == null) currency = "USD";
 
         TextView header = findViewById(R.id.txtHeader);
         header.setText(roundTrip && returnISO != null && !returnISO.isEmpty()
@@ -49,6 +54,7 @@ public class FlightResultsActivity extends AppCompatActivity {
                 : String.format("%s → %s  (%s)", fromIata, toIata, departISO));
 
         adapter = new FlightRowAdapter(data, row -> {
+            // ➜ Mở màn chi tiết & TRUYỀN THAM SỐ để deep-link auto-fill
             Intent it = new Intent(this, FlightDetailActivity.class);
             it.putExtra("airline",  row.airline);
             it.putExtra("flightNo", row.flightNo);
@@ -61,17 +67,24 @@ public class FlightResultsActivity extends AppCompatActivity {
             it.putExtra("stops",    row.stops);
             it.putExtra("duration", row.duration);
             it.putExtra("baggage",  row.baggage);
-            it.putExtra("deepLink", row.deepLink);
+
+            // các tham số để BookingDeepLinks build URL prefill
+            it.putExtra("fromIata",  fromIata);
+            it.putExtra("toIata",    toIata);
+            it.putExtra("departISO", departISO);
+            it.putExtra("returnISO", roundTrip ? returnISO : "");
+            it.putExtra("adults",    adults);
+            it.putExtra("cabin",     cabin);
+            it.putExtra("roundTrip", roundTrip);
             startActivity(it);
         });
+
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
 
-        // ❶ Ở đây bạn đã có code gọi Amadeus → hãy map sang data.add(row) như dưới.
-        //    Nếu cần test nhanh, dùng mockToRows() rồi thay bằng kết quả thật.
+        // TODO: thay mockToRows() bằng parse kết quả Amadeus thật của bạn.
         showLoading(true);
-        // TODO: thay bằng: parseAmadeusResponseToRows(amadeusJson);
-        mockToRows(); // demo
+        mockToRows();
         showLoading(false);
     }
 
@@ -84,7 +97,7 @@ public class FlightResultsActivity extends AppCompatActivity {
     // ==== DEMO ONLY: Xoá khi đã map từ Amadeus ====
     private void mockToRows() {
         data.clear();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 6; i++) {
             FlightRow r = new FlightRow();
             r.airline  = (i % 2 == 0) ? "Vietnam Airlines" : "Bamboo Airways";
             r.flightNo = (i % 2 == 0) ? "VN" + (200 + i) : "QH" + (110 + i);
@@ -95,26 +108,10 @@ public class FlightResultsActivity extends AppCompatActivity {
             r.duration = "2h 10m";
             r.baggage  = "7kg cabin";
             r.price    = 120 + i * 10;
-            r.currency = "USD";
-            r.deepLink = buildBookingLink(fromIata, toIata, departISO,
-                    roundTrip ? returnISO : null, adults, r.airline, r.flightNo);
+            r.currency = currency;
             data.add(r);
         }
         adapter.notifyDataSetChanged();
-    }
-
-    /** Gợi ý deeplink (Google Flights) từ thông tin Amadeus */
-    public static String buildBookingLink(String from, String to, String departISO,
-                                          String returnISO, int adults,
-                                          String airline, String flightNo) {
-        // Cách ổn định: query search của Google Flights (không phụ thuộc partner)
-        String q = "Flights from " + from + " to " + to + " on " + departISO;
-        if (returnISO != null && !returnISO.isEmpty()) q += " returning " + returnISO;
-        if (airline != null && !airline.isEmpty()) q += " " + airline;
-        if (flightNo != null && !flightNo.isEmpty()) q += " " + flightNo;
-        // encode nhẹ — đủ dùng
-        q = q.replace(" ", "%20");
-        return "https://www.google.com/travel/flights?q=" + q;
     }
 
     // ===== model cho 1 dòng =====
@@ -123,6 +120,5 @@ public class FlightResultsActivity extends AppCompatActivity {
         public double price;
         public int    stops;
         public String duration, baggage;
-        public String deepLink; // mở khi Book now
     }
 }

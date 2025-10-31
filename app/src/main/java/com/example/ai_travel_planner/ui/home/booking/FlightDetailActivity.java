@@ -1,219 +1,143 @@
 package com.example.ai_travel_planner.ui.home.booking;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ai_travel_planner.R;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
+/**
+ * Màn chi tiết một offer chuyến bay.
+ * - Hiển thị thông tin đã chọn ở FlightResultsActivity
+ * - 3 nút mở deeplink đã AUTOFILL:
+ *     + Google Flights
+ *     + Skyscanner (định dạng /transport/flights/{from}/{to}/{ddMMyy}/{ddMMyy}/?... )
+ *     + Kiwi (search/results/{from}-{to}/{yyyy-MM-dd}/{yyyy-MM-dd}?adults=...)
+ *
+ *  Extras đầu vào (name → type):
+ *  ------------------------------------------------------------
+ *   "airline"   → String
+ *   "flightNo"  → String
+ *   "from"      → String (IATA city/airport code)
+ *   "to"        → String (IATA city/airport code)
+ *   "depTime"   → String (hiển thị)
+ *   "arrTime"   → String (hiển thị)
+ *   "price"     → double
+ *   "currency"  → String
+ *   "stops"     → int
+ *   "duration"  → String
+ *   "baggage"   → String
+ *
+ *  Các tham số tìm kiếm để build deeplink (có thể trùng với phần trên):
+ *   "departISO" → String (yyyy-MM-dd)
+ *   "returnISO" → String (yyyy-MM-dd or empty for one-way)
+ *   "adults"    → int (>=1)
+ *   "cabin"     → String (ECONOMY | PREMIUM_ECONOMY | BUSINESS | FIRST)
+ */
 public class FlightDetailActivity extends AppCompatActivity {
 
-    // ==== model provider ====
-    public static class ProviderLink {
-        public String name;
-        public String url;
-        public double priceFrom;
-        public String currency;
-        public ProviderLink(String name, String url, double priceFrom, String currency) {
-            this.name = name; this.url = url; this.priceFrom = priceFrom; this.currency = currency;
-        }
-    }
+    // dữ liệu hiển thị
+    private String airline, flightNo, fromIata, toIata, depTime, arrTime, currency, duration, baggage;
+    private double price;
+    private int stops;
 
-    private String deepSearchUrlGoogle; // vẫn giữ để “Book now” mặc định
-    private String from, to, depDate, retDate, cabin, airline, flightNo, currency, duration, baggage, depTime, arrTime;
+    // dữ liệu build deeplink
+    private String departISO, returnISO, cabin;
     private int adults;
-    private boolean roundTrip;
 
-    private final List<ProviderLink> providers = new ArrayList<>();
-    private ProviderRowAdapter providerAdapter;
-
-    @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flight_detail);
 
         ImageButton btnBack = findViewById(R.id.btnBack);
-        TextView tvTitle    = findViewById(R.id.tvTitle);
-        TextView tvRoute    = findViewById(R.id.tvRoute);
-        TextView tvTime     = findViewById(R.id.tvTime);
-        TextView tvStops    = findViewById(R.id.tvStops);
-        TextView tvDuration = findViewById(R.id.tvDuration);
-        TextView tvBaggage  = findViewById(R.id.tvBaggage);
-        TextView tvPrice    = findViewById(R.id.tvPrice);
-        Button btnBook      = findViewById(R.id.btnBook);
+        TextView tvTitle    = findViewById(R.id.txtTitle);
+        TextView tvRoute    = findViewById(R.id.txtRoute);
+        TextView tvTime     = findViewById(R.id.txtTime);
+        TextView tvStops    = findViewById(R.id.txtStops);
+        TextView tvDuration = findViewById(R.id.txtDuration);
+        TextView tvBaggage  = findViewById(R.id.txtBaggage);
+        TextView tvPrice    = findViewById(R.id.txtPrice);
 
-        RecyclerView rvProviders = findViewById(R.id.rvProviders);
-        rvProviders.setLayoutManager(new LinearLayoutManager(this));
-        providerAdapter = new ProviderRowAdapter(providers, this::openProvider);
-        rvProviders.setAdapter(providerAdapter);
+        Button btnGoogle    = findViewById(R.id.btnGoogleFlights);
+        // --------- Đọc extras ---------
+        Intent it = getIntent();
+        airline   = it.getStringExtra("airline");
+        flightNo  = it.getStringExtra("flightNo");
+        fromIata  = it.getStringExtra("from");
+        toIata    = it.getStringExtra("to");
+        depTime   = it.getStringExtra("depTime");
+        arrTime   = it.getStringExtra("arrTime");
+        price     = it.getDoubleExtra("price", 0);
+        currency  = it.getStringExtra("currency");
+        stops     = it.getIntExtra("stops", 0);
+        duration  = it.getStringExtra("duration");
+        baggage   = it.getStringExtra("baggage");
 
-        // ====== nhận từ Results ======
-        airline  = getIntent().getStringExtra("airline");
-        flightNo = getIntent().getStringExtra("flightNo");
-        from     = getIntent().getStringExtra("from");
-        to       = getIntent().getStringExtra("to");
-        depTime  = getIntent().getStringExtra("depTime");
-        arrTime  = getIntent().getStringExtra("arrTime");
-        duration = getIntent().getStringExtra("duration");
-        baggage  = getIntent().getStringExtra("baggage");
-        double price = getIntent().getDoubleExtra("price", 0);
-        currency = getIntent().getStringExtra("currency");
+        // tham số để build deeplink
+        departISO = it.getStringExtra("departISO");
+        returnISO = it.getStringExtra("returnISO");
+        adults    = Math.max(1, it.getIntExtra("adults", 1));
+        cabin     = it.getStringExtra("cabin");
+        if (cabin == null || cabin.isEmpty()) cabin = "ECONOMY";
 
-        // bổ sung từ intent nếu bạn truyền qua (tuỳ bạn): adults, cabin, roundTrip, depDate/retDate
-        adults   = getIntent().getIntExtra("adults", 1);
-        cabin    = getIntent().getStringExtra("cabin");
-        roundTrip= getIntent().getBooleanExtra("roundTrip", false);
-        depDate  = getIntent().getStringExtra("departISO"); // yyyy-MM-dd
-        retDate  = getIntent().getStringExtra("returnISO"); // yyyy-MM-dd (optional)
-
-        tvTitle.setText((airline == null ? "" : airline) + "  " + (flightNo == null ? "" : flightNo));
-        tvRoute.setText(from + " → " + to);
-        tvTime.setText((depTime == null ? "" : depTime) + " → " + (arrTime == null ? "" : arrTime));
-        tvDuration.setText(duration == null ? "" : duration);
-        tvBaggage.setText(baggage == null ? "" : baggage);
-        tvStops.setText(getIntent().getIntExtra("stops", 0) == 0 ? "Direct" : (getIntent().getIntExtra("stops", 0) + " stops"));
-
-        tvPrice.setText(currency == null || currency.isEmpty()
-                ? String.format("%,.0f", price)
-                : String.format("%,.0f %s", price, currency));
+        // --------- Bind UI ---------
+        tvTitle.setText(safe(airline) + (notEmpty(flightNo) ? ("  " + flightNo) : ""));
+        tvRoute.setText(String.format(Locale.US, "%s → %s", safe(fromIata), safe(toIata)));
+        tvTime.setText(String.format(Locale.US, "%s → %s", safe(depTime), safe(arrTime)));
+        tvStops.setText(stops == 0 ? "Direct" : (stops + " stop" + (stops > 1 ? "s" : "")));
+        tvDuration.setText(notEmpty(duration) ? duration : "");
+        tvBaggage.setText(notEmpty(baggage) ? baggage : "");
+        tvPrice.setText(formatPrice(price, currency));
 
         btnBack.setOnClickListener(v -> finish());
 
-        // Book now mặc định: Google Flights (search)
-        deepSearchUrlGoogle = buildGoogleFlightsLink(from, to, depDate, retDate, adults, cabin, airline, flightNo);
-        btnBook.setOnClickListener(v -> openUrl(deepSearchUrlGoogle));
+        // --------- Mở deeplinks ---------
+        btnGoogle.setOnClickListener(v -> {
+            String url = BookingDeepLinks.googleFlights(fromIata, toIata, departISO, returnISO, adults, cabin, currency);
+            open(url);
+        });
 
-        // ==== Build danh sách provider dạng “metasearch style” ====
-        providers.clear();
-        providers.add(new ProviderLink("Google Flights",
-                deepSearchUrlGoogle, price, currency));
 
-        providers.add(new ProviderLink("Kayak",
-                buildKayakLink(from, to, depDate, retDate, adults, cabin), price, currency));
-
-        providers.add(new ProviderLink("Skyscanner",
-                buildSkyscannerLink(from, to, depDate, retDate, adults, cabin), price, currency));
-
-        providers.add(new ProviderLink("Expedia",
-                buildExpediaLink(from, to, depDate, retDate, adults, cabin), price, currency));
-
-        providers.add(new ProviderLink("Trip.com",
-                buildTripComLink(from, to, depDate, retDate, adults, cabin), price, currency));
-
-        providerAdapter.notifyDataSetChanged();
+        // Có thể để Expedia mở Google như fallback (hoặc sau này thay bằng API chính thức)
     }
 
-    // ===== Open helper =====
-    private void openProvider(ProviderLink p) { openUrl(p.url); }
+    // ===== Helpers =====
 
-    private void openUrl(String url) {
-        if (url == null || url.trim().isEmpty()) {
-            Toast.makeText(this, "Link không khả dụng", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    private void open(String url) {
         try {
             CustomTabsIntent tabs = new CustomTabsIntent.Builder().build();
             tabs.launchUrl(this, Uri.parse(url));
         } catch (Exception e) {
             try {
-                startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url)));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             } catch (Exception ex) {
-                Toast.makeText(this, "Không mở được link", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Không mở được link: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    // ====== Deeplink builders (prefill tham số) ======
-
-    private static String enc(String s) { return s == null ? "" : s.replace(" ", "%20"); }
-
-    // Google Flights: dùng truy vấn tự do, dễ match itinerary
-    private static String buildGoogleFlightsLink(String from, String to, String d1, String d2, int adults, String cabin, String airline, String flightNo) {
-        String q = "Flights from " + from + " to " + to + " on " + d1;
-        if (d2 != null && !d2.isEmpty()) q += " returning " + d2;
-        if (airline != null && !airline.isEmpty()) q += " " + airline;
-        if (flightNo != null && !flightNo.isEmpty()) q += " " + flightNo;
-        q += " adults " + Math.max(1, adults);
-        if (cabin != null && !cabin.isEmpty()) q += " " + cabin;
-        return "https://www.google.com/travel/flights?q=" + enc(q);
+    private static String safe(String s) {
+        return s == null ? "" : s;
     }
 
-    // Kayak: /flights/LHR-DXB/2025-11-21[/2025-11-28]?sort=bestflight_a&adults=1&cabin=e
-    private static String buildKayakLink(String from, String to, String d1, String d2, int adults, String cabin) {
-        String path = "https://www.kayak.com/flights/" + from + "-" + to + "/" + d1;
-        if (d2 != null && !d2.isEmpty()) path += "/" + d2;
-        String cb = mapCabinKayak(cabin);
-        return path + "?sort=bestflight_a&adults=" + Math.max(1, adults) + "&cabin=" + cb;
-    }
-    private static String mapCabinKayak(String cabin) {
-        if (cabin == null) return "e";
-        cabin = cabin.toUpperCase();
-        switch (cabin) {
-            case "PREMIUM_ECONOMY": return "w";
-            case "BUSINESS": return "c";
-            case "FIRST": return "f";
-            default: return "e";
-        }
+    private static boolean notEmpty(String s) {
+        return s != null && !s.trim().isEmpty();
     }
 
-    // Skyscanner: /transport/flights/LHR/DXB/2025-11-21[/2025-11-28]/?adults=1&cabinclass=economy
-    private static String buildSkyscannerLink(String from, String to, String d1, String d2, int adults, String cabin) {
-        String base = "https://www.skyscanner.net/transport/flights/" + from + "/" + to + "/" + d1;
-        if (d2 != null && !d2.isEmpty()) base += "/" + d2;
-        String cb = (cabin == null) ? "economy" : cabin.toLowerCase();
-        return base + "/?adults=" + Math.max(1, adults) + "&cabinclass=" + cb;
-    }
-
-    // Expedia (EN): Flights-Search?trip=oneway/roundtrip&leg1=from:LHR,to:DXB,departure:2025-11-21TANYT&leg2=...&passengers=adults:1&options=cabinclass:economy
-    private static String buildExpediaLink(String from, String to, String d1, String d2, int adults, String cabin) {
-        String trip = (d2 != null && !d2.isEmpty()) ? "roundtrip" : "oneway";
-        String leg1 = "from:" + from + ",to:" + to + ",departure:" + d1 + "TANYT";
-        String url = "https://www.expedia.com/Flights-Search?trip=" + trip +
-                "&leg1=" + enc(leg1) +
-                "&passengers=adults:" + Math.max(1, adults) +
-                "&options=cabinclass:" + mapCabinExpedia(cabin) +
-                "&mode=search";
-        if (d2 != null && !d2.isEmpty()) {
-            String leg2 = "from:" + to + ",to:" + from + ",departure:" + d2 + "TANYT";
-            url += "&leg2=" + enc(leg2);
-        }
-        return url;
-    }
-    private static String mapCabinExpedia(String cabin) {
-        if (cabin == null) return "economy";
-        cabin = cabin.toUpperCase();
-        switch (cabin) {
-            case "PREMIUM_ECONOMY": return "premium";
-            case "BUSINESS": return "business";
-            case "FIRST": return "first";
-            default: return "economy";
-        }
-    }
-
-    // Trip.com: /flights/LHR-DXB/tickets?dcity=LHR&acity=DXB&ddate=2025-11-21&rdate=...&adult=1&cabin=economy&flighttype=ow/rt
-    private static String buildTripComLink(String from, String to, String d1, String d2, int adults, String cabin) {
-        String base = "https://www.trip.com/flights/" + from + "-" + to + "/tickets";
-        StringBuilder sb = new StringBuilder(base);
-        sb.append("?dcity=").append(from)
-                .append("&acity=").append(to)
-                .append("&ddate=").append(d1)
-                .append("&adult=").append(Math.max(1, adults))
-                .append("&cabin=").append((cabin == null) ? "economy" : cabin.toLowerCase());
-        if (d2 != null && !d2.isEmpty()) {
-            sb.append("&rdate=").append(d2).append("&flighttype=rt");
-        } else {
-            sb.append("&flighttype=ow");
-        }
-        return sb.toString();
+    private static String formatPrice(double price, String currency) {
+        if (price <= 0) return "See provider for latest price";
+        String cur = currency == null ? "" : currency;
+        return String.format(Locale.US, "%,.0f %s", price, cur);
     }
 }
