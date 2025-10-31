@@ -115,4 +115,5 @@ dependencies {
     annotationProcessor(libs.room.compiler)       // vì code Room là Java
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.google.android.gms:play-services-location:21.0.1' // Lay vi tri hien tai
+    implementation "androidx.browser:browser:1.8.0"
 }

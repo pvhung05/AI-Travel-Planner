@@ -4,35 +4,33 @@
     android:padding="12dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/txtAirline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Vietnam Airlines VN250"
         android:textSize="15sp"/>
 
     <TextView
         android:id="@+id/txtRoute"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HAN → SGN"
         android:paddingTop="2dp"/>
 
     <TextView
         android:id="@+id/txtTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="07:20 → 09:30"
         android:paddingTop="2dp"/>
 
     <TextView
         android:id="@+id/txtPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1,590,000 VND"
         android:textStyle="bold"
         android:paddingTop="6dp"/>
 </LinearLayout>

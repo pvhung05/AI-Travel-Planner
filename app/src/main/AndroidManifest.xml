@@ -52,9 +52,9 @@
         <activity android:name=".ui.home.describe.DescribeScreen" />
         <activity android:name=".ui.home.booking.HotelDetailScreen" />
         <activity android:name=".ui.home.friend.FriendScreen" />
-
-        <activity android:name=".ui.home.booking.AirportSearchActivity"/>
-        <activity android:name=".ui.home.booking.FlightResultsActivity"/>
+        <activity android:name=".ui.home.booking.AirportSearchActivity" />
+        <activity android:name=".ui.home.booking.FlightResultsActivity" />
+        <activity android:name=".ui.home.booking.FlightDetailActivity" />
 
         <activity android:name=".ui.home.plan.CalendarScreen" />
         <activity android:name=".ui.home.plan.GuideScreen" />
