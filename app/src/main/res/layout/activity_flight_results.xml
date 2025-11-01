@@ -1,38 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F9FAFB"
+    android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/txtHeader"
+    <!-- Header bo góc -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/headerCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="HAN → SGN (2025-11-20)"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:padding="12dp"/>
+        android:layout_height="64dp"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        android:backgroundTint="#FFFFFF">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        style="?android:attr/progressBarStyleLarge"/>
+        <!-- Thanh ngang header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="12dp">
 
-    <TextView
-        android:id="@+id/txtEmpty"
+            <!-- Nút Back -->
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_back"
+                android:src="@drawable/ic_back"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/back"
+                android:padding="8dp" />
+
+            <!-- Khoảng cách -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
+            <!-- Tiêu đề chuyến bay -->
+            <TextView
+                android:id="@+id/txtHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HAN → SGN (2025-11-20)"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#222"
+                android:layout_gravity="center_vertical" />
+
+            <!-- View để đẩy sang trái -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Nội dung -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No flights"
-        android:gravity="center"
-        android:paddingTop="24dp"
-        android:visibility="gone"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="84dp"
+        android:paddingHorizontal="16dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFlights"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-</LinearLayout>
+        <!-- Progress loading -->
+        <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:visibility="gone" />
+
+        <!-- Khi không có dữ liệu -->
+        <TextView
+            android:id="@+id/txtEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="40dp"
+            android:text="No flights"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- Danh sách chuyến bay -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFlights"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="8dp"
+            android:clipToPadding="false" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
