@@ -12,12 +12,12 @@
         android:id="@+id/btnBack"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@drawable/btn_back"
         android:src="@drawable/ic_back"
+        android:scaleType="centerInside"
         android:contentDescription="@string/back"
-        app:tint="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:padding="8dp" />
+
 
     <!-- Title -->
     <TextView
@@ -132,12 +132,13 @@
             android:id="@+id/btnGoogleFlights"
             android:layout_width="0dp"
             android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            app:backgroundTint="@null"
             android:layout_weight="1"
+            android:background="@drawable/btn_orange_rounded"
             android:text="Google Flights"
-            android:textColor="@android:color/white"
             android:textAllCaps="false"
-            android:backgroundTint="@color/purple_500"
-            android:layout_marginEnd="8dp"/>
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

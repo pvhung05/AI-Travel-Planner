@@ -3,6 +3,7 @@ package com.example.ai_travel_planner.ui.home.booking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class FlightResultsActivity extends AppCompatActivity {
     private RecyclerView rv;
     private ProgressBar progress;
     private TextView txtEmpty;
+    private ImageButton btnBack;
 
     public final List<FlightRow> data = new ArrayList<>();
     private FlightRowAdapter adapter;
@@ -37,6 +39,8 @@ public class FlightResultsActivity extends AppCompatActivity {
         rv = findViewById(R.id.rvFlights);
         progress = findViewById(R.id.progress);
         txtEmpty = findViewById(R.id.txtEmpty);
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> finish());
 
         // ✅ ĐỌC ĐÚNG KEYS TỪ PlaneBookingScreen
         fromIata   = getIntent().getStringExtra("from");
