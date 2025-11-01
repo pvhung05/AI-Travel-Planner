@@ -179,7 +179,7 @@
                 android:layout_marginStart="10dp"
                 android:background="@drawable/bg_circle_orange"
                 android:padding="10dp"
-                app:srcCompat="@drawable/icon_link"
+                app:srcCompat="@drawable/icon_copy"
                 app:tint="@android:color/white" />
         </LinearLayout>
 
