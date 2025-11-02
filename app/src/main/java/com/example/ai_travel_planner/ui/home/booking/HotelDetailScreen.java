@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ public class HotelDetailScreen extends AppCompatActivity {
     private ImageView imgThumb;
     private TextView tvName, tvAddr, tvRating, tvPrice;
     private Button btnBookNow;
+    private ImageButton btnBack;
 
     private Hotel hotel;
     private long checkInEpoch, checkOutEpoch;
@@ -39,11 +41,13 @@ public class HotelDetailScreen extends AppCompatActivity {
         tvRating = findViewById(R.id.tvRating);
         tvPrice  = findViewById(R.id.tvPrice);
         btnBookNow = findViewById(R.id.btnBookNow);
+        btnBack = findViewById(R.id.btnBack);
 
         readExtras();
         bindUI();
 
         btnBookNow.setOnClickListener(v -> onBookNow());
+        btnBack.setOnClickListener(v -> finish());
     }
 
     private void readExtras() {

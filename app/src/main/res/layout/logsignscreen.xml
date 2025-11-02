@@ -58,6 +58,8 @@
             android:background="@drawable/btn_orange_gradient"
             android:paddingHorizontal="50dp"
             android:text="Login"
+            android:backgroundTint="@null"
+            app:backgroundTint="@null"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -72,6 +74,8 @@
             android:layout_height="48dp"
             android:background="@drawable/btn_orange_outline"
             android:paddingHorizontal="42dp"
+            android:backgroundTint="@null"
+            app:backgroundTint="@null"
             android:text="Register"
             android:textColor="#FF7A00"
             android:textSize="16sp"

@@ -232,6 +232,8 @@
                     android:id="@+id/btnSearch"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
+                    app:backgroundTint="@null"
+
                     android:layout_marginTop="28dp"
 
                     android:background="@drawable/btn_signin_gradient"

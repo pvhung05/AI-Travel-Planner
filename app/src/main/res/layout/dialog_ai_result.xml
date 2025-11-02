@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:background="@drawable/bg_rounded_dialog">
 
@@ -81,6 +82,8 @@
             android:id="@+id/btnClose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@null"
+            app:backgroundTint="@null"
             android:text="ĐÓNG"
             android:textColor="#FFFFFF"
             android:background="@drawable/btn_signin_gradient"
@@ -93,8 +96,10 @@
             android:layout_marginTop="12dp"
             android:text="Save Plan"
             android:textAllCaps="false"
+            android:background="@drawable/btn_signin_gradient"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:backgroundTint="@color/teal_700"
-            android:textColor="@android:color/white"/>
+            android:backgroundTint="@null"
+            app:backgroundTint="@null" />
     </LinearLayout>
 </ScrollView>

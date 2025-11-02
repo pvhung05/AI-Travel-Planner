@@ -16,6 +16,8 @@ import com.example.ai_travel_planner.data.local.AppDatabase;
 import com.example.ai_travel_planner.data.local.entities.PlanEntity;
 import com.example.ai_travel_planner.ui.home.login.SigninScreen;
 import com.example.ai_travel_planner.ui.home.plan.GuideScreen;
+import com.example.ai_travel_planner.utils.BottomNav;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -24,7 +26,6 @@ public class PlanScreen extends AppCompatActivity {
     private RecyclerView rvPlans;
     private TextView tvEmpty;
     private PlansAdapter adapter;
-    private ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,6 @@ public class PlanScreen extends AppCompatActivity {
 
         rvPlans = findViewById(R.id.rvPlans);
         tvEmpty = findViewById(R.id.tvSubtitle); // dùng tạm subtitle làm empty hint
-
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish()); // ← QUAY LẠI, KHÔNG mở GuideScreen
-        }
 
         rvPlans.setLayoutManager(new GridLayoutManager(this, 1));
 
@@ -47,6 +44,8 @@ public class PlanScreen extends AppCompatActivity {
             startActivity(it);
         });
         rvPlans.setAdapter(adapter);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigation);
+        BottomNav.setupNavigation(this, bottomNav, R.id.nav_time);
     }
 
     @Override

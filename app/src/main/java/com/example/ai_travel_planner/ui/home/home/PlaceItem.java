@@ -1,39 +1,33 @@
 package com.example.ai_travel_planner.ui.home.home;
 
-public class PlaceItem {
+import java.io.Serializable;
+
+public class PlaceItem implements Serializable {
     private String name;
-    private String location;
-    private int imageResId; // ID ảnh (trong drawable)
+    private String vicinity;
+    private String imageUrl;
 
-    public PlaceItem(String name, String location, double price, int imageResId) {
-        this.name = name;
-        this.location = location;
-        this.imageResId = imageResId;
-    }
-
-    // Getters
     public String getName() {
-        return name;
+        return name != null ? name : "Unknown Place";
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public int getImageResId() {
-        return imageResId;
-    }
-
-    // Setters (nếu cần)
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public String getVicinity() {
+        return vicinity != null ? vicinity : "No address";
     }
 
-    public void setImageResId(int imageResId) {
-        this.imageResId = imageResId;
+    public void setVicinity(String vicinity) {
+        this.vicinity = vicinity;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

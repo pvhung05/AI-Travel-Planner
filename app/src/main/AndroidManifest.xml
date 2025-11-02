@@ -10,6 +10,10 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 
+    <!-- Truy cap dinh vi -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -47,9 +51,10 @@
         <activity android:name=".ui.home.booking.HotelSearchResultScreen" android:exported="false" />
         <activity android:name=".ui.home.describe.DescribeScreen" />
         <activity android:name=".ui.home.booking.HotelDetailScreen" />
-        <activity android:name=".ui.home.favorite.FavoriteScreen" />
-
         <activity android:name=".ui.home.friend.FriendScreen" />
+        <activity android:name=".ui.home.booking.AirportSearchActivity" />
+        <activity android:name=".ui.home.booking.FlightResultsActivity" />
+        <activity android:name=".ui.home.booking.FlightDetailActivity" />
 
         <activity android:name=".ui.home.plan.CalendarScreen" />
         <activity android:name=".ui.home.plan.GuideScreen" />
