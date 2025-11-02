@@ -32,6 +32,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import com.example.ai_travel_planner.network.ApiClient; // THÊM
+import com.example.ai_travel_planner.network.ApiService; // THÊM
+import com.example.ai_travel_planner.network.models.CreateItineraryRequest; // THÊM
+import com.example.ai_travel_planner.network.models.ItineraryResponse; // THÊM
+import com.example.ai_travel_planner.utils.TokenManager;
+import com.google.gson.Gson; // THÊM
+
+import retrofit2.Call; // THÊM
+import retrofit2.Callback; // THÊM
+import retrofit2.Response; // THÊM
+
 public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapter.Callbacks {
 
     private RecyclerView recycler;
@@ -44,9 +55,37 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
     private final Set<String> selectedIds = new HashSet<>();
     private ItineraryAdapter adapter;
 
+    private ApiService apiService;
+    private String authToken; // Biến để lưu token
+
     @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_itinerary);
+
+        apiService = ApiClient.getClient().create(ApiService.class);
+
+        // --- BƯỚC 1: LẤY TOKEN BẰNG TOKENMANAGER ---
+        // (Đây là phần sửa lỗi "chưa đăng nhập")
+
+        // 1. Dùng TokenManager (giống hệt LoginScreen)
+        TokenManager tokenManager = new TokenManager(this);
+
+        // 2. Lấy token ra (Tôi đoán tên hàm là .getToken(),
+        //    bạn hãy mở file TokenManager.java để xem tên hàm đúng)
+        String token = tokenManager.getToken();
+
+        if (token == null || token.isEmpty()) {
+            Toast.makeText(this, "Lỗi: Bạn chưa đăng nhập!", Toast.LENGTH_LONG).show();
+            // (Bạn nên ẩn các nút cần đăng nhập ở đây)
+            // ví dụ: findViewById(R.id.btnNext).setVisibility(View.GONE);
+        } else {
+            // 3. Gắn "Bearer " vào token
+            if (!token.startsWith("Bearer ")) {
+                this.authToken = "Bearer " + token;
+            } else {
+                this.authToken = token;
+            }
+        }
 
         // Views
         recycler = findViewById(R.id.recyclerActivities);
@@ -98,10 +137,76 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
         if (btnClearDay != null) {
             btnClearDay.setOnClickListener(v -> confirmClearDay());
         }
+
         btnNext.setOnClickListener(v -> {
-            Intent intent = new Intent(ItineraryScreen.this, FriendScreen.class);
-            intent.putExtra("tripPlan", (Serializable) plan);
-        })
+            if (this.authToken == null || this.authToken.isEmpty()) {
+                Toast.makeText(this, "Lỗi: Bạn chưa đăng nhập", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Bây giờ authToken đã sẵn sàng
+            savePlanToBackend();
+        });
+
+    }
+
+    private void savePlanToBackend() {
+        if (plan == null) return;
+
+        // 1. Chuyển TripPlan thành JSON
+        String planJson = new Gson().toJson(plan);
+
+        // 2. Tạo đối tượng Request
+        CreateItineraryRequest request = new CreateItineraryRequest(plan, planJson);
+
+        // 3. Gọi API POST /api/itineraries
+        Call<ItineraryResponse> call = apiService.createItinerary(authToken, request);
+
+        call.enqueue(new Callback<ItineraryResponse>() {
+            @Override
+            public void onResponse(Call<ItineraryResponse> call, Response<ItineraryResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    // 4. LẤY ĐƯỢC ID TỪ BACKEND
+                    long backendItineraryId = response.body().getId();
+
+                    // 5. (Tùy chọn) Lưu vào CSDL Room (local)
+                    // Bạn có thể sửa AiPlanRepository để lưu cả backendId
+                    savePlanLocally(backendItineraryId);
+
+                } else {
+                    Toast.makeText(ItineraryScreen.this, "Lỗi: Không thể lưu chuyến đi lên server.", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ItineraryResponse> call, Throwable t) {
+                Toast.makeText(ItineraryScreen.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    // Hàm lưu local (tách ra từ onSaved cũ)
+    private void savePlanLocally(long backendId) {
+        AiPlanRepository repo = AiPlanRepository.getInstance(getApplicationContext());
+        repo.savePlan(plan, new AiPlanRepository.SaveCallback() {
+            @Override
+            public void onSaved(long localId) {
+                // 6. CHUYỂN SANG FRIENDSCREEN VỚI ID CỦA BACKEND
+                Toast.makeText(ItineraryScreen.this, "Đã lưu chuyến đi!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ItineraryScreen.this, FriendScreen.class);
+
+                // === GỬI ID CỦA BACKEND ===
+                intent.putExtra("ITINERARY_ID", backendId);
+
+                intent.putExtra("tripPlan", (Serializable) plan);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Toast.makeText(ItineraryScreen.this, "Lỗi khi lưu local: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     /** Vẽ tab cho từng ngày, cho phép chuyển ngày và giữ lựa chọn đúng */
