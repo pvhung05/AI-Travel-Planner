@@ -103,6 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="38dp"
                         android:background="@drawable/bg_cta_gradient"
+                        app:backgroundTint="@null"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:text="Edit profile"
@@ -168,6 +169,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_cta_gradient"
+                app:backgroundTint="@null"
                 android:text="Invite Friends"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />

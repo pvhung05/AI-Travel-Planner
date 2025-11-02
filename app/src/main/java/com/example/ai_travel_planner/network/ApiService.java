@@ -1,12 +1,13 @@
 package com.example.ai_travel_planner.network;
 
 import com.example.ai_travel_planner.network.models.AiPlanResponse;
-import com.example.ai_travel_planner.network.models.ItineraryBodies.*;
 import com.example.ai_travel_planner.network.models.LoginRequest;
 import com.example.ai_travel_planner.network.models.LoginResponse;
 import com.example.ai_travel_planner.network.models.RegisterRequest;
 import com.example.ai_travel_planner.network.models.RegisterResponse;
 import com.example.ai_travel_planner.network.models.UserMe;
+import com.example.ai_travel_planner.ui.home.plan.PlaceItem;
+
 
 import java.util.List;
 
@@ -44,4 +45,9 @@ public interface ApiService {
                                @Part MultipartBody.Part avatarUrl
     );
 
+    @GET("/api/places/most-viewed")
+    Call<List<PlaceItem>> getMostViewedPlaces();
+
+    @GET("/api/places/latest")
+    Call<List<PlaceItem>> getLatestPlaces();
 }

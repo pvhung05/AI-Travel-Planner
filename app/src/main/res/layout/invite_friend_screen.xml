@@ -21,14 +21,14 @@
             android:layout_height="match_parent"
             android:padding="24dp">
 
-            <!-- Icon home góc phải -->
+            <!-- Biểu tượng Home -->
             <ImageView
                 android:id="@+id/btnHome"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_home"
-                app:tint="#9E9E9E"
-                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_home"
+                app:tint="#333333"
+                app:layout_constraintTop_toTopOf="@id/txtTitle"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <!-- Tiêu đề -->
@@ -67,6 +67,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:background="@drawable/btn_signin_gradient"
+                app:backgroundTint="@null"
                 android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@id/emailInput"
                 app:layout_constraintStart_toStartOf="parent"

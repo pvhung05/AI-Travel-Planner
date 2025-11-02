@@ -23,6 +23,7 @@ import com.example.ai_travel_planner.R;
 import com.example.ai_travel_planner.network.models.ActivityItem;
 import com.example.ai_travel_planner.network.models.DayPlan;
 import com.example.ai_travel_planner.network.models.TripPlan;
+import com.example.ai_travel_planner.ui.home.friend.FriendScreen;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -97,6 +98,10 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
         if (btnClearDay != null) {
             btnClearDay.setOnClickListener(v -> confirmClearDay());
         }
+        btnNext.setOnClickListener(v -> {
+            Intent intent = new Intent(ItineraryScreen.this, FriendScreen.class);
+            intent.putExtra("tripPlan", (Serializable) plan);
+        })
     }
 
     /** Vẽ tab cho từng ngày, cho phép chuyển ngày và giữ lựa chọn đúng */

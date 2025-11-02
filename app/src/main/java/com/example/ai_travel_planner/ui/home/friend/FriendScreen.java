@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ai_travel_planner.R;
+import com.example.ai_travel_planner.ui.home.home.HomeScreen;
 import com.example.ai_travel_planner.ui.home.profile.ProfileScreen;
 import com.example.ai_travel_planner.utils.BottomNav;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,7 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class FriendScreen extends AppCompatActivity {
 
     Button btnEditProfile, btnInviteFriends;
-    ImageView btnLink;
+    ImageView btnLink, btnHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,13 @@ public class FriendScreen extends AppCompatActivity {
         btnEditProfile = findViewById(R.id.btnEditProfile);
         btnInviteFriends = findViewById(R.id.btnInviteFriends);
         btnLink = findViewById(R.id.btnLink);
+        btnHome = findViewById(R.id.btnHome);
+
+        btnHome.setOnClickListener(v -> {
+            Intent intent = new Intent(FriendScreen.this, HomeScreen.class);
+            startActivity(intent);
+            finish();
+        });
 
         // Mở trang Profile
         btnEditProfile.setOnClickListener(v -> {
@@ -52,13 +60,11 @@ public class FriendScreen extends AppCompatActivity {
     }
 
     private void showLinkPopup(View anchorView) {
-        // Inflate layout popup
         View popupView = LayoutInflater.from(this).inflate(R.layout.link_popup, null);
 
         EditText editLink = popupView.findViewById(R.id.editLink);
         ImageView btnCopy = popupView.findViewById(R.id.btnCopy);
 
-        // Tạo popup window
         PopupWindow popupWindow = new PopupWindow(
                 popupView,
                 android.view.ViewGroup.LayoutParams.MATCH_PARENT,
@@ -66,10 +72,9 @@ public class FriendScreen extends AppCompatActivity {
                 true
         );
 
-        // Hiển thị ở dưới cùng
-        popupWindow.showAtLocation(anchorView, Gravity.BOTTOM, 0, 100);
+        // Hiển thị ngay phía trên thanh nút Invite
+        popupWindow.showAtLocation(anchorView, Gravity.BOTTOM, 0, 0);
 
-        // Xử lý copy link
         btnCopy.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("Invite Link", editLink.getText().toString());

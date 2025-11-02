@@ -64,6 +64,7 @@
             android:name=".ui.home.itinerary.ItineraryScreen"
             android:exported="false" />
         <activity android:name=".ui.home.profile.ProfileScreen" />
+        <activity android:name=".ui.home.friend.InviteFriendScreen" />
 
     </application>
 
