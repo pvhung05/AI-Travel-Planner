@@ -31,7 +31,6 @@ public class PlanScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.planscreen);
 
-        btnBack = findViewById(R.id.btnBack);
         rvPlans = findViewById(R.id.rvPlans);
         tvEmpty = findViewById(R.id.tvSubtitle); // dùng tạm subtitle làm empty hint
 

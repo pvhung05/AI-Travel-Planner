@@ -49,6 +49,11 @@ public class HomeScreen extends AppCompatActivity {
     private PlaceAdapter adapter;
     private List<String> places;
 
+    private String lastDestination = null;
+    private int    lastDays        = 0;
+    private double  lastBudget      = 0;
+    private String lastStyle       = null;
+
     private LinearLayout btnTravel, btnHotel;
 
     @Override
@@ -195,6 +200,11 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     private void callAI(String destination, int days, String style, double budget) {
+
+        this.lastDestination = destination;
+        this.lastDays        = days;
+        this.lastBudget      = budget;
+        this.lastStyle       = style;
 
         // 1️⃣ Tạo Progress Dialog đẹp với bo góc thủ công
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null);

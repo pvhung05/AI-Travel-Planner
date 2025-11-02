@@ -261,6 +261,8 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bg_cta_gradient"
                 android:includeFontPadding="false"
+                android:clickable="true"
+                android:focusable="true"
                 android:text="Plan trip"
                 android:textColor="@android:color/white" />
         </LinearLayout>

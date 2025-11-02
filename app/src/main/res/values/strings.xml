@@ -36,4 +36,5 @@
     <string name="gemini_api_key">AIzaSyBNxoQ74kz-_cm9qhXE6wWRzR4-gS9QL-4</string>
     <string name="unsplash_access_key">rwoRlUESZ1LhdEsNNjdKjLrEHUFHQsMLxbgqwXFwumE</string>
     <string name="rapidapi_key">5c7d5aefa5msh477f5b86fc0aca8p1f9e98jsn00757f6a4211</string>
+    <string name='delete'>Delete</string>
 </resources>

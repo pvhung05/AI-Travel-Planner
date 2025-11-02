@@ -12,4 +12,20 @@ public class AiPlanRequest {
         this.style = style;
         this.budget = budget;
     }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public int getNumDays() {
+        return days;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public double getBudget() {
+        return budget;
+    }
 }

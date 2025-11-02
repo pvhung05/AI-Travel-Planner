@@ -1,8 +1,13 @@
 package com.example.ai_travel_planner.network.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class AiPlanResponse {
+
+    @SerializedName("itineraryId")
+    public String itineraryId;
     public String destination;
     public int days;
     public String currency;

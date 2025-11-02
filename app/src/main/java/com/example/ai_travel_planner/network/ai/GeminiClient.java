@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.ai_travel_planner.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +15,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import com.example.ai_travel_planner.BuildConfig;
+import com.example.ai_travel_planner.network.models.TripPlan;
 
 public class GeminiClient {
 
@@ -71,5 +74,48 @@ public class GeminiClient {
             }
             return responseBody;
         }
+    }
+
+    public java.util.concurrent.CompletableFuture<TripPlan> generatePlanJson(com.example.ai_travel_planner.network.models.AiPlanRequest req) {
+
+        String systemPrompt =
+                "You are a travel planner. Return ONLY valid JSON (no markdown, no prose).\n" +
+                        "Schema:\n" +
+                        "{\n" +
+                        "  \"city\": \"string\",\n" +
+                        "  \"currency\": \"string\",\n" +
+                        "  \"days\": [\n" +
+                        "    {\n" +
+                        "      \"label\": \"Day 1\",\n" +
+                        "      \"date\": \"YYYY-MM-DD\",\n" +
+                        "      \"activities\": [\n" +
+                        "        {\"time\":\"HH:mm\",\"title\":\"string\",\"category\":\"food|nature|culture|shopping|adventure|other\",\"location\":\"string|null\",\"costVND\":0,\"notes\":\"string|null\",\"emoji\":\"string|null\"}\n" +
+                        "      ]\n" +
+                        "    }\n" +
+                        "  ]\n" +
+                        "}";
+
+        String userPrompt =
+                "Destination: " + req.getDestination() + "\n" +
+                        "Budget: " + req.getBudget() + "\n" +
+                        "Days: " + req.getNumDays() + "\n" +
+                        "Style: " + req.getStyle() + "\n" +
+                        "Return JSON only. Times must be HH:mm. Include a date per day.";
+
+        // Giả sử bạn đã có apiService.callGemini(system, user) trả về raw text
+        GeminiGateway gw = new GeminiGateway("AIzaSyBNxoQ74kz-_cm9qhXE6wWRzR4-gS9QL-4", "gemini-1.5-flash");
+
+        return gw.callGemini(systemPrompt, userPrompt)
+                .thenApply(json -> new Gson().fromJson(json, TripPlan.class));
+    }
+
+    // === THÊM helper ===
+    private String extractPureJson(String raw) {
+        if (raw == null) return "{}";
+        String s = raw.trim();
+        if (s.startsWith("{") || s.startsWith("[")) return s;
+        int i = s.indexOf('{');
+        int j = s.lastIndexOf('}');
+        return (i >= 0 && j > i) ? s.substring(i, j + 1) : "{}";
     }
 }

@@ -55,7 +55,9 @@
         <activity android:name=".ui.home.plan.GuideScreen" />
         <activity android:name=".ui.home.plan.PlanScreen" />
         <activity android:name=".ui.home.plan.WeatherScreen" />
-
+        <activity
+            android:name=".ui.home.itinerary.ItineraryScreen"
+            android:exported="false" />
         <activity android:name=".ui.home.profile.ProfileScreen" />
 
     </application>

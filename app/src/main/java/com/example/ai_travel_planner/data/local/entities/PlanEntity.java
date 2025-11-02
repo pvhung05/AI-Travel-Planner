@@ -15,6 +15,7 @@ public class PlanEntity {
     public String content;      // toàn bộ text AI trả về (đã sanitize)
     public long createdAt;      // thời gian lưu (millis)
     public String imageUrl;
+    public String planJson;
     // Bạn có thể thêm trường imageUrl nếu muốn tải ảnh 1 lần và cache
     // public String imageUrl;
 }

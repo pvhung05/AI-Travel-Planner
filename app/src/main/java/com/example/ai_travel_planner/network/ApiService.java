@@ -1,10 +1,14 @@
 package com.example.ai_travel_planner.network;
 
+import com.example.ai_travel_planner.network.models.AiPlanResponse;
+import com.example.ai_travel_planner.network.models.ItineraryBodies.*;
 import com.example.ai_travel_planner.network.models.LoginRequest;
 import com.example.ai_travel_planner.network.models.LoginResponse;
 import com.example.ai_travel_planner.network.models.RegisterRequest;
 import com.example.ai_travel_planner.network.models.RegisterResponse;
 import com.example.ai_travel_planner.network.models.UserMe;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -13,9 +17,12 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -36,4 +43,5 @@ public interface ApiService {
                                @Part("password") RequestBody password,
                                @Part MultipartBody.Part avatarUrl
     );
+
 }
