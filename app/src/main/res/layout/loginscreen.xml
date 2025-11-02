@@ -129,69 +129,14 @@
         app:layout_constraintTop_toBottomOf="@id/btnSignIn"
         />
 
-    <TextView
-        android:id="@+id/tvOrContinue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Or continue with"
-        android:textColor="#FF6A00"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCreateAccount" />
-
     <LinearLayout
         android:id="@+id/llSocial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvOrContinue"
-        app:layout_constraintVertical_bias="0.219">
-
-        <ImageButton
-            android:id="@+id/btnGoogle"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="8dp"
-            android:background="@drawable/btn_social"
-            android:padding="8dp"
-            android:src="@drawable/google"
-            android:contentDescription="@string/google_login"
-            android:scaleType="centerInside"
-            />
-
-        <ImageButton
-            android:id="@+id/btnFacebook"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="8dp"
-            android:background="@drawable/btn_social"
-            android:padding="8dp"
-            android:src="@drawable/facebook"
-            android:contentDescription="@string/facebook_login"
-            android:scaleType="centerInside"
-            />
-
-        <ImageButton
-            android:id="@+id/btnApple"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:layout_marginHorizontal="8dp"
-            android:background="@drawable/btn_social"
-            android:padding="8dp"
-            android:src="@drawable/apple"
-            android:contentDescription="@string/apple_login"
-            android:scaleType="centerInside"
-            />
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

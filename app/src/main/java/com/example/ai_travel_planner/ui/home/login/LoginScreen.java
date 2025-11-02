@@ -22,7 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginScreen extends Activity {
-    ImageButton btnBack, btnGoogle, btnFacebook, btnApple;
+    ImageButton btnBack;
     Button btnSignIn;
 
     EditText etEmail, etPassword;  // <-- dùng đúng ID trong XML
@@ -33,9 +33,7 @@ public class LoginScreen extends Activity {
         setContentView(R.layout.loginscreen);
 
         btnBack = findViewById(R.id.btnBack);
-        btnGoogle = findViewById(R.id.btnGoogle);
-        btnFacebook = findViewById(R.id.btnFacebook);
-        btnApple = findViewById(R.id.btnApple);
+
         btnSignIn = findViewById(R.id.btnSignIn);
 
         etEmail = findViewById(R.id.etEmail);       // <-- TRÙNG ID

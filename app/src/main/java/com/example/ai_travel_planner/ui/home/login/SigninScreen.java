@@ -25,7 +25,7 @@
     import retrofit2.Retrofit;
 
     public class SigninScreen extends Activity {
-        ImageButton btnBack, btnGoogle, btnFacebook, btnApple;
+        ImageButton btnBack;
         Button btnRegister;
 
         TextView alreadyAccount;
@@ -45,9 +45,6 @@
             //Khởi tạo các view
             etDisplayName = findViewById(R.id.etDisplayName);
             btnBack = findViewById(R.id.btnBack);
-            btnGoogle = findViewById(R.id.btnGoogle);
-            btnFacebook = findViewById(R.id.btnFacebook);
-            btnApple = findViewById(R.id.btnApple);
             alreadyAccount = findViewById(R.id.tvAlreadyAccount);
 
             //Ánh xạ các view mới
