@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide; // Bạn cần thư viện Glide
+import com.bumptech.glide.Glide;
 import com.example.ai_travel_planner.R;
 import com.example.ai_travel_planner.network.models.ItineraryCollaborator;
-import com.example.ai_travel_planner.network.models.User; // Import model User
+import com.example.ai_travel_planner.network.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,6 @@ public class CollaboratorAdapter extends RecyclerView.Adapter<CollaboratorAdapte
         this.context = context;
     }
 
-    // Hàm này để cập nhật dữ liệu từ FriendScreen
     public void setCollaborators(List<ItineraryCollaborator> collaborators) {
         this.collaborators = collaborators;
         notifyDataSetChanged();
@@ -36,7 +35,6 @@ public class CollaboratorAdapter extends RecyclerView.Adapter<CollaboratorAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Chúng ta sẽ tái sử dụng layout item_partner.xml mà bạn đã có
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_partner, parent, false);
         return new ViewHolder(view);
@@ -45,15 +43,14 @@ public class CollaboratorAdapter extends RecyclerView.Adapter<CollaboratorAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItineraryCollaborator collaborator = collaborators.get(position);
-        User user = collaborator.getUser(); // Lấy user lồng bên trong
+        User user = collaborator.getUser();
 
         if (user != null) {
             holder.txtName.setText(user.getDisplayName());
-            // Dùng Glide để tải ảnh
             Glide.with(context)
                     .load(user.getAvatarUrl())
-                    .placeholder(R.drawable.avt1) // Ảnh mặc định
-                    .circleCrop() // Bo tròn ảnh
+                    .placeholder(R.drawable.avt1)
+                    .circleCrop()
                     .into(holder.imgAvatar);
         } else {
             holder.txtName.setText("Đang tải...");
@@ -67,7 +64,6 @@ public class CollaboratorAdapter extends RecyclerView.Adapter<CollaboratorAdapte
         return collaborators.size();
     }
 
-    // --- ViewHolder ---
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgAvatar;
         TextView txtName;

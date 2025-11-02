@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences; // THÊM IMPORT NÀY
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,39 +36,31 @@ public class FriendScreen extends AppCompatActivity {
 
     private long itineraryId;
     private ApiService apiService;
-    private String authToken; // THÊM BIẾN ĐỂ GIỮ TOKEN
+    private String authToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.friendscreen);
 
-        // --- BƯỚC 1: LẤY ID CHUYẾN ĐI ---
         itineraryId = getIntent().getLongExtra("ITINERARY_ID", -1);
 
-        // 1. Dùng TokenManager (giống hệt LoginScreen)
         TokenManager tokenManager = new TokenManager(this);
 
-// 2. Lấy token ra (Tôi đoán tên hàm là .getToken(),
-//    bạn hãy mở file TokenManager.java để xem tên hàm đúng)
         String token = tokenManager.getToken();
 
         if (token == null || token.isEmpty()) {
             Toast.makeText(this, "Lỗi: Bạn chưa đăng nhập!", Toast.LENGTH_LONG).show();
-            // Ẩn các nút mời nếu chưa đăng nhập
             findViewById(R.id.btnInviteFriends).setVisibility(View.GONE);
             findViewById(R.id.btnLink).setVisibility(View.GONE);
         } else {
-            // Gắn "Bearer " vào trước token
             if (!token.startsWith("Bearer ")) {
                 this.authToken = "Bearer " + token;
             } else {
                 this.authToken = token;
             }
         }
-        // --- KẾT THÚC LẤY TOKEN ---
 
-        // Khởi tạo ApiService
         apiService = ApiClient.getClient().create(ApiService.class);
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
@@ -88,7 +79,6 @@ public class FriendScreen extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Nút này đã đúng (truyền ID sang InviteFriendScreen)
         btnInviteFriends.setOnClickListener(v -> {
             if (itineraryId == -1) {
                 Toast.makeText(this, "Lỗi: Không tìm thấy chuyến đi!", Toast.LENGTH_SHORT).show();
@@ -123,7 +113,6 @@ public class FriendScreen extends AppCompatActivity {
         editLink.setEnabled(false);
         btnCopy.setEnabled(false);
 
-        // --- BƯỚC 3: SỬA LẠI API CALL (TRUYỀN TOKEN VÀ ID) ---
         Call<InviteLinkResponse> call = apiService.getInviteLink(authToken, tripId);
 
         call.enqueue(new Callback<InviteLinkResponse>() {
@@ -142,7 +131,6 @@ public class FriendScreen extends AppCompatActivity {
                 editLink.setText("Lỗi mạng: Không thể tạo link.");
             }
         });
-        // --- KẾT THÚC SỬA ---
 
         PopupWindow popupWindow = new PopupWindow(
                 popupView,

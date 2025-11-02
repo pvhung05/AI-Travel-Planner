@@ -58,21 +58,21 @@
         // THÊM API TẠO CHUYẾN ĐI (từ bước trước)
         @POST("/api/itineraries")
         Call<ItineraryResponse> createItinerary(
-                @Header("Authorization") String bearerToken, // <-- Phải có
+                @Header("Authorization") String bearerToken,
                 @Body CreateItineraryRequest request
         );
 
         // SỬA LẠI: Thêm @Header("Authorization")
         @GET("/api/itineraries/{itineraryId}/invite-link")
         Call<InviteLinkResponse> getInviteLink(
-                @Header("Authorization") String bearerToken, // <-- THÊM VÀO
+                @Header("Authorization") String bearerToken,
                 @Path("itineraryId") long itineraryId
         );
 
         // SỬA LẠI: Thêm @Header("Authorization")
         @POST("/api/itineraries/{itineraryId}/collaborators/invite")
         Call<ItineraryCollaborator> inviteCollaborator(
-                @Header("Authorization") String bearerToken, // <-- THÊM VÀO
+                @Header("Authorization") String bearerToken,
                 @Path("itineraryId") long itineraryId,
                 @Query("email") String email,
                 @Query("role") String role

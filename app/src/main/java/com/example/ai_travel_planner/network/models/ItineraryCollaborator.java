@@ -2,7 +2,6 @@ package com.example.ai_travel_planner.network.models;
 
 import com.google.gson.annotations.SerializedName;
 
-// Đây là class Model (POJO) ở phía Android
 public class ItineraryCollaborator {
 
     @SerializedName("itineraryId")

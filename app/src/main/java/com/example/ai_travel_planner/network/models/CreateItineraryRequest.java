@@ -1,11 +1,10 @@
 package com.example.ai_travel_planner.network.models;
 
-// Class này phải khớp với các trường Backend cần
 public class CreateItineraryRequest {
     String title;
     Integer days;
     String style;
-    String payload; // Sẽ chứa JSON của TripPlan
+    String payload;
 
     // Constructor để tạo từ TripPlan
     public CreateItineraryRequest(TripPlan plan, String planJson) {

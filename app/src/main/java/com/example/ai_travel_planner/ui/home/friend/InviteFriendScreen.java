@@ -16,7 +16,6 @@ import com.example.ai_travel_planner.network.ApiClient;
 import com.example.ai_travel_planner.network.ApiService;
 import com.example.ai_travel_planner.network.models.ItineraryCollaborator;
 
-// THÊM IMPORT NÀY (GIỐNG BÊN LOGINSCREEN)
 import com.example.ai_travel_planner.utils.TokenManager;
 
 import retrofit2.Call;
@@ -43,34 +42,24 @@ public class InviteFriendScreen extends AppCompatActivity {
         btnInvite = findViewById(R.id.btnInvite);
         btnHome = findViewById(R.id.btnHome);
 
-        // --- BƯỚC 1: KHỞI TẠO API SERVICE ---
         apiService = ApiClient.getClient().create(ApiService.class);
 
-        // --- BƯỚC 2: NHẬN ID CHUYẾN ĐI ---
         itineraryId = getIntent().getLongExtra("ITINERARY_ID", -1);
 
-        // --- BƯỚC 3: SỬA LẠI CÁCH LẤY AUTH TOKEN ---
-        // (Xóa code SharedPreferences cũ)
-
-        // 1. Dùng TokenManager (giống hệt LoginScreen)
         TokenManager tokenManager = new TokenManager(this);
 
-        // 2. Lấy token ra (Tôi đoán tên hàm là .getToken(),
-        //    bạn hãy mở file TokenManager.java để xem tên hàm đúng)
         String token = tokenManager.getToken();
 
         if (token == null || token.isEmpty()) {
             Toast.makeText(this, "Lỗi: Bạn chưa đăng nhập!", Toast.LENGTH_LONG).show();
-            btnInvite.setEnabled(false); // Vô hiệu hóa nút nếu không có token
+            btnInvite.setEnabled(false);
         } else {
-            // Gắn "Bearer " vào trước token
             if (!token.startsWith("Bearer ")) {
                 this.authToken = "Bearer " + token;
             } else {
                 this.authToken = token;
             }
         }
-        // --- KẾT THÚC SỬA ---
 
         if (itineraryId == -1) {
             Toast.makeText(this, "Lỗi: Không tìm thấy chuyến đi!", Toast.LENGTH_SHORT).show();
@@ -84,7 +73,6 @@ public class InviteFriendScreen extends AppCompatActivity {
             finish();
         });
 
-        // --- BƯỚC 4: TRIỂN KHAI NÚT MỜI (Code này đã đúng) ---
         btnInvite.setOnClickListener(v -> {
             String email = emailInput.getText().toString().trim();
 
@@ -105,7 +93,6 @@ public class InviteFriendScreen extends AppCompatActivity {
         return !email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    // Hàm này đã đúng (vì nó đã nhận 'token' làm tham số)
     private void sendInvitation(String token, String email, long tripId) {
         btnInvite.setEnabled(false);
         btnInvite.setText("Đang mời...");
