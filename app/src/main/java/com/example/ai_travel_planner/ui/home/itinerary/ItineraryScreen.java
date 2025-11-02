@@ -101,7 +101,7 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
         btnNext.setOnClickListener(v -> {
             Intent intent = new Intent(ItineraryScreen.this, FriendScreen.class);
             intent.putExtra("tripPlan", (Serializable) plan);
-        })
+        });
     }
 
     /** Vẽ tab cho từng ngày, cho phép chuyển ngày và giữ lựa chọn đúng */

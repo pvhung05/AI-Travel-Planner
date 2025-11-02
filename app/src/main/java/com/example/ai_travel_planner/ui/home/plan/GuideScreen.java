@@ -24,7 +24,7 @@ public class GuideScreen extends AppCompatActivity {
 
     ImageView imgHero;
     ImageButton btnBack;
-    Button btnPlanTrip;
+    Button btnPlanTrip, btnDelete;
 
     private PlanEntity plan; // model bạn đang dùng ở GuideScreen
     private String mDestination;
@@ -52,6 +52,7 @@ public class GuideScreen extends AppCompatActivity {
         txtRating = findViewById(R.id.txtRating);
         labelAbout = findViewById(R.id.labelAbout);
         btnPlanTrip = findViewById(R.id.btnPlanTrip);
+        btnDelete = findViewById(R.id.btnDelete);
 
 
         planId = getIntent().getLongExtra("plan_id", -1);

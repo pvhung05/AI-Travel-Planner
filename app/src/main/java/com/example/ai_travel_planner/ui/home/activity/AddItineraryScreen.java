@@ -24,8 +24,6 @@ public class AddItineraryScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_itinerary);
 
-        btnBack = findViewById(R.id.btnBack);
-        btnNextStep = findViewById(R.id.btnNextStep);
         btnAddActivity = findViewById(R.id.btnAddActivity);
 
         actionButton(btnBack, CalendarScreen.class);

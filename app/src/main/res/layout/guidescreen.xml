@@ -80,7 +80,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -194,11 +194,6 @@
                         android:textSize="13sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivNext1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_arrow_right" />
             </LinearLayout>
 
             <View
@@ -245,28 +240,47 @@
                         android:textSize="13sp" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivNext2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_arrow_right" />
             </LinearLayout>
 
             <!-- CTA -->
-            <Button
-                android:id="@+id/btnPlanTrip"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:backgroundTint="@null"
-                app:backgroundTint="@null"
-                android:layout_height="48dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/bg_cta_gradient"
-                android:includeFontPadding="false"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="Plan trip"
-                android:textColor="@android:color/white" />
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- Nút Delete (bên trái) -->
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_cta_gradient"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:includeFontPadding="false"
+                    android:text="Delete"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@null" />
+
+                <!-- Nút Plan Trip (bên phải) -->
+                <Button
+                    android:id="@+id/btnPlanTrip"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_cta_gradient"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:includeFontPadding="false"
+                    android:text="Plan trip"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="@null" />
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
