@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import com.example.ai_travel_planner.network.models.ActivityItem;
 import com.example.ai_travel_planner.network.models.DayPlan;
 import com.example.ai_travel_planner.network.models.TripPlan;
 import com.example.ai_travel_planner.ui.home.friend.FriendScreen;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -219,52 +221,53 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
         final boolean isNew = (item == null);
         final ActivityItem working = (item == null) ? new ActivityItem() : cloneItem(item);
 
-        LinearLayout box = new LinearLayout(this);
-        box.setOrientation(LinearLayout.VERTICAL);
-        int pad = (int)(16 * getResources().getDisplayMetrics().density);
-        box.setPadding(pad, pad, pad, pad);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_activity, null);
 
-        final EditText etTime = new EditText(this);
-        etTime.setHint("Time (e.g. 09:00)");
-        etTime.setInputType(InputType.TYPE_CLASS_DATETIME);
-        etTime.setText(working.time == null ? "" : working.time);
-        box.addView(etTime);
+        TextInputEditText etTime = dialogView.findViewById(R.id.edtTime);
+        TextInputEditText etTitle = dialogView.findViewById(R.id.edtTitle);
+        TextInputEditText etCat = dialogView.findViewById(R.id.edtCategory);
+        Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+        Button btnSave = dialogView.findViewById(R.id.btnSave);
+        TextView tvTitle = dialogView.findViewById(R.id.tvDialogTitle);
 
-        final EditText etTitle = new EditText(this);
-        etTitle.setHint("Title");
-        etTitle.setText(working.title == null ? "" : working.title);
-        box.addView(etTitle);
+        // Gán dữ liệu cũ nếu là Edit
+        tvTitle.setText(isNew ? "Thêm hoạt động" : "Chỉnh sửa hoạt động");
+        etTime.setText(working.time != null ? working.time : "");
+        etTitle.setText(working.title != null ? working.title : "");
+        etCat.setText(working.category != null ? working.category : "");
 
-        final EditText etCat = new EditText(this);
-        etCat.setHint("Category (food/nature/culture/...)");
-        etCat.setText(working.category == null ? "" : working.category);
-        box.addView(etCat);
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create();
 
-        new AlertDialog.Builder(this)
-                .setTitle(isNew ? "Add activity" : "Edit activity")
-                .setView(box)
-                .setPositiveButton("Save", (d, w) -> {
-                    working.time = safe(etTime.getText().toString());
-                    working.title = safe(etTitle.getText().toString());
-                    working.category = safe(etCat.getText().toString());
-                    if (isNew) {
-                        working.id = UUID.randomUUID().toString();
-                        currentDay.activities.add(working);
-                    } else {
-                        for (int i = 0; i < currentDay.activities.size(); i++) {
-                            ActivityItem ai = currentDay.activities.get(i);
-                            if (ai.id != null && ai.id.equals(item.id)) {
-                                currentDay.activities.set(i, working);
-                                break;
-                            }
-                        }
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        btnSave.setOnClickListener(v -> {
+            working.time = safe(etTime.getText().toString());
+            working.title = safe(etTitle.getText().toString());
+            working.category = safe(etCat.getText().toString());
+
+            if (isNew) {
+                working.id = UUID.randomUUID().toString();
+                currentDay.activities.add(working);
+            } else {
+                for (int i = 0; i < currentDay.activities.size(); i++) {
+                    ActivityItem ai = currentDay.activities.get(i);
+                    if (ai.id != null && ai.id.equals(item.id)) {
+                        currentDay.activities.set(i, working);
+                        break;
                     }
-                    sortByTime(currentDay.activities);
-                    adapter.submitList(new ArrayList<>(currentDay.activities));
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
+                }
+            }
+
+            sortByTime(currentDay.activities);
+            adapter.submitList(new ArrayList<>(currentDay.activities));
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
+
 
     private ActivityItem cloneItem(ActivityItem a) {
         ActivityItem b = new ActivityItem();
