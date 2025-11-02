@@ -73,6 +73,26 @@ public class AiPlanRepository {
         });
     }
 
+    public interface DeleteCallback { void onDone(); void onError(Exception e); }
+
+    public void deleteById(long id, DeleteCallback cb) {
+        io.execute(() -> {
+            try {
+                // Trường hợp DAO của bạn là:
+                // @Query("DELETE FROM plans WHERE id = :id") void deleteById(long id);
+                dao.deleteById(id);
+
+                // Nếu DAO bạn dùng @Delete(PlanEntity):
+                // PlanEntity e = dao.getById(id);
+                // if (e != null) dao.delete(e);
+
+                main.post(cb::onDone);
+            } catch (Exception ex) {
+                main.post(() -> cb.onError(ex));
+            }
+        });
+    }
+
     // ==== API đồng bộ (nếu bạn tự chạy trong Thread riêng)
     public PlanEntity getPlanByIdSync(long id) { return dao.getById(id); }
     public PlanEntity getLatestPlanSync()     { return dao.getLatest();  }

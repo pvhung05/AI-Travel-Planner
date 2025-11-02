@@ -27,9 +27,9 @@ public class GeminiClient {
             " charset=utf-8");
 
     private static final OkHttpClient client = new OkHttpClient.Builder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(80, TimeUnit.SECONDS)
+            .writeTimeout(80, TimeUnit.SECONDS)
             .build();
 
     public static String callGemini(Context ctx, String promptText) throws IOException {
