@@ -24,7 +24,7 @@ public class GuideScreen extends AppCompatActivity {
 
     ImageView imgHero;
     ImageButton btnBack;
-    Button btnPlanTrip;
+    Button btnPlanTrip, btnDelete;
 
     private PlanEntity plan; // model bạn đang dùng ở GuideScreen
     private String mDestination;
@@ -32,7 +32,6 @@ public class GuideScreen extends AppCompatActivity {
     private double mBudget;
     private String mStyle;
     TextView txtTitle, txtAbout, txtTravelTitle, txtTravelSub, txtHotelTitle, txtHotelSub, txtRating, labelAbout;
-
     long planId = -1;
 
     @Override
@@ -52,6 +51,8 @@ public class GuideScreen extends AppCompatActivity {
         txtRating = findViewById(R.id.txtRating);
         labelAbout = findViewById(R.id.labelAbout);
         btnPlanTrip = findViewById(R.id.btnPlanTrip);
+
+        findViewById(R.id.btnDelete).setOnClickListener(v -> confirmDeleteCurrent());
 
 
         planId = getIntent().getLongExtra("plan_id", -1);
@@ -161,6 +162,32 @@ public class GuideScreen extends AppCompatActivity {
         }
         return String.format("%,.0f", v).replace(",", ".");
     }
+
+    private void confirmDeleteCurrent() {
+        if (planId <= 0) {
+            Toast.makeText(this, "Không xác định được kế hoạch để xoá.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Xóa kế hoạch?")
+                .setMessage("Bạn có chắc muốn xoá kế hoạch này?")
+                .setPositiveButton("Xóa", (d, w) -> {
+                    AiPlanRepository repo = AiPlanRepository.getInstance(getApplicationContext());
+                    repo.deleteById(planId, new AiPlanRepository.DeleteCallback() {
+                        @Override public void onDone() {
+                            Toast.makeText(GuideScreen.this, "Đã xoá kế hoạch.", Toast.LENGTH_SHORT).show();
+                            setResult(RESULT_OK);
+                            finish();
+                        }
+                        @Override public void onError(Exception e) {
+                            Toast.makeText(GuideScreen.this, "Xoá thất bại: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                })
+                .setNegativeButton("Hủy", null)
+                .show();
+    }
+
 
     private void loadPlanFromIntentOrLatest() {
         final AiPlanRepository repo = AiPlanRepository.getInstance(getApplicationContext());

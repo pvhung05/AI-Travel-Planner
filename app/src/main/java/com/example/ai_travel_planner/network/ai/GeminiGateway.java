@@ -14,6 +14,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -39,7 +40,11 @@ public class GeminiGateway {
     private static final List<String> API_VERSIONS = Arrays.asList("v1beta", "v1");
 
     private final String apiKey;
-    private final OkHttpClient http = new OkHttpClient();
+    private final OkHttpClient http = new OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(80, TimeUnit.SECONDS)
+            .writeTimeout(80, TimeUnit.SECONDS)
+            .build();
     private final ExecutorService io = Executors.newSingleThreadExecutor();
 
     public GeminiGateway(String apiKey, String ignoredModel) {
