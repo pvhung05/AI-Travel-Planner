@@ -13,9 +13,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ai_travel_planner.R;
+import com.example.ai_travel_planner.net.amadeus.AmadeusClient;
+import com.example.ai_travel_planner.net.amadeus.AmadeusService;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FlightResultsActivity extends AppCompatActivity {
 
@@ -50,7 +61,7 @@ public class FlightResultsActivity extends AppCompatActivity {
         cabin      = getIntent().getStringExtra("cabin");     if (cabin == null) cabin = "ECONOMY";
         adults     = Math.max(1, getIntent().getIntExtra("adults", 1));
         roundTrip  = getIntent().getBooleanExtra("roundTrip", true);
-        currency   = getIntent().getStringExtra("currency");  if (currency == null) currency = "USD";
+        currency   = getIntent().getStringExtra("currency");  if (currency == null) currency = "VND";
 
         TextView header = findViewById(R.id.txtHeader);
         header.setText(roundTrip && returnISO != null && !returnISO.isEmpty()
@@ -86,10 +97,8 @@ public class FlightResultsActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
 
-        // TODO: thay mockToRows() bằng parse kết quả Amadeus thật của bạn.
-        showLoading(true);
-        mockToRows();
-        showLoading(false);
+        // Gọi API thật để lấy danh sách chuyến bay
+        fetchFlightOffers();
     }
 
     private void showLoading(boolean s) {
@@ -98,24 +107,142 @@ public class FlightResultsActivity extends AppCompatActivity {
         txtEmpty.setVisibility(!s && data.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
-    // ==== DEMO ONLY: Xoá khi đã map từ Amadeus ====
-    private void mockToRows() {
-        data.clear();
-        for (int i = 0; i < 6; i++) {
-            FlightRow r = new FlightRow();
-            r.airline  = (i % 2 == 0) ? "Vietnam Airlines" : "Bamboo Airways";
-            r.flightNo = (i % 2 == 0) ? "VN" + (200 + i) : "QH" + (110 + i);
-            r.from     = fromIata; r.to = toIata;
-            r.depTime  = departISO + " 08:" + (i+1) + "0";
-            r.arrTime  = departISO + " 10:" + (i+2) + "0";
-            r.stops    = 0;
-            r.duration = "2h 10m";
-            r.baggage  = "7kg cabin";
-            r.price    = 120 + i * 10;
-            r.currency = currency;
-            data.add(r);
+    private void fetchFlightOffers() {
+        // Chuẩn hóa & kiểm tra IATA 3 ký tự
+        String origin = fromIata == null ? "" : fromIata.trim().toUpperCase();
+        String dest   = toIata   == null ? "" : toIata.trim().toUpperCase();
+        if (!origin.matches("[A-Z]{3}") || !dest.matches("[A-Z]{3}")) {
+            txtEmpty.setText("Origin/Destination phải là mã IATA 3 ký tự (vd: HAN, SGN).");
+            txtEmpty.setVisibility(View.VISIBLE);
+            rv.setVisibility(View.GONE);
+            progress.setVisibility(View.GONE);
+            return;
         }
-        adapter.notifyDataSetChanged();
+
+        showLoading(true);
+
+        AmadeusService svc = AmadeusClient.authed().create(AmadeusService.class);
+        Call<JsonObject> call = svc.searchFlightOffers(
+                origin,
+                dest,
+                departISO,
+                (roundTrip && returnISO != null && !returnISO.isEmpty()) ? returnISO : null,
+                adults,
+                currency
+        );
+
+        call.enqueue(new Callback<JsonObject>() {
+            @Override public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                data.clear();
+                try {
+                    if (response.isSuccessful() && response.body() != null) {
+                        JsonObject body = response.body();
+                        JsonArray offers = body.has("data") && body.get("data").isJsonArray()
+                                ? body.getAsJsonArray("data") : new JsonArray();
+
+                        // Loại bỏ bản ghi trùng (cùng mã chuyến bay và cùng giá)
+                        Set<String> seenKeys = new HashSet<>();
+
+                        for (JsonElement el : offers) {
+                            if (!el.isJsonObject()) continue;
+                            JsonObject offer = el.getAsJsonObject();
+
+                            // price
+                            double totalPrice = 0.0;
+                            if (offer.has("price") && offer.get("price").isJsonObject()) {
+                                JsonObject priceObj = offer.getAsJsonObject("price");
+                                if (priceObj.has("grandTotal")) {
+                                    try { totalPrice = Double.parseDouble(priceObj.get("grandTotal").getAsString()); } catch (Exception ignored) {}
+                                } else if (priceObj.has("total")) {
+                                    try { totalPrice = Double.parseDouble(priceObj.get("total").getAsString()); } catch (Exception ignored) {}
+                                }
+                            }
+
+                            // itineraries/segments → lấy chặng đầu và cuối (để hiển thị giờ đi/đến, hãng, số hiệu)
+                            String airline = "";
+                            String flightNo = "";
+                            String depTs = "";
+                            String arrTs = "";
+                            int stops = 0;
+                            String duration = offer.has("itineraries") && offer.get("itineraries").isJsonArray()
+                                    ? offer.getAsJsonArray("itineraries").size() > 0 && offer.getAsJsonArray("itineraries").get(0).isJsonObject()
+                                        ? offer.getAsJsonArray("itineraries").get(0).getAsJsonObject().has("duration")
+                                            ? offer.getAsJsonArray("itineraries").get(0).getAsJsonObject().get("duration").getAsString()
+                                            : ""
+                                        : ""
+                                    : "";
+
+                            if (offer.has("itineraries") && offer.get("itineraries").isJsonArray()) {
+                                JsonArray itins = offer.getAsJsonArray("itineraries");
+                                if (itins.size() > 0 && itins.get(0).isJsonObject()) {
+                                    JsonObject firstItin = itins.get(0).getAsJsonObject();
+                                    if (firstItin.has("segments") && firstItin.get("segments").isJsonArray()) {
+                                        JsonArray segs = firstItin.getAsJsonArray("segments");
+                                        stops = Math.max(0, segs.size() - 1);
+                                        if (segs.size() > 0 && segs.get(0).isJsonObject()) {
+                                            JsonObject firstSeg = segs.get(0).getAsJsonObject();
+                                            airline = firstSeg.has("carrierCode") ? firstSeg.get("carrierCode").getAsString() : "";
+                                            String number = firstSeg.has("number") ? firstSeg.get("number").getAsString() : "";
+                                            flightNo = (airline + number).trim();
+                                            depTs = firstSeg.has("departure") && firstSeg.get("departure").isJsonObject()
+                                                    ? firstSeg.getAsJsonObject("departure").has("at")
+                                                        ? firstSeg.getAsJsonObject("departure").get("at").getAsString() : ""
+                                                    : "";
+                                        }
+                                        if (segs.size() > 0 && segs.get(segs.size()-1).isJsonObject()) {
+                                            JsonObject lastSeg = segs.get(segs.size()-1).getAsJsonObject();
+                                            arrTs = lastSeg.has("arrival") && lastSeg.get("arrival").isJsonObject()
+                                                    ? lastSeg.getAsJsonObject("arrival").has("at")
+                                                        ? lastSeg.getAsJsonObject("arrival").get("at").getAsString() : ""
+                                                    : "";
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Khóa nhận diện: ưu tiên flightNo; nếu thiếu, dùng airline+dep/arr timestamp; gắn kèm giá (làm tròn 0)
+                            long roundedPrice = Math.round(totalPrice);
+                            String idPart = !flightNo.isEmpty() ? flightNo : (airline + "|" + depTs + "|" + arrTs);
+                            String dedupKey = idPart + "|" + roundedPrice;
+                            if (seenKeys.contains(dedupKey)) {
+                                continue;
+                            }
+                            seenKeys.add(dedupKey);
+
+                            FlightRow r = new FlightRow();
+                            r.airline  = airline;
+                            r.flightNo = flightNo;
+                            r.from     = fromIata;
+                            r.to       = toIata;
+                            r.depTime  = depTs;
+                            r.arrTime  = arrTs;
+                            r.stops    = stops;
+                            r.duration = duration;
+                            r.baggage  = ""; // có thể lấy từ pricing/fees nếu cần
+                            r.price    = totalPrice;
+                            r.currency = currency;
+                            data.add(r);
+                        }
+                    } else {
+                        String err = "";
+                        try { err = response.errorBody() != null ? response.errorBody().string() : ""; } catch (Exception ignored2) {}
+                        txtEmpty.setText("Lỗi " + response.code() + (err.isEmpty() ? "" : ("\n" + err)));
+                        txtEmpty.setVisibility(View.VISIBLE);
+                    }
+                } catch (Exception ignored) { }
+
+                adapter.notifyDataSetChanged();
+                showLoading(false);
+            }
+
+            @Override public void onFailure(Call<JsonObject> call, Throwable t) {
+                data.clear();
+                adapter.notifyDataSetChanged();
+                showLoading(false);
+                txtEmpty.setText("Không thể tải kết quả.\n" + (t != null ? t.getMessage() : ""));
+                txtEmpty.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     // ===== model cho 1 dòng =====

@@ -202,6 +202,7 @@ public class PlaneBookingScreen extends AppCompatActivity {
         it.putExtra("adults", adults);
         it.putExtra("cabin", cabin);
         it.putExtra("roundTrip", roundTrip);
+        it.putExtra("currency", "VND");
         startActivity(it);
         saveDraft();
     }

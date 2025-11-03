@@ -9,22 +9,23 @@
     android:gravity="center_vertical">
 
     <!-- Tiêu đề -->
+
+    <!-- Ô nhập thời gian -->
     <TextView
         android:id="@+id/tvDialogTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:text="Add activity"
         android:textColor="@android:color/black"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp" />
+        android:textStyle="bold" />
 
-    <!-- Ô nhập thời gian -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Thời gian (vd: 09:00)"
+        android:hint="Time (e.g. 09:00)"
         app:startIconDrawable="@android:drawable/ic_menu_recent_history"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="12dp"
@@ -46,7 +47,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tên hoạt động"
+        android:hint="Activity name"
         app:startIconDrawable="@android:drawable/ic_menu_edit"
         app:boxBackgroundMode="outline"
         app:boxStrokeColor="#E0E0E0"
@@ -69,7 +70,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phân loại (ẩm thực, văn hoá, thiên nhiên...)"
+        android:hint="Classification (cuisine, culture, nature...)"
         app:startIconDrawable="@android:drawable/ic_menu_sort_by_size"
         app:boxBackgroundMode="outline"
         app:boxStrokeColor="#E0E0E0"

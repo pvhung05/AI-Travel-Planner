@@ -320,7 +320,6 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
         TextView tvTitle = dialogView.findViewById(R.id.tvDialogTitle);
 
         // Gán dữ liệu cũ nếu là Edit
-        tvTitle.setText(isNew ? "Thêm hoạt động" : "Chỉnh sửa hoạt động");
         etTime.setText(working.time != null ? working.time : "");
         etTitle.setText(working.title != null ? working.title : "");
         etCat.setText(working.category != null ? working.category : "");

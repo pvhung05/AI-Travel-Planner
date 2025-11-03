@@ -49,15 +49,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btnHome"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            app:srcCompat="@drawable/ic_home"
-            app:tint="#333333"
-            app:layout_constraintTop_toTopOf="@id/txtTitle"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <!-- Danh sách Partner -->
         <ScrollView
             android:id="@+id/scrollViewPartners"
@@ -115,17 +106,6 @@
                             android:textSize="13sp" />
                     </LinearLayout>
 
-                    <Button
-                        android:id="@+id/btnEditProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="38dp"
-                        android:background="@drawable/bg_cta_gradient"
-                        app:backgroundTint="@null"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
-                        android:text="Edit profile"
-                        android:textColor="@android:color/white"
-                        android:textSize="13sp" />
                 </LinearLayout>
 
 <!--                <View-->

@@ -18,7 +18,7 @@
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="Lên kế hoạch du lịch"
+        android:text="AI TRAVEL PLANNER"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -26,7 +26,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Điểm đến (vd: Đà Nẵng)"
+        android:hint="Destination (eg: Da Nang)"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
@@ -49,7 +49,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Số ngày (vd: 3)"
+        android:hint="Number of days (eg: 3)"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="12dp"
         app:boxStrokeColor="#E0E0E0"
@@ -73,7 +73,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Ngân sách (VND, vd: 3000000)"
+        android:hint="Budget (VND, eg: 3000000)"
         app:boxStrokeColor="#E0E0E0"
         app:boxBackgroundColor="#FAFAFA"
         app:boxBackgroundMode="outline"
@@ -97,7 +97,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phong cách (ẩm thực, thiên nhiên, văn hoá,...)"
+        android:hint="Style (cuisine, nature, culture,...)"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusTopStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_orange_outline"
-            android:text="Hủy"
+            android:text="CANCEL"
 
             android:textColor="@android:color/darker_gray"
             app:backgroundTint="@null" />
@@ -142,7 +142,7 @@
             android:layout_marginStart="8dp"
 
             android:background="@drawable/btn_signin_gradient"
-            android:text="Xác nhận"
+            android:text="NEXT"
             android:textColor="@android:color/white"
             app:backgroundTint="@null" />
     </LinearLayout>
