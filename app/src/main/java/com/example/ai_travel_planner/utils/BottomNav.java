@@ -38,11 +38,6 @@ public class BottomNav {
                     intent = new Intent(activity, PlanScreen.class);
                 }
             }
-            else if (id == R.id.nav_group) {
-                if (!(activity instanceof FriendScreen)) {
-                    intent = new Intent(activity, FriendScreen.class);
-                }
-            }
             else if (id == R.id.nav_profile) {
                 if (!(activity instanceof ProfileScreen)) {
                     intent = new Intent(activity, ProfileScreen.class);

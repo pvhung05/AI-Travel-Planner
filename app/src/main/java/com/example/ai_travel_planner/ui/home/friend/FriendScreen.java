@@ -32,7 +32,7 @@ import retrofit2.Response;
 public class FriendScreen extends AppCompatActivity {
 
     Button btnEditProfile, btnInviteFriends;
-    ImageView btnLink, btnHome;
+    ImageView btnLink, btnHome, btnBack;
 
     private long itineraryId;
     private ApiService apiService;
@@ -67,6 +67,9 @@ public class FriendScreen extends AppCompatActivity {
         btnInviteFriends = findViewById(R.id.btnInviteFriends);
         btnLink = findViewById(R.id.btnLink);
         btnHome = findViewById(R.id.btnHome);
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> finish());
 
         btnHome.setOnClickListener(v -> {
             Intent intent = new Intent(FriendScreen.this, HomeScreen.class);

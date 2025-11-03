@@ -14,12 +14,6 @@
         android:contentDescription="@string/search" />
 
     <item
-        android:id="@+id/nav_group"
-        android:icon="@drawable/group"
-        android:title="@string/group"
-        android:contentDescription="@string/group" />
-
-    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/user"
         android:title="@string/profile"

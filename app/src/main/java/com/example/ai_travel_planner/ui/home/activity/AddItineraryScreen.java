@@ -16,7 +16,6 @@ import com.example.ai_travel_planner.R;
 public class AddItineraryScreen extends AppCompatActivity {
 
     ImageButton btnBack;
-    ImageView ivNext1, ivNext2;
     Button btnAddActivity, btnNextStep;
 
     @Override
@@ -26,10 +25,9 @@ public class AddItineraryScreen extends AppCompatActivity {
 
         btnAddActivity = findViewById(R.id.btnAddActivity);
 
-        actionButton(btnBack, CalendarScreen.class);
         actionButton(btnNextStep, FriendScreen.class);
 
-
+        btnBack.setOnClickListener(v -> finish());
     }
 
     void actionButton(View view, final Class<?> destination) {

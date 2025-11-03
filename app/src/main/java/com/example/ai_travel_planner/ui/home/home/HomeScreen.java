@@ -357,6 +357,7 @@ public class HomeScreen extends AppCompatActivity {
         LinearLayout containerSections = resultDialogView.findViewById(R.id.containerSections);
         Button btnClose = resultDialogView.findViewById(R.id.btnClose);
         Button btnSave  = resultDialogView.findViewById(R.id.btnSave);
+
         // CẬP NHẬT PHẦN TỔNG QUAN THEO TRUY VẤN
         updateOverviewSection(resultDialogView, destination, days, style, budget);
 
@@ -383,11 +384,13 @@ public class HomeScreen extends AppCompatActivity {
         if (resultDialog.getWindow() != null) {
             resultDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
+
+        // Nút Lưu
         btnSave.setOnClickListener(v -> {
             btnSave.setEnabled(false);
             new Thread(() -> {
                 try {
-                    // ✅ lấy url ảnh chuẩn địa danh
+                    // ✅ Lấy URL ảnh chuẩn địa danh
                     String imageUrl = ImageResolver.resolve(HomeScreen.this, destination);
 
                     AppDatabase db = AppDatabase.getInstance(HomeScreen.this);
@@ -398,13 +401,14 @@ public class HomeScreen extends AppCompatActivity {
                     p.budget      = budget;
                     p.content     = finalShow;
                     p.createdAt   = System.currentTimeMillis();
-                    p.imageUrl    = imageUrl;    // <-- LƯU VÀO DB
+                    p.imageUrl    = imageUrl;
 
                     long id = db.planDao().insert(p);
 
                     runOnUiThread(() -> {
                         btnSave.setEnabled(true);
                         Toast.makeText(HomeScreen.this, "Đã lưu (id=" + id + ")", Toast.LENGTH_SHORT).show();
+                        resultDialog.dismiss(); // 🔹 Đóng dialog sau khi lưu thành công
                     });
                 } catch (Exception ex) {
                     runOnUiThread(() -> {
@@ -414,9 +418,13 @@ public class HomeScreen extends AppCompatActivity {
                 }
             }).start();
         });
+
+        // Nút Đóng
         btnClose.setOnClickListener(v -> resultDialog.dismiss());
+
         resultDialog.show();
     }
+
 
     // Phương thức cập nhật phần tổng quan
     private void updateOverviewSection(View dialogView, String destination, int days, String style, double budget) {

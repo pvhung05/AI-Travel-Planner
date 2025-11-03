@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class InviteFriendScreen extends AppCompatActivity {
     EditText emailInput;
-    ImageView btnHome;
+    ImageView btnHome, btnBack;
     Button btnInvite;
 
     private ApiService apiService;
@@ -41,6 +41,9 @@ public class InviteFriendScreen extends AppCompatActivity {
         emailInput = findViewById(R.id.emailInput);
         btnInvite = findViewById(R.id.btnInvite);
         btnHome = findViewById(R.id.btnHome);
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> finish());
 
         apiService = ApiClient.getClient().create(ApiService.class);
 

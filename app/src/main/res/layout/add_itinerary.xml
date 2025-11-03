@@ -13,20 +13,37 @@
         android:background="#FFFFFF">
 
         <!-- Next (ImageButton) -->
+
+        <!-- Title -->
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/btn_back"
+            android:contentDescription="@string/back"
+            android:padding="8dp"
+
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_back"
+            android:translationY="20px"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
             android:id="@+id/btnNext"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginStart="328dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/btn_back"
-            app:srcCompat="@drawable/ic_next"
-            app:tint="#6B6B6B"
+            android:contentDescription="@string/next"
             android:padding="8dp"
             android:scaleType="centerInside"
-            android:contentDescription="@string/next"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_next"
+            app:tint="#6B6B6B" />
 
-        <!-- Title -->
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
@@ -42,19 +59,23 @@
             android:layout_marginTop="8dp" />
 
         <!-- Clear current day -->
+
+        <!-- Day tabs (dynamic) -->
+
         <ImageButton
             android:id="@+id/btnClearDay"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="80dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/delete"
             android:padding="8dp"
-            app:srcCompat="@android:drawable/ic_menu_delete"
-            app:tint="#D32F2F"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_delete"
+            app:tint="#D32F2F" />
 
-        <!-- Day tabs (dynamic) -->
         <LinearLayout
             android:id="@+id/dayTabs"
             android:layout_width="0dp"

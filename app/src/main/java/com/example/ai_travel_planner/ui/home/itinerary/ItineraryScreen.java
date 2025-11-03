@@ -51,6 +51,7 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
     private Button btnDeleteSelected, btnAddActivity, btnSavePlan;
     private View btnNext, btnClearDay; // ImageButton hoặc TextView, tuỳ layout
     private LinearLayout dayTabs;
+    private ImageButton btnBack;
 
     private TripPlan plan;
     private DayPlan currentDay;
@@ -87,6 +88,9 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
         btnSavePlan = findViewById(R.id.btnSavePlan);
         btnClearDay = findViewById(R.id.btnClearDay);
         dayTabs = findViewById(R.id.dayTabs);
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> finish());
 
         btnNext = findViewById(R.id.btnNext);
         if (btnNext == null) {
