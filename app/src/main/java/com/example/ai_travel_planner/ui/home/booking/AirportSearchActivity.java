@@ -30,6 +30,13 @@ import java.util.Locale;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import com.example.ai_travel_planner.net.amadeus.AmadeusClient;
+import com.example.ai_travel_planner.net.amadeus.AmadeusService;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import retrofit2.Call;
+import retrofit2.Retrofit;
 
 public class AirportSearchActivity extends AppCompatActivity {
 
@@ -121,18 +128,83 @@ public class AirportSearchActivity extends AppCompatActivity {
                             String label;
 
                             if (resultType.contains("airport") && iata != null && !iata.isEmpty()) {
-                                label = String.format(Locale.US, "%s (%s)", p.optString("name", "Airport"), iata);
-                                d.add(label); ia.add(iata);
+                                String code1 = iata.toUpperCase(Locale.US);
+                                if (code1.matches("[A-Z]{3}")) {
+                                    label = String.format(Locale.US, "%s (%s)", p.optString("name", "Airport"), code1);
+                                    d.add(label); ia.add(code1);
+                                }
                             } else if (!city.isEmpty()) {
-                                // city → không có iata: trả "CITY" để caller mở city-picker tiếp theo nếu muốn
-                                String cityCode = p.optString("citycode", "");
-                                label = String.format(Locale.US, "%s, %s%s",
-                                        city, country, cityCode.isEmpty() ? "" : (" ("+cityCode+")"));
-                                d.add(label);
-                                ia.add(cityCode.isEmpty() ? city.toUpperCase(Locale.US) : cityCode);
+                                // Chỉ chấp nhận city có citycode là IATA 3 ký tự
+                                String cityCode = p.optString("citycode", "").toUpperCase(Locale.US);
+                                if (cityCode.matches("[A-Z]{3}")) {
+                                    label = String.format(Locale.US, "%s, %s (%s)", city, country, cityCode);
+                                    d.add(label);
+                                    ia.add(cityCode);
+                                }
                             }
                         }
                     }
+
+                    // Fallback: nếu chưa có gợi ý hợp lệ, gọi Amadeus Locations
+                    if (ia.isEmpty()) {
+                        try {
+                            Retrofit rt = AmadeusClient.authed();
+                            AmadeusService svc = rt.create(AmadeusService.class);
+                            Call<com.google.gson.JsonObject> call = svc.searchLocations("AIRPORT,CITY", q, 8, "analytics.travelers.score");
+                            retrofit2.Response<com.google.gson.JsonObject> r2 = call.execute();
+                            if (r2.isSuccessful() && r2.body() != null) {
+                                JsonArray arr = r2.body().has("data") && r2.body().get("data").isJsonArray()
+                                        ? r2.body().getAsJsonArray("data") : new JsonArray();
+                                for (JsonElement el : arr) {
+                                    if (!el.isJsonObject()) continue;
+                                    JsonObject o = el.getAsJsonObject();
+                                    String code = o.has("iataCode") ? o.get("iataCode").getAsString() : "";
+                                    if (code == null) code = "";
+                                    code = code.trim().toUpperCase(java.util.Locale.US);
+                                    if (!code.matches("[A-Z]{3}")) continue;
+                                    String name = o.has("name") ? o.get("name").getAsString() : code;
+                                    String country = "";
+                                    if (o.has("address") && o.get("address").isJsonObject()) {
+                                        JsonObject addr = o.getAsJsonObject("address");
+                                        if (addr.has("countryName")) country = addr.get("countryName").getAsString();
+                                    }
+                                    String label = country.isEmpty() ? (name + " (" + code + ")") : (name + " (" + code + ") - " + country);
+                                    // tránh trùng theo IATA
+                                    if (!ia.contains(code)) { d.add(label); ia.add(code); }
+                                }
+                            }
+                        } catch (Exception ignored) {}
+                    }
+
+                    // Bổ sung ưu tiên cho các sân bay Việt Nam quen thuộc & match chính xác mã IATA
+                    try {
+                        String qUpper = q.trim().toUpperCase(java.util.Locale.US);
+                        // inject mapping VN phổ biến
+                        java.util.LinkedHashMap<String, String> vn = new java.util.LinkedHashMap<>();
+                        vn.put("HAN", "Hanoi (HAN) - Vietnam");
+                        vn.put("SGN", "Ho Chi Minh City (SGN) - Vietnam");
+                        vn.put("DAD", "Da Nang (DAD) - Vietnam");
+                        vn.put("CXR", "Nha Trang Cam Ranh (CXR) - Vietnam");
+                        vn.put("DLI", "Da Lat Lien Khuong (DLI) - Vietnam");
+                        vn.put("PQC", "Phu Quoc (PQC) - Vietnam");
+                        vn.put("HUI", "Hue Phu Bai (HUI) - Vietnam");
+                        vn.put("HPH", "Hai Phong Cat Bi (HPH) - Vietnam");
+                        vn.put("UIH", "Quy Nhon Phu Cat (UIH) - Vietnam");
+                        vn.put("VCA", "Can Tho (VCA) - Vietnam");
+
+                        // Nếu người dùng gõ đúng IATA 3 chữ, đẩy mã đó lên đầu danh sách
+                        if (qUpper.matches("[A-Z]{3}")) {
+                            if (vn.containsKey(qUpper) && !ia.contains(qUpper)) {
+                                d.add(0, vn.get(qUpper));
+                                ia.add(0, qUpper);
+                            }
+                        } else {
+                            // Nếu người dùng gõ tên thành phố, thêm các sân bay VN phù hợp tên
+                            if (qUpper.contains("HANOI") && !ia.contains("HAN")) { d.add(0, vn.get("HAN")); ia.add(0, "HAN"); }
+                            if ((qUpper.contains("HO CHI") || qUpper.contains("SAIGON") || qUpper.contains("HCM")) && !ia.contains("SGN")) { d.add(vn.get("SGN")); ia.add("SGN"); }
+                            if (qUpper.contains("DANANG") || qUpper.contains("DA NANG")) { if (!ia.contains("DAD")) { d.add(vn.get("DAD")); ia.add("DAD"); } }
+                        }
+                    } catch (Exception ignored) {}
 
                     runOnUiThread(() -> {
                         display.clear(); iatas.clear();

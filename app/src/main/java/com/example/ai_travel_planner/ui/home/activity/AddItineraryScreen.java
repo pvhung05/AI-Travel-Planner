@@ -25,7 +25,6 @@ public class AddItineraryScreen extends AppCompatActivity {
 
         btnAddActivity = findViewById(R.id.btnAddActivity);
 
-        actionButton(btnNextStep, FriendScreen.class);
 
         btnBack.setOnClickListener(v -> finish());
     }

@@ -28,13 +28,16 @@ public class AmadeusClient {
             synchronized (AmadeusClient.class) {
                 if (retrofit == null) {
                     HttpLoggingInterceptor log = new HttpLoggingInterceptor();
-                    log.setLevel(HttpLoggingInterceptor.Level.BASIC);
+                    log.setLevel(HttpLoggingInterceptor.Level.BODY);
 
                     OkHttpClient http = new OkHttpClient.Builder()
                             .addInterceptor(new OAuthInterceptor())
                             .addInterceptor(log)
-                            .connectTimeout(30, TimeUnit.SECONDS)
-                            .readTimeout(60, TimeUnit.SECONDS)
+                            .connectTimeout(60, TimeUnit.SECONDS)
+                            .readTimeout(90, TimeUnit.SECONDS)
+                            .writeTimeout(90, TimeUnit.SECONDS)
+                            .callTimeout(90, TimeUnit.SECONDS)
+                            .retryOnConnectionFailure(true)
                             .build();
 
                     retrofit = new Retrofit.Builder()
@@ -73,7 +76,13 @@ public class AmadeusClient {
     private static String token() throws IOException {
         if (bearer != null && System.currentTimeMillis() < expireAtMs - 10_000) return bearer;
 
-        OkHttpClient naked = new OkHttpClient();
+        OkHttpClient naked = new OkHttpClient.Builder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(90, TimeUnit.SECONDS)
+                .writeTimeout(90, TimeUnit.SECONDS)
+                .callTimeout(90, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build();
         FormBody body = new FormBody.Builder()
                 .add("grant_type", "client_credentials")
                 .add("client_id", BuildConfig.AMADEUS_KEY)
