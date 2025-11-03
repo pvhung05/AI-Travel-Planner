@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Thêm hoạt động trong ngày"
+        android:text="Add activity"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -90,7 +90,7 @@
 
     <!-- Nút hành động -->
     <LinearLayout
-        android:layout_width="343dp"
+        android:layout_width="297dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="end"
@@ -101,17 +101,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_orange_outline"
-            android:text="Hủy"
+            android:text="Cancel"
             android:textColor="@android:color/darker_gray"
             app:backgroundTint="@null" />
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
+            android:layout_width="99dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:background="@drawable/btn_signin_gradient"
-            android:text="Lưu"
+            android:text="Save"
             android:textColor="@android:color/white"
             app:backgroundTint="@null" />
     </LinearLayout>
