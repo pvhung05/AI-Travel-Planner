@@ -74,7 +74,7 @@
                         android:clipToOutline="true"
                         android:scaleType="centerCrop"
                         android:src="@drawable/avt1" />
-
+                        // Thay anh giong avatar hien tai
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rohan"
+                            android:text="Sua ten tai day"
                             android:textColor="#111111"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -111,45 +111,45 @@
                         android:textSize="13sp" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EEEEEE" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="#EEEEEE" />-->
 
-                <!-- Partner 2 -->
-                <include layout="@layout/item_partner"
-                    android:id="@+id/partner2"
-                    android:tag="Archit,Chief Travel Experiencer,@drawable/avt2" />
+<!--                &lt;!&ndash; Partner 2 &ndash;&gt;-->
+<!--                <include layout="@layout/item_partner"-->
+<!--                    android:id="@+id/partner2"-->
+<!--                    android:tag="Archit,Chief Travel Experiencer,@drawable/avt2" />-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EEEEEE" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="#EEEEEE" />-->
 
-                <!-- Partner 3 -->
-                <include layout="@layout/item_partner"
-                    android:id="@+id/partner3"
-                    android:tag="Parth,Chief Travel Experiencer,@drawable/avt3" />
+<!--                &lt;!&ndash; Partner 3 &ndash;&gt;-->
+<!--                <include layout="@layout/item_partner"-->
+<!--                    android:id="@+id/partner3"-->
+<!--                    android:tag="Parth,Chief Travel Experiencer,@drawable/avt3" />-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EEEEEE" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="#EEEEEE" />-->
 
-                <!-- Partner 4 -->
-                <include layout="@layout/item_partner"
-                    android:id="@+id/partner4"
-                    android:tag="Rudra,Private tour guide,@drawable/avt4" />
+<!--                &lt;!&ndash; Partner 4 &ndash;&gt;-->
+<!--                <include layout="@layout/item_partner"-->
+<!--                    android:id="@+id/partner4"-->
+<!--                    android:tag="Rudra,Private tour guide,@drawable/avt4" />-->
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#EEEEEE" />
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:background="#EEEEEE" />-->
 
-                <!-- Partner 5 -->
-                <include layout="@layout/item_partner"
-                    android:id="@+id/partner5"
-                    android:tag="Dhruv,Travel youtube master,@drawable/avt5" />
+<!--                &lt;!&ndash; Partner 5 &ndash;&gt;-->
+<!--                <include layout="@layout/item_partner"-->
+<!--                    android:id="@+id/partner5"-->
+<!--                    android:tag="Dhruv,Travel youtube master,@drawable/avt5" />-->
             </LinearLayout>
         </ScrollView>
 
