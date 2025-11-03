@@ -24,7 +24,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FlightResultsActivity extends AppCompatActivity {
 
@@ -138,6 +140,9 @@ public class FlightResultsActivity extends AppCompatActivity {
                         JsonArray offers = body.has("data") && body.get("data").isJsonArray()
                                 ? body.getAsJsonArray("data") : new JsonArray();
 
+                        // Loại bỏ bản ghi trùng (cùng mã chuyến bay và cùng giá)
+                        Set<String> seenKeys = new HashSet<>();
+
                         for (JsonElement el : offers) {
                             if (!el.isJsonObject()) continue;
                             JsonObject offer = el.getAsJsonObject();
@@ -194,6 +199,15 @@ public class FlightResultsActivity extends AppCompatActivity {
                                     }
                                 }
                             }
+
+                            // Khóa nhận diện: ưu tiên flightNo; nếu thiếu, dùng airline+dep/arr timestamp; gắn kèm giá (làm tròn 0)
+                            long roundedPrice = Math.round(totalPrice);
+                            String idPart = !flightNo.isEmpty() ? flightNo : (airline + "|" + depTs + "|" + arrTs);
+                            String dedupKey = idPart + "|" + roundedPrice;
+                            if (seenKeys.contains(dedupKey)) {
+                                continue;
+                            }
+                            seenKeys.add(dedupKey);
 
                             FlightRow r = new FlightRow();
                             r.airline  = airline;
