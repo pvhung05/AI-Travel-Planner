@@ -59,7 +59,7 @@ public class FlightResultsActivity extends AppCompatActivity {
         cabin      = getIntent().getStringExtra("cabin");     if (cabin == null) cabin = "ECONOMY";
         adults     = Math.max(1, getIntent().getIntExtra("adults", 1));
         roundTrip  = getIntent().getBooleanExtra("roundTrip", true);
-        currency   = getIntent().getStringExtra("currency");  if (currency == null) currency = "USD";
+        currency   = getIntent().getStringExtra("currency");  if (currency == null) currency = "VND";
 
         TextView header = findViewById(R.id.txtHeader);
         header.setText(roundTrip && returnISO != null && !returnISO.isEmpty()
