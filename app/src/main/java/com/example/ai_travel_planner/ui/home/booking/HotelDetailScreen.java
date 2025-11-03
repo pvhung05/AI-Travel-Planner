@@ -81,9 +81,9 @@ public class HotelDetailScreen extends AppCompatActivity {
     }
 
     private String formatMoney(double v) {
-        if (v >= 1_000_000) return String.format(Locale.US, "%,.1f triệu", v / 1_000_000).replace(",", ".");
-        if (v >= 1_000)     return String.format(Locale.US, "%,.0f nghìn", v / 1_000).replace(",", ".");
-        return String.format(Locale.US, "%,.0f", v).replace(",", ".");
+        java.text.NumberFormat nf = java.text.NumberFormat.getInstance(new Locale("vi", "VN"));
+        nf.setMaximumFractionDigits(0);
+        return nf.format(v);
     }
 
     private String nullToEmpty(String s) { return s == null ? "" : s; }

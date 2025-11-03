@@ -110,7 +110,7 @@ public class HotelSearchResultScreen extends AppCompatActivity {
                 /* units    */ "metric",
                 /* locale   */ "en-gb",
                 /* lon/lat  */ lng, lat,
-                /* currency */ "USD",
+                /* currency */ "VND",
                 /* page     */ 0,
                 /* include  */ "true"
         ).enqueue(new Callback<BookingApi.HotelByCoordResponse>() {

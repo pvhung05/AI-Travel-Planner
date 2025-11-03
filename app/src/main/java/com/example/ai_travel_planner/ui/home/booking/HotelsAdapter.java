@@ -13,8 +13,10 @@ import com.bumptech.glide.Glide;
 import com.example.ai_travel_planner.R;
 import com.example.ai_travel_planner.ui.home.booking.model.Hotel;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.VH> {
 
@@ -23,8 +25,13 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.VH> {
     private final List<Hotel> data = new ArrayList<>();
     private final OnHotelClick listener;
 
+    // Formatter cho VNĐ: 1.200.000
+    private final NumberFormat vndFormat =
+            NumberFormat.getInstance(new Locale("vi", "VN"));
+
     public HotelsAdapter(OnHotelClick l) {
         this.listener = l;
+        vndFormat.setMaximumFractionDigits(0); // không lấy phần thập phân
     }
 
     public void setData(List<Hotel> items) {
@@ -43,10 +50,24 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.VH> {
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
         Hotel it = data.get(position);
-        h.tvName.setText(it.name);
-        h.tvAddr.setText(it.address == null ? "" : it.address);
-        h.tvPrice.setText(it.priceMin > 0 ? ("~ " + it.priceMin + " USD") : "—");
-        h.tvRating.setText(it.rating > 0 ? String.format("%.1f", it.rating) : "—");
+
+        h.tvName.setText(nullToEmpty(it.name));
+        h.tvAddr.setText(shortAddr(it.address));
+
+        // Giá: 1.200.000 VNĐ hoặc "—" nếu không có
+        if (it.priceMin > 0) {
+            String priceText = vndFormat.format(it.priceMin) + " VNĐ";
+            h.tvPrice.setText(priceText);
+        } else {
+            h.tvPrice.setText("—");
+        }
+
+        // Rating: ★ 8.7 hoặc "—"
+        if (it.rating > 0f) {
+            h.tvRating.setText(String.format(Locale.US, "★ %.1f", it.rating));
+        } else {
+            h.tvRating.setText("—");
+        }
 
         Glide.with(h.itemView.getContext())
                 .load(it.thumbnailUrl)
@@ -60,6 +81,14 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.VH> {
     }
 
     @Override public int getItemCount() { return data.size(); }
+
+    private static String nullToEmpty(String s) { return s == null ? "" : s; }
+
+    private static String shortAddr(String addr) {
+        if (addr == null) return "";
+        // Cắt gọn một chút cho đẹp UI
+        return addr.length() > 80 ? addr.substring(0, 77) + "…" : addr;
+    }
 
     static class VH extends RecyclerView.ViewHolder {
         ImageView img;
