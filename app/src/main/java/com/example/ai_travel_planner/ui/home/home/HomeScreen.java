@@ -47,6 +47,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.Gson;
+
+import com.example.ai_travel_planner.network.ai.GeminiGateway;
+import com.example.ai_travel_planner.network.models.TripPlan;
 
 import com.example.ai_travel_planner.ui.home.plan.PlaceItem;
 
@@ -202,8 +206,10 @@ public class HomeScreen extends AppCompatActivity {
             double budget = budgetStr.isEmpty() ? 3_000_000 : Double.parseDouble(budgetStr);
             if (style.isEmpty()) style = "tổng hợp";
 
+
             callAI(dest, days, style, budget);
             dialog.dismiss();
+            generateItineraryAndOpen(dest, days, budget, style);
         });
 
         btnCancel.setOnClickListener(v -> dialog.dismiss());
@@ -423,6 +429,77 @@ public class HomeScreen extends AppCompatActivity {
         btnClose.setOnClickListener(v -> resultDialog.dismiss());
 
         resultDialog.show();
+    }
+
+    private String extractJson(String raw) {
+        if (raw == null) return null;
+        String s = raw.trim();
+        int i = s.indexOf('{');
+        int j = s.lastIndexOf('}');
+        if (i >= 0 && j > i) return s.substring(i, j + 1);
+        int a = s.indexOf('[');
+        int b = s.lastIndexOf(']');
+        if (a >= 0 && b > a) return s.substring(a, b + 1);
+        return s;
+    }
+
+    private void generateItineraryAndOpen(String destination, int days, double budget, String style) {
+        if (destination == null || destination.trim().isEmpty()
+                || days <= 0 || budget <= 0
+                || style == null || style.trim().isEmpty()) {
+            Toast.makeText(this, "Thiếu destination/days/budget/style.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        AlertDialog progress = new AlertDialog.Builder(this)
+                .setView(LayoutInflater.from(this).inflate(R.layout.dialog_progress, null))
+                .setCancelable(false)
+                .create();
+        if (progress.getWindow() != null) {
+            progress.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+        progress.show();
+
+        final String apiKey = getString(R.string.gemini_api_key);
+        final String systemPrompt =
+                "You are a travel planner. Return ONLY valid JSON (no markdown, no commentary).\n" +
+                        "{ \"city\":\"string\",\"currency\":\"VND\",\"days\":[{\"label\":\"Day 1\",\"date\":\"YYYY-MM-DD\"," +
+                        "\"activities\":[{\"time\":\"HH:mm\",\"title\":\"string\",\"category\":\"food|nature|culture|shopping|adventure|other\"," +
+                        "\"location\":\"string|null\",\"costVND\":0,\"notes\":\"string|null\",\"emoji\":\"string|null\"}]}]}";
+        final String userPrompt =
+                "Destination: " + destination + "\n" +
+                        "Budget (VND): " + budget + "\n" +
+                        "Days: " + days + "\n" +
+                        "Style: " + style + "\n" +
+                        "IMPORTANT: Reply with JSON ONLY. Times must be HH:mm. Include a date per day.";
+
+        new Thread(() -> {
+            try {
+                GeminiGateway gw = new GeminiGateway(apiKey, "gemini-1.5-flash");
+                String raw = gw.callGemini(systemPrompt, userPrompt).get();
+                String json = extractJson(raw);
+
+                Gson gson = new Gson();
+                TripPlan tp = gson.fromJson(json, TripPlan.class);
+
+                runOnUiThread(() -> {
+                    if (progress.isShowing()) progress.dismiss();
+                    if (tp == null || tp.days == null || tp.days.isEmpty()) {
+                        Toast.makeText(this, "AI trả về rỗng/sai schema. Thử lại.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Intent i = new Intent(this, com.example.ai_travel_planner.ui.home.itinerary.ItineraryScreen.class);
+                    i.putExtra("plan_text", json);
+                    i.putExtra("tripPlan", tp);
+                    startActivity(i);
+                });
+            } catch (Exception e) {
+                runOnUiThread(() -> {
+                    if (progress.isShowing()) progress.dismiss();
+                    Toast.makeText(this, "Lỗi tạo lịch trình: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
+            }
+        }).start();
     }
 
 

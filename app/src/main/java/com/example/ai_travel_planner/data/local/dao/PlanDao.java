@@ -38,4 +38,7 @@ public interface PlanDao {
     @Query("SELECT * FROM plans WHERE destination = :dest AND days = :days AND style = :style ORDER BY createdAt DESC LIMIT 1")
     PlanEntity getLatestByMeta(String dest, int days, String style);
 
+    @Query("UPDATE plans SET planJson = :json, createdAt = :createdAt WHERE id = :id")
+    void updatePlanJson(long id, String json, long createdAt);
+
 }

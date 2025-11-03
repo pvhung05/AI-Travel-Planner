@@ -9,6 +9,7 @@ import com.example.ai_travel_planner.data.local.dao.PlanDao;
 import com.example.ai_travel_planner.data.local.entities.PlanEntity;
 import com.example.ai_travel_planner.network.models.TripPlan;
 import com.google.gson.Gson;
+import com.example.ai_travel_planner.ui.home.plan.ImageResolver;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -43,14 +44,37 @@ public class AiPlanRepository {
     public void savePlan(TripPlan plan, SaveCallback cb) {
         io.execute(() -> {
             try {
-                PlanEntity e = new PlanEntity();
-                e.destination = ns(plan.destination);
-                e.style = ns(plan.style);
-                e.days = (plan == null) ? 0 : plan.getDaysCount();
-                e.createdAt = System.currentTimeMillis();
-                e.planJson = gson.toJson(plan);
-                long id = dao.insert(e);
-                main.post(() -> cb.onSaved(id));
+                String dest = ns((plan.destination != null && !plan.destination.isEmpty()) ? plan.destination : plan.city);
+                String style = ns(plan.style);
+                int days = (plan == null) ? 0 : plan.getDaysCount();
+                long now = System.currentTimeMillis();
+                String json = gson.toJson(plan);
+
+                // Try to find existing latest by meta and update instead of inserting a new row
+                PlanEntity existing = dao.getLatestByMeta(dest, days, style);
+                long id;
+                if (existing != null) {
+                    dao.updatePlanJson(existing.id, json, now);
+                    if (existing.imageUrl == null || existing.imageUrl.isEmpty()) {
+                        String fallback = (dest != null && !dest.isEmpty()) ? ImageResolver.buildFallbackUrl(dest) : null;
+                        if (fallback != null) dao.updateImage(existing.id, fallback);
+                    }
+                    id = existing.id;
+                } else {
+                    PlanEntity e = new PlanEntity();
+                    e.destination = dest;
+                    e.style = style;
+                    e.days = days;
+                    e.createdAt = now;
+                    e.planJson = json;
+                    // set a displayable image so PlanScreen has thumbnail immediately
+                    if (dest != null && !dest.isEmpty()) {
+                        e.imageUrl = ImageResolver.buildFallbackUrl(dest);
+                    }
+                    id = dao.insert(e);
+                }
+                long finalId = id;
+                main.post(() -> cb.onSaved(finalId));
             } catch (Exception ex) {
                 main.post(() -> cb.onError(ex));
             }

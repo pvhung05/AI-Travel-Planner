@@ -54,7 +54,6 @@ public class GuideScreen extends AppCompatActivity {
 
         findViewById(R.id.btnDelete).setOnClickListener(v -> confirmDeleteCurrent());
 
-
         planId = getIntent().getLongExtra("plan_id", -1);
         if (planId <= 0) {
             Toast.makeText(this, "Thiếu plan_id", Toast.LENGTH_LONG).show();

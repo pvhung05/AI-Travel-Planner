@@ -14,6 +14,7 @@ public class TripPlan implements Serializable {
 
     // Thông tin chung
     public String destination;   // ví dụ: "Hà Nội", "Đà Nẵng"
+    public String city;          // một số JSON dùng "city" thay cho "destination"
     public long   budgetVnd;     // ngân sách dự kiến (VND)
     public String style;         // phong cách: ẩm thực / thiên nhiên / văn hoá...
     public String aboutText;     // đoạn mô tả/giới thiệu (markdown/text) để show ở GuideScreen
