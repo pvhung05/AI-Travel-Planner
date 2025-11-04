@@ -1,0 +1,17 @@
+<resources>
+    <style name="Theme.AI_Travel_Planner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Giữ nguyên các tinh chỉnh khác từ themes chính nếu cần -->
+        <item name="colorButtonNormal">@null</item>
+        <item name="android:colorButtonNormal">@null</item>
+        <item name="colorControlHighlight">@null</item>
+        <item name="colorSurface">@color/black</item>
+
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="materialButtonStyle">@style/MyButtonStyle</item>
+
+        <!-- Night mode: nền status bar tối, icon sáng -->
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>
+
