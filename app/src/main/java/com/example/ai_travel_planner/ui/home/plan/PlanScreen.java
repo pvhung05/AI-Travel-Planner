@@ -51,6 +51,7 @@ public class PlanScreen extends AppCompatActivity {
             if (plan.planJson != null && !plan.planJson.isEmpty()) {
                 it.putExtra("plan_text", plan.planJson);
             }
+            it.putExtra("plan_id", plan.id); // Truyền plan_id để update đúng plan
             startActivity(it);
         });
         rvPlans.setAdapter(adapter);

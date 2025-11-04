@@ -42,6 +42,10 @@ public class AiPlanRepository {
     public interface LoadCallback { void onLoaded(TripPlan plan); }
 
     public void savePlan(TripPlan plan, SaveCallback cb) {
+        savePlan(plan, -1, cb);
+    }
+
+    public void savePlan(TripPlan plan, long planId, SaveCallback cb) {
         io.execute(() -> {
             try {
                 String dest = ns((plan.destination != null && !plan.destination.isEmpty()) ? plan.destination : plan.city);
@@ -50,29 +54,58 @@ public class AiPlanRepository {
                 long now = System.currentTimeMillis();
                 String json = gson.toJson(plan);
 
-                // Try to find existing latest by meta and update instead of inserting a new row
-                PlanEntity existing = dao.getLatestByMeta(dest, days, style);
                 long id;
-                if (existing != null) {
-                    dao.updatePlanJson(existing.id, json, now);
-                    if (existing.imageUrl == null || existing.imageUrl.isEmpty()) {
-                        String fallback = (dest != null && !dest.isEmpty()) ? ImageResolver.buildFallbackUrl(dest) : null;
-                        if (fallback != null) dao.updateImage(existing.id, fallback);
+                
+                // Nếu có planId, update theo id
+                if (planId > 0) {
+                    PlanEntity existing = dao.getById(planId);
+                    if (existing != null) {
+                        dao.updatePlanJson(planId, json, now);
+                        id = planId;
+                    } else {
+                        // Nếu không tìm thấy theo id, fallback về logic tìm theo meta
+                        PlanEntity existingByMeta = dao.getLatestByMeta(dest, days, style);
+                        if (existingByMeta != null) {
+                            dao.updatePlanJson(existingByMeta.id, json, now);
+                            id = existingByMeta.id;
+                        } else {
+                            // Tạo mới nếu không tìm thấy
+                            PlanEntity e = new PlanEntity();
+                            e.destination = dest;
+                            e.style = style;
+                            e.days = days;
+                            e.createdAt = now;
+                            e.planJson = json;
+                            if (dest != null && !dest.isEmpty()) {
+                                e.imageUrl = ImageResolver.buildFallbackUrl(dest);
+                            }
+                            id = dao.insert(e);
+                        }
                     }
-                    id = existing.id;
                 } else {
-                    PlanEntity e = new PlanEntity();
-                    e.destination = dest;
-                    e.style = style;
-                    e.days = days;
-                    e.createdAt = now;
-                    e.planJson = json;
-                    // set a displayable image so PlanScreen has thumbnail immediately
-                    if (dest != null && !dest.isEmpty()) {
-                        e.imageUrl = ImageResolver.buildFallbackUrl(dest);
+                    // Không có planId, tìm theo meta như cũ
+                    PlanEntity existing = dao.getLatestByMeta(dest, days, style);
+                    if (existing != null) {
+                        dao.updatePlanJson(existing.id, json, now);
+                        if (existing.imageUrl == null || existing.imageUrl.isEmpty()) {
+                            String fallback = (dest != null && !dest.isEmpty()) ? ImageResolver.buildFallbackUrl(dest) : null;
+                            if (fallback != null) dao.updateImage(existing.id, fallback);
+                        }
+                        id = existing.id;
+                    } else {
+                        PlanEntity e = new PlanEntity();
+                        e.destination = dest;
+                        e.style = style;
+                        e.days = days;
+                        e.createdAt = now;
+                        e.planJson = json;
+                        if (dest != null && !dest.isEmpty()) {
+                            e.imageUrl = ImageResolver.buildFallbackUrl(dest);
+                        }
+                        id = dao.insert(e);
                     }
-                    id = dao.insert(e);
                 }
+                
                 long finalId = id;
                 main.post(() -> cb.onSaved(finalId));
             } catch (Exception ex) {
