@@ -116,8 +116,6 @@ public class DescribeScreen extends Activity {
         btnViewOther.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DescribeScreen.this, HomeScreen.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -130,46 +128,35 @@ public class DescribeScreen extends Activity {
 //        });
     }
 
-    @Override
-    public void onBackPressed() {
-        finish(); // Quay lại màn hình trước đó
-    }
-
     private void fetchDescriptionFromAI(String placeName) {
-        // Hiển thị loading
         tvDescription = findViewById(R.id.tvDescription);
         tvDescription.setText("Đang tải mô tả ...");
 
-        new Thread(() -> {
-            try {
-                // Tạo prompt
-                String prompt = String.format(
-                        "Viết một đoạn mô tả tổng quan (overview) ngắn gọn (khoảng 3-4 câu) bằng tiếng Việt cho địa điểm du lịch: %s",
-                        placeName
-                );
+        String vicinity = getIntent().getStringExtra("placeVicinity");
+        Double rating = getIntent().getDoubleExtra("placeRating", 0.0);
 
-                // Gọi Gemini AI
-                String raw = GeminiClient.callGemini(DescribeScreen.this, prompt);
-                android.util.Log.d("GEMINI_DESC_RAW", raw);
+        com.example.ai_travel_planner.ai.DescriptionService.getDescriptionProgressive(
+                DescribeScreen.this,
+                placeName,
+                vicinity,
+                rating,
+                new com.example.ai_travel_planner.ai.DescriptionService.Callback() {
+                    @Override
+                    public void onImmediate(String draftOrCached) {
+                        runOnUiThread(() -> tvDescription.setText(draftOrCached));
+                    }
 
-                String text = extractTextFromGemini(raw);
-                if (text == null || text.isEmpty()) {
-                    text = "Không thể tạo mô tả cho địa điểm này.";
+                    @Override
+                    public void onShortReady(String shortText) {
+                        runOnUiThread(() -> tvDescription.setText(shortText));
+                    }
+
+                    @Override
+                    public void onLongReady(String longText) {
+                        runOnUiThread(() -> tvDescription.setText(longText));
+                    }
                 }
-                String finalDescription = sanitizeMarkdown(text);
-
-                // Hiển thị kết quả lên UI Thread
-                runOnUiThread(() -> {
-                    tvDescription.setText(finalDescription);
-                });
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() -> {
-                    tvDescription.setText("Lỗi khi tải mô tả: " + e.getMessage());
-                });
-            }
-        }).start();
+        );
     }
 
     /**

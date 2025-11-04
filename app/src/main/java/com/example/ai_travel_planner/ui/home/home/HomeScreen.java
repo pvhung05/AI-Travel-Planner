@@ -43,6 +43,7 @@ import com.example.ai_travel_planner.ui.home.plan.ImageResolver;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.gms.location.Priority;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -90,6 +91,7 @@ public class HomeScreen extends AppCompatActivity {
     private ApiService apiService;
 
     private boolean isLoading = false; // Thêm biến cờ để tránh gọi API trùng lặp
+    private boolean isLoadingNearby = false; // tránh gọi nearby trùng
 
 
     @Override
@@ -604,7 +606,7 @@ public class HomeScreen extends AppCompatActivity {
         } else {
             Log.d("NearbyFlow", "Permission not granted. Requesting permission...");
             ActivityCompat.requestPermissions(this, // Chưa có quyền, yêu cầu
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
@@ -637,15 +639,27 @@ public class HomeScreen extends AppCompatActivity {
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
                         Log.d("NearbyFlow", "Location obtained: Lat=" + location.getLatitude() + ", Lng=" + location.getLongitude());
-//                        fetchNearbyPlacesGeoapify(location.getLatitude(), location.getLongitude());
-//                        Latitude: 21.038132 ha noi
-//                        Longitude: 105.781097
-                        fetchNearbyPlacesGeoapify(21.038132, 105.781097);
+                        fetchNearbyPlacesGeoapify(location.getLatitude(), location.getLongitude());
                     } else {
-                        Log.w("NearbyFlow", "getLastLocation returned null.");
-                        Toast.makeText(this, "Không thể lấy vị trí. Bật GPS?", Toast.LENGTH_LONG).show();
-                        placeList.clear();
-                        adapter.updateData(placeList);
+                        Log.w("NearbyFlow", "getLastLocation returned null. Trying getCurrentLocation...");
+                        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null)
+                                .addOnSuccessListener(loc -> {
+                                    if (loc != null) {
+                                        Log.d("NearbyFlow", "CurrentLocation obtained: Lat=" + loc.getLatitude() + ", Lng=" + loc.getLongitude());
+                                        fetchNearbyPlacesGeoapify(loc.getLatitude(), loc.getLongitude());
+                                    } else {
+                                        Log.w("NearbyFlow", "getCurrentLocation also null.");
+                                        Toast.makeText(this, "Không thể lấy vị trí. Hãy bật GPS/Location và thử lại.", Toast.LENGTH_LONG).show();
+                                        placeList.clear();
+                                        adapter.updateData(placeList);
+                                    }
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e("NearbyFlow", "getCurrentLocation failed", e);
+                                    Toast.makeText(this, "Lỗi lấy vị trí: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    placeList.clear();
+                                    adapter.updateData(placeList);
+                                });
                     }
                 })
                 .addOnFailureListener(this, e -> {
@@ -660,8 +674,24 @@ public class HomeScreen extends AppCompatActivity {
         Log.d("NearbyFlow", "Step 4: fetchNearbyPlacesGeoapify called with Lat=" + lat + ", Lng=" + lng); // Log bước 4
         Toast.makeText(this, "Đang tìm địa điểm gần đây (Geoapify)...", Toast.LENGTH_SHORT).show();
 
+        if (isLoadingNearby) {
+            Log.d("NearbyFlow", "Skip: already loading nearby");
+            return;
+        }
+        isLoadingNearby = true;
+
+        // Hiển thị kết quả cache ngay nếu có (stale-while-revalidate)
+        List<PlaceItem> cached = com.example.ai_travel_planner.data.local.NearbyCache.get(this, lat, lng);
+        if (cached != null && !cached.isEmpty()) {
+            runOnUiThread(() -> {
+                Log.d("NearbyFlow", "Cache hit: " + cached.size() + " items");
+                adapter.updateData(cached);
+            });
+        }
+
         GeoRequest service = GeoClient.getInstance();
-        String filter = String.format("circle:%f,%f,20000", lng, lat);
+        // Giảm bán kính để tăng tốc phản hồi (8km)
+        String filter = String.format("circle:%f,%f,8000", lng, lat);
         String bias = String.format("proximity:%f,%f", lng, lat);
         String categories = "building.tourism,building.historic,building.place_of_worship,beach.beach_resort,activity.sport_club,building.entertainment";
         String apiKey = getString(R.string.geoapify_api_key);
@@ -676,6 +706,7 @@ public class HomeScreen extends AppCompatActivity {
             public void onResponse(retrofit2.Call<GeoResponse> call,
                                    retrofit2.Response<GeoResponse> response) {
                 Log.d("NearbyFlow", "Step 5: onResponse Geoapify. Code: " + response.code()); // Log bước 5
+                isLoadingNearby = false;
                 if (response.isSuccessful() && response.body() != null && response.body().features != null) {
                     Log.d("GEOAPIFY_SUCCESS", "Received " + response.body().features.size() + " features.");
                     processGeoapifyResults(response.body().features); // Gọi hàm xử lý kết quả
@@ -689,17 +720,22 @@ public class HomeScreen extends AppCompatActivity {
                     }
                     Log.e("GEOAPIFY_ERROR", errorMsg);
                     Toast.makeText(HomeScreen.this, errorMsg, Toast.LENGTH_LONG).show();
-                    placeList.clear();
-                    adapter.updateData(placeList);
+                    if (cached == null || cached.isEmpty()) {
+                        placeList.clear();
+                        adapter.updateData(placeList);
+                    }
                 }
             }
 
             @Override
             public void onFailure(retrofit2.Call<GeoResponse> call, Throwable t) {
                 Log.e("GEOAPIFY_FAIL", "Lỗi mạng", t);
+                isLoadingNearby = false;
                 Toast.makeText(HomeScreen.this, "Lỗi mạng Geoapify: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                placeList.clear();
-                adapter.updateData(placeList);
+                if (cached == null || cached.isEmpty()) {
+                    placeList.clear();
+                    adapter.updateData(placeList);
+                }
             }
         });
     }
@@ -752,6 +788,15 @@ public class HomeScreen extends AppCompatActivity {
             Toast.makeText(HomeScreen.this, "Tìm thấy " + newList.size() + " địa điểm!", Toast.LENGTH_SHORT).show();
         });
 
+        // Lưu cache để lần sau hiển thị tức thì
+        try {
+            if (!newList.isEmpty()) {
+                double lat = newList.get(0).getLatitude();
+                double lon = newList.get(0).getLongitude();
+                com.example.ai_travel_planner.data.local.NearbyCache.save(this, lat, lon, newList);
+            }
+        } catch (Exception ignored) { }
+
         // Load ảnh bất đồng bộ cho từng item (progressive loading)
         AtomicInteger completedCount = new AtomicInteger(0);
         int totalItems = newList.size();
@@ -785,6 +830,16 @@ public class HomeScreen extends AppCompatActivity {
                     Log.d("ImageResolverTask", "Progress: " + completed + "/" + totalItems + " images loaded");
                 });
             });
+
+            // Prefetch mô tả AI ở nền để khi người dùng bấm sẽ có sẵn
+            try {
+                com.example.ai_travel_planner.ai.DescriptionService.prefetch(
+                        HomeScreen.this,
+                        item.getName(),
+                        item.getVicinity(),
+                        item.getRating()
+                );
+            } catch (Exception ignored) { }
         }
     }
 
