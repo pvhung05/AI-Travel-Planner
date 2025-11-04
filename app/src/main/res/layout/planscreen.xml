@@ -57,6 +57,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_margin="16dp"
+            app:backgroundTint="@null"
             android:text="Delete Selected"
             android:enabled="false"
             android:background="@drawable/bg_button_disabled"

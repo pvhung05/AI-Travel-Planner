@@ -84,7 +84,7 @@
         android:id="@+id/tvMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Đang tìm kiếm lịch trình phù hợp..."
+        android:text="Searching for a suitable itinerary..."
         android:textSize="16sp"
         android:textColor="#333333"
         android:gravity="center"
