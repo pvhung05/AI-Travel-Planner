@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +24,11 @@ import com.example.ai_travel_planner.ui.home.profile.ProfileScreen;
 import com.example.ai_travel_planner.network.ApiClient;
 import com.example.ai_travel_planner.network.ApiService;
 import com.example.ai_travel_planner.network.models.InviteLinkResponse;
+import com.example.ai_travel_planner.network.models.UserMe;
 import com.example.ai_travel_planner.utils.TokenManager;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +38,8 @@ public class FriendScreen extends AppCompatActivity {
 
     Button btnEditProfile, btnInviteFriends;
     ImageView btnLink, btnBack;
+    ImageView imgUserAvatar;
+    TextView txtUserName;
 
     private long itineraryId;
     private ApiService apiService;
@@ -68,6 +75,8 @@ public class FriendScreen extends AppCompatActivity {
         btnLink = findViewById(R.id.btnLink);
 
         btnBack = findViewById(R.id.btnBack);
+        imgUserAvatar = findViewById(R.id.imgUserAvatar);
+        txtUserName = findViewById(R.id.txtUserName);
 
         btnBack.setOnClickListener(v -> finish());
 
@@ -94,6 +103,11 @@ public class FriendScreen extends AppCompatActivity {
             }
             showLinkPopup(v, itineraryId);
         });
+
+        // Load current user info for avatar and display name
+        if (authToken != null && !authToken.isEmpty()) {
+            loadCurrentUser();
+        }
     }
 
     private void showLinkPopup(View anchorView, long tripId) {
@@ -139,6 +153,43 @@ public class FriendScreen extends AppCompatActivity {
             ClipData clip = ClipData.newPlainText("Invite Link", editLink.getText().toString());
             clipboard.setPrimaryClip(clip);
             Toast.makeText(this, "Đã sao chép!", Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void loadCurrentUser() {
+        apiService.getMe(authToken).enqueue(new Callback<UserMe>() {
+            @Override
+            public void onResponse(Call<UserMe> call, Response<UserMe> response) {
+                if (!response.isSuccessful() || response.body() == null) {
+                    return;
+                }
+                UserMe currentUser = response.body();
+
+                if (txtUserName != null) {
+                    txtUserName.setText(currentUser.getDisplayName() != null ? currentUser.getDisplayName() : "");
+                }
+
+                if (imgUserAvatar != null) {
+                    String avatarUrl = currentUser.getAvatarUrl();
+                    if (avatarUrl != null && !avatarUrl.isEmpty()) {
+                        String fullAvatarUrl = "http://10.0.2.2:8080" + avatarUrl;
+                        Glide.with(FriendScreen.this)
+                                .load(fullAvatarUrl)
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(true)
+                                .placeholder(R.drawable.ic_default_profile)
+                                .error(R.drawable.ic_default_profile)
+                                .into(imgUserAvatar);
+                    } else {
+                        imgUserAvatar.setImageResource(R.drawable.ic_default_profile);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserMe> call, Throwable t) {
+                // Ignore silently for this screen
+            }
         });
     }
 }
