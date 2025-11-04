@@ -57,6 +57,7 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
     private DayPlan currentDay;
     private final Set<String> selectedIds = new HashSet<>();
     private ItineraryAdapter adapter;
+    private long currentPlanId = -1; // ID của plan hiện tại (nếu có)
 
     private ApiService apiService;
     private String authToken; // Biến để lưu token
@@ -102,6 +103,9 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.setAdapter(adapter);
 
+        // Nhận plan_id nếu có (từ PlanScreen)
+        currentPlanId = getIntent().getLongExtra("plan_id", -1);
+        
         Object tp = getIntent().getSerializableExtra("tripPlan");
         if (tp instanceof TripPlan) {
             plan = (TripPlan) tp;
@@ -176,7 +180,8 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
 
     private void savePlanLocally(long backendId) {
         AiPlanRepository repo = AiPlanRepository.getInstance(getApplicationContext());
-        repo.savePlan(plan, new AiPlanRepository.SaveCallback() {
+        // Truyền planId nếu có để update đúng plan
+        repo.savePlan(plan, currentPlanId > 0 ? currentPlanId : -1, new AiPlanRepository.SaveCallback() {
             @Override
             public void onSaved(long localId) {
                 Toast.makeText(ItineraryScreen.this, "Đã lưu chuyến đi!", Toast.LENGTH_SHORT).show();
@@ -281,7 +286,8 @@ public class ItineraryScreen extends AppCompatActivity implements ItineraryAdapt
     /** Lưu & thoát (bạn có thể thay bằng lưu Room) */
     private void savePlanAndFinish() {
         AiPlanRepository repo = AiPlanRepository.getInstance(getApplicationContext());
-        repo.savePlan(plan, new AiPlanRepository.SaveCallback() {
+        // Truyền planId nếu có (để update đúng plan thay vì tạo mới)
+        repo.savePlan(plan, currentPlanId > 0 ? currentPlanId : -1, new AiPlanRepository.SaveCallback() {
             @Override public void onSaved(long id) {
                 // quay về GuideScreen
                 setResult(RESULT_OK);

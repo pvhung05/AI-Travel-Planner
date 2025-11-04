@@ -52,7 +52,6 @@ import com.google.gson.Gson;
 
 import com.example.ai_travel_planner.network.ai.GeminiGateway;
 import com.example.ai_travel_planner.network.models.TripPlan;
-
 import com.example.ai_travel_planner.ui.home.plan.PlaceItem;
 
 import java.util.ArrayList;
@@ -208,10 +207,8 @@ public class HomeScreen extends AppCompatActivity {
             double budget = budgetStr.isEmpty() ? 3_000_000 : Double.parseDouble(budgetStr);
             if (style.isEmpty()) style = "tổng hợp";
 
-
-            callAI(dest, days, style, budget);
             dialog.dismiss();
-            generateItineraryAndOpen(dest, days, budget, style);
+            callAI(dest, days, style, budget);
         });
 
         btnCancel.setOnClickListener(v -> dialog.dismiss());
@@ -395,12 +392,16 @@ public class HomeScreen extends AppCompatActivity {
 
         // Nút Lưu
         btnSave.setOnClickListener(v -> {
+            // Vô hiệu hóa ngay để tránh bấm nhiều lần
             btnSave.setEnabled(false);
             new Thread(() -> {
                 try {
                     // ✅ Lấy URL ảnh chuẩn địa danh
                     String imageUrl = ImageResolver.resolve(HomeScreen.this, destination);
 
+                    // ✅ Gọi Gemini để lấy JSON format cho ItineraryScreen
+                    String planJson = generatePlanJson(destination, days, budget, style);
+                    
                     AppDatabase db = AppDatabase.getInstance(HomeScreen.this);
                     PlanEntity p = new PlanEntity();
                     p.destination = destination;
@@ -410,17 +411,21 @@ public class HomeScreen extends AppCompatActivity {
                     p.content     = finalShow;
                     p.createdAt   = System.currentTimeMillis();
                     p.imageUrl    = imageUrl;
+                    p.planJson    = planJson; // Lưu JSON để ItineraryScreen có thể parse
 
                     long id = db.planDao().insert(p);
 
                     runOnUiThread(() -> {
-                        btnSave.setEnabled(true);
-                        Toast.makeText(HomeScreen.this, "Đã lưu (id=" + id + ")", Toast.LENGTH_SHORT).show();
-                        resultDialog.dismiss(); // 🔹 Đóng dialog sau khi lưu thành công
+                        if (planJson == null || planJson.isEmpty()) {
+                            Toast.makeText(HomeScreen.this, "Đã lưu (id=" + id + ") - Lưu ý: Không thể tạo lịch trình chi tiết", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(HomeScreen.this, "Đã lưu (id=" + id + ")", Toast.LENGTH_SHORT).show();
+                        }
+                        resultDialog.dismiss(); // 🔹 Đóng dialog ngay sau khi lưu thành công
                     });
                 } catch (Exception ex) {
                     runOnUiThread(() -> {
-                        btnSave.setEnabled(true);
+                        btnSave.setEnabled(true); // Chỉ bật lại nếu lỗi
                         Toast.makeText(HomeScreen.this, "Lỗi lưu: " + ex.getMessage(), Toast.LENGTH_LONG).show();
                     });
                 }
@@ -445,65 +450,41 @@ public class HomeScreen extends AppCompatActivity {
         return s;
     }
 
-    private void generateItineraryAndOpen(String destination, int days, double budget, String style) {
-        if (destination == null || destination.trim().isEmpty()
-                || days <= 0 || budget <= 0
-                || style == null || style.trim().isEmpty()) {
-            Toast.makeText(this, "Thiếu destination/days/budget/style.", Toast.LENGTH_LONG).show();
-            return;
-        }
+    /**
+     * Gọi Gemini để lấy JSON format của lịch trình (dùng cho ItineraryScreen)
+     */
+    private String generatePlanJson(String destination, int days, double budget, String style) {
+        try {
+            final String apiKey = getString(R.string.gemini_api_key);
+            final String systemPrompt =
+                    "You are a travel planner. Return ONLY valid JSON (no markdown, no commentary).\n" +
+                            "{ \"city\":\"string\",\"currency\":\"VND\",\"days\":[{\"label\":\"Day 1\",\"date\":\"YYYY-MM-DD\"," +
+                            "\"activities\":[{\"time\":\"HH:mm\",\"title\":\"string\",\"category\":\"food|nature|culture|shopping|adventure|other\"," +
+                            "\"location\":\"string|null\",\"costVND\":0,\"notes\":\"string|null\",\"emoji\":\"string|null\"}]}]}";
+            final String userPrompt =
+                    "Destination: " + destination + "\n" +
+                            "Budget (VND): " + budget + "\n" +
+                            "Days: " + days + "\n" +
+                            "Style: " + style + "\n" +
+                            "IMPORTANT: Reply with JSON ONLY. Times must be HH:mm. Include a date per day.";
 
-        AlertDialog progress = new AlertDialog.Builder(this)
-                .setView(LayoutInflater.from(this).inflate(R.layout.dialog_progress, null))
-                .setCancelable(false)
-                .create();
-        if (progress.getWindow() != null) {
-            progress.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        }
-        progress.show();
-
-        final String apiKey = getString(R.string.gemini_api_key);
-        final String systemPrompt =
-                "You are a travel planner. Return ONLY valid JSON (no markdown, no commentary).\n" +
-                        "{ \"city\":\"string\",\"currency\":\"VND\",\"days\":[{\"label\":\"Day 1\",\"date\":\"YYYY-MM-DD\"," +
-                        "\"activities\":[{\"time\":\"HH:mm\",\"title\":\"string\",\"category\":\"food|nature|culture|shopping|adventure|other\"," +
-                        "\"location\":\"string|null\",\"costVND\":0,\"notes\":\"string|null\",\"emoji\":\"string|null\"}]}]}";
-        final String userPrompt =
-                "Destination: " + destination + "\n" +
-                        "Budget (VND): " + budget + "\n" +
-                        "Days: " + days + "\n" +
-                        "Style: " + style + "\n" +
-                        "IMPORTANT: Reply with JSON ONLY. Times must be HH:mm. Include a date per day.";
-
-        new Thread(() -> {
-            try {
-                GeminiGateway gw = new GeminiGateway(apiKey, "gemini-1.5-flash");
-                String raw = gw.callGemini(systemPrompt, userPrompt).get();
-                String json = extractJson(raw);
-
-                Gson gson = new Gson();
-                TripPlan tp = gson.fromJson(json, TripPlan.class);
-
-                runOnUiThread(() -> {
-                    if (progress.isShowing()) progress.dismiss();
-                    if (tp == null || tp.days == null || tp.days.isEmpty()) {
-                        Toast.makeText(this, "AI trả về rỗng/sai schema. Thử lại.", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    Intent i = new Intent(this, com.example.ai_travel_planner.ui.home.itinerary.ItineraryScreen.class);
-                    i.putExtra("plan_text", json);
-                    i.putExtra("tripPlan", tp);
-                    startActivity(i);
-                });
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    if (progress.isShowing()) progress.dismiss();
-                    Toast.makeText(this, "Lỗi tạo lịch trình: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                });
+            GeminiGateway gw = new GeminiGateway(apiKey, "gemini-1.5-flash");
+            String raw = gw.callGemini(systemPrompt, userPrompt).get();
+            String json = extractJson(raw);
+            
+            // Validate JSON bằng cách parse thử
+            Gson gson = new Gson();
+            TripPlan tp = gson.fromJson(json, TripPlan.class);
+            if (tp == null || tp.days == null || tp.days.isEmpty()) {
+                throw new Exception("AI trả về JSON không hợp lệ");
             }
-        }).start();
+            
+            return json;
+        } catch (Exception e) {
+            Log.e("HomeScreen", "Lỗi generatePlanJson: " + e.getMessage(), e);
+            return null; // Trả về null nếu lỗi, để vẫn có thể lưu plan (chỉ thiếu planJson)
+        }
     }
-
 
     // Phương thức cập nhật phần tổng quan
     private void updateOverviewSection(View dialogView, String destination, int days, String style, double budget) {
