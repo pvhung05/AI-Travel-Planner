@@ -41,26 +41,27 @@
             android:scaleType="centerInside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_next"
-            app:tint="#6B6B6B" />
+            app:srcCompat="@drawable/ic_addfriend"/>
+<!--            app:tint="#6B6B6B" />-->
+
+        <!-- Clear current day -->
+
+        <!-- Day tabs (dynamic) -->
 
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Add itinerary"
-            android:textStyle="bold"
-            android:textSize="18sp"
             android:textColor="#111111"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/dayTabs"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp" />
-
-        <!-- Clear current day -->
-
-        <!-- Day tabs (dynamic) -->
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.375" />
 
         <ImageButton
             android:id="@+id/btnClearDay"
